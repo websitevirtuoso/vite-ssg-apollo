@@ -5,29 +5,39 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../components/layouts/Index.vue'),
-      children: [],
+      component: () => import('@/components/layouts/Index.vue'),
+      children: [
+        {
+          name: 'home',
+          path: '/home',
+          // Relative to /src/views
+          component: () => import('@/pages/Home.vue'),
+          meta: {
+            breadcrumb: 'Home',
+          },
+        },
+      ],
     },
     {
       name: 'error',
       path: '/error',
-      component: () => import('../components/layouts/ErrorPage.vue'),
+      component: () => import('@/components/layouts/ErrorPage.vue'),
       children: [
         {
           name: 'denied',
           path: '/access-denied',
-          component: () => import('../page/AccessDenied.vue'),
+          component: () => import('@/pages/AccessDenied.vue'),
         },
       ],
     },
     {
       path: '',
-      component: () => import('../components/layouts/ErrorPage.vue'),
+      component: () => import('@/components/layouts/ErrorPage.vue'),
       children: [
         {
-          path: '/:catchAll(.*)',
-          name: '404',
-          component: () => import('../page/PageNotFound.vue'),
+          path: '/:pathMatch(.*)*',
+          name: 'not-found',
+          component: () => import('@/pages/PageNotFound.vue'),
         },
       ],
     },

@@ -1,7 +1,7 @@
 <template>
   <v-app id="404">
     <v-container fluid fill-height>
-      <v-layout class="align-center justify-center">
+      <v-layout class="align-center justify-center h-screen">
         <div class="mr-3 hidden-sm-and-down">
           <img :src="logo" alt="">
         </div>
@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import logo from '../assets/img/error/404.svg'
+import logo from '@/assets/img/error/404.svg'
 
 const { t } = useI18n()
 </script>

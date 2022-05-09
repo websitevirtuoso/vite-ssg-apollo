@@ -2,12 +2,6 @@
   <router-view />
 </template>
 
-<script>
-export default {
-  name: 'ErrorLayout'
-}
-</script>
-
 <style>
   h1.page_error {
     font-size: 150px;
