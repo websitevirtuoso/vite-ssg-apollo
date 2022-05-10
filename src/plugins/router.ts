@@ -4,42 +4,36 @@ export default createRouter({
   history: createWebHistory(),
   routes: [
     {
+      name: 'login',
+      path: '/login',
+      component: () => import('@/pages/Login.vue'),
+      meta: {
+        layout: 'Auth',
+      },
+    },
+    {
       path: '/',
-      component: () => import('@/components/layouts/Index.vue'),
-      children: [
-        {
-          name: 'home',
-          path: '/home',
-          // Relative to /src/views
-          component: () => import('@/pages/Home.vue'),
-          meta: {
-            breadcrumb: 'Home',
-          },
-        },
-      ],
+      name: 'home',
+      component: () => import('@/pages/Home.vue'),
+      meta: {
+        layout: 'Authorized',
+      },
     },
     {
-      name: 'error',
-      path: '/error',
-      component: () => import('@/components/layouts/ErrorPage.vue'),
-      children: [
-        {
-          name: 'denied',
-          path: '/access-denied',
-          component: () => import('@/pages/AccessDenied.vue'),
-        },
-      ],
+      name: 'access-denied',
+      path: '/access-denied',
+      component: () => import('@/pages/AccessDenied.vue'),
+      meta: {
+        layout: 'ErrorPage',
+      },
     },
     {
-      path: '',
-      component: () => import('@/components/layouts/ErrorPage.vue'),
-      children: [
-        {
-          path: '/:pathMatch(.*)*',
-          name: 'not-found',
-          component: () => import('@/pages/PageNotFound.vue'),
-        },
-      ],
+      path: '/:pathMatch(.*)*',
+      name: 'page-not-found',
+      component: () => import('@/pages/PageNotFound.vue'),
+      meta: {
+        layout: 'ErrorPage',
+      },
     },
   ],
 })
