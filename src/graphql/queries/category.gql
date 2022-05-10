@@ -1,0 +1,13 @@
+#import "../fragments/category.fragment.gql"
+
+query CategoriesAll ($pagination: Pagination, $sort: Sortable) {
+    categories (pagination: $pagination, sort: $sort) {
+        data {
+            ...CategoryFragment
+        }
+        total
+        hasPages
+        lastPage
+    }
+}
+
