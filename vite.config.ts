@@ -3,8 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import vuetify from '@vuetify/vite-plugin'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 // import AutoImport from 'unplugin-auto-import/vite'
-
 import { resolve } from 'path'
+// https://github.com/rollup/plugins/tree/master/packages/graphql
+import graphql from '@rollup/plugin-graphql'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -23,12 +25,17 @@ export default defineConfig({
     //   imports: ['vue', 'vue-router', 'vue-i18n'],
     //   dts: './src/types/auto-imports.d.ts',
     // }),
+    graphql(),
   ],
   define: { 'process.env': {} },
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
     },
+  },
+  optimizeDeps: {
+    include: ['@apollo/client/core'],
+    exclude: ['@apollo/client'],
   },
   /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
   resolve: {

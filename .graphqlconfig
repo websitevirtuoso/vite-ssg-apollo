@@ -1,0 +1,16 @@
+{
+  "name": "GraphQL Schema",
+  "schemaPath": "./schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "default": {
+        "url": "http://localhost:4090/api",
+        "introspect": true
+      },
+      "public": {
+        "url": "http://localhost:4090/api/public",
+        "introspect": true
+      }
+    }
+  }
+}
