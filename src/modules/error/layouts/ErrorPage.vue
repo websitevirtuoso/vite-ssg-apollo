@@ -1,6 +1,10 @@
 <template>
-  <router-view />
+  <animated-router-view />
 </template>
+
+<script lang="ts" setup>
+import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
+</script>
 
 <style>
   h1.page_error {
