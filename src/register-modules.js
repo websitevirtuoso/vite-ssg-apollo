@@ -2,7 +2,7 @@ import router from './plugins/router'
 
 const registerModule = (module) => {
   if (module.router) {
-    module.router(router, 'main')
+    module.router(router, 'root')
   }
 }
 

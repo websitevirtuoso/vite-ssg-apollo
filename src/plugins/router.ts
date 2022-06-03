@@ -4,36 +4,27 @@ export default createRouter({
   history: createWebHistory(),
   routes: [
     {
-      name: 'login',
-      path: '/login',
-      component: () => import('@/pages/Login.vue'),
-      meta: {
-        layout: 'Auth',
-      },
-    },
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('@/pages/Home.vue'),
-      meta: {
-        layout: 'Authorized',
-      },
-    },
-    {
-      name: 'access-denied',
-      path: '/access-denied',
-      component: () => import('@/pages/AccessDenied.vue'),
-      meta: {
-        layout: 'ErrorPage',
-      },
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'page-not-found',
-      component: () => import('@/pages/PageNotFound.vue'),
-      meta: {
-        layout: 'ErrorPage',
-      },
+      path: '/home',
+      name: 'root',
+      component: () => import('@/components/layouts/Authorized.vue'),
+      children: [
+        {
+          path: '/',
+          name: 'home',
+          component: () => import('@/pages/Home.vue'),
+          meta: {
+            breadcrumb: 'Home',
+          },
+        },
+      ],
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    return (
+      savedPosition ||
+      new Promise((resolve) => {
+        setTimeout(() => resolve({ top: 0, behavior: 'smooth' }), 500)
+      })
+    )
+  },
 })
