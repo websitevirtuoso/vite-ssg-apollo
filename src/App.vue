@@ -1,9 +1,7 @@
 <template>
-  <v-app>
-    <app-layout />
-  </v-app>
+  <animated-router-view />
 </template>
 
 <script lang="ts" setup>
-import AppLayout from '@/components/layouts/AppLayoutRenderless.vue'
+import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
 </script>
