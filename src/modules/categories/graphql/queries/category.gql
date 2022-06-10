@@ -11,3 +11,10 @@ query CategoriesAll ($pagination: Pagination, $sort: Sortable) {
     }
 }
 
+query CategoryByID ($id: [ID]!) {
+    categories (filter: {id: $id}) {
+        data {
+            ...CategoryFragment
+        }
+    }
+}
