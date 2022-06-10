@@ -8,5 +8,25 @@ import * as directives from 'vuetify/directives'
 export default createVuetify({
   components,
   directives,
+  defaults: {
+    VInput: {
+      variant: 'underlined',
+    },
+    VTextField: {
+      variant: 'underlined',
+    },
+  },
+  defaultTheme: 'light',
+  theme: {
+    themes: {
+      light: {
+        colors: {
+          primary: '#1867c0',
+          secondary: '#5CBBF6',
+          tertiary: '#E57373',
+          accent: '#005CAF',
+        },
+      },
+    },
+  },
 })
-// https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
