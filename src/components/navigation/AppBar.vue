@@ -6,12 +6,11 @@
       class="hidden-sm-and-down" @click="preferences.toggleMiniSideBar()" />
     <v-btn icon="mdi-arrow-expand-vertical" class="hidden-sm-and-down" @click="preferences.toggleSizeBar()" />
     <v-spacer />
-    <!--    <v-tooltip bottom>-->
-    <!--      <template #activator="{ on }">-->
-    <v-btn icon="mdi-exit-to-app" @click="logout" />
-    <!--      </template>-->
-    <!--      <span>{{ t('auth.logout') }}</span>-->
-    <!--    </v-tooltip>-->
+      <v-tooltip :text="t('auth.logout')" location="bottom">
+        <template #activator="{ props }">
+          <v-btn icon="mdi-exit-to-app" v-bind="props" @click="logout"/>
+        </template>
+      </v-tooltip>
   </v-app-bar>
 </template>
 
@@ -21,9 +20,11 @@ import { onLogoutApollo } from "@/modules/auth/utils/auth";
 import { useRouter } from "vue-router";
 import { useApolloClient, useMutation } from "@vue/apollo-composable";
 import { LogOut } from "@/modules/auth/graphql/mutations/auth.gql";
+import { useI18n } from "vue-i18n";
 
 const preferences = usePreferences();
 const router = useRouter();
+const { t } = useI18n()
 const { mutate, onError } = useMutation(LogOut)
 const defaultApolloClient = useApolloClient('default').client
 
