@@ -1,24 +1,28 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { getTokenTtl, AUTH_TOKEN } from '@/modules/auth/utils/auth'
+import ability from '@/modules/auth/utils/ability'
 
-export default createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/home',
-      name: 'root',
-      component: () => import('@/components/layouts/Authorized.vue'),
-      children: [
-        {
-          path: '/',
-          name: 'home',
-          component: () => import('@/pages/Home.vue'),
-          meta: {
-            breadcrumb: 'Home',
-          },
+const routes = [
+  {
+    path: '/home',
+    name: 'root',
+    component: () => import('@/components/layouts/Authorized.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: () => import('@/pages/Home.vue'),
+        meta: {
+          breadcrumb: 'Home',
         },
-      ],
-    },
-  ],
+      },
+    ],
+  },
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
   scrollBehavior(to, from, savedPosition) {
     return (
       savedPosition ||
@@ -28,3 +32,37 @@ export default createRouter({
     )
   },
 })
+
+router.beforeEach((to, from, next) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['login', 'error', 'access-denied', 'page-not-found']
+
+  let authRequired = true
+  if (typeof to.name === 'string') {
+    authRequired = !publicPages.includes(to.name)
+  }
+
+  const user = localStorage.getItem('user')
+  const token = localStorage.getItem(AUTH_TOKEN)
+  const ttl = getTokenTtl()
+  if (authRequired && (!user || !token || ttl <= 0)) {
+    next({ name: 'login' })
+  }
+
+  // check that user has permission to see page
+  if (typeof to.meta.permission === 'string') {
+    const [subject, permission] = to.meta.permission.split('.')
+    if (!ability.can(permission, subject)) {
+      next({ name: 'access-denied' })
+    }
+  }
+  // todo need implement later,  ability to refresh token via gql mutation
+  // when ttl < 10 min refresh token
+  // if (token && ttl < 600 && ttl > 0) {
+  //   refreshToken(apolloClient)
+  // }
+
+  next()
+})
+
+export default router
