@@ -15,6 +15,7 @@ export default createVuetify({
     VTextField: {
       variant: 'underlined',
     },
+    VCardActions: { VBtn: { variant: 'contained-flat' } },
   },
   defaultTheme: 'light',
   theme: {
