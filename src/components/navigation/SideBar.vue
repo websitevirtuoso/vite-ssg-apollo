@@ -70,7 +70,7 @@ const menuItems = [
     name: t('messages.region'),
     icon: 'mdi-web',
     children: [
-      { route: 'categories', name: t('messages.country'), permission: 'country.view', icon: 'mdi-folder-open-outline' },
+      { route: 'categories', name: t('messages.countries'), permission: 'country.view', icon: 'mdi-folder-open-outline' },
       // { route: 'states', name: t('messages.state'), permission: 'state.view' },
       // { route: 'cities', name: t('messages.city'), permission: 'city.view' },
       // { route: 'cities-alias', name: t('messages.city_alias'), permission: 'city_alias.view' }
@@ -80,7 +80,7 @@ const menuItems = [
     name: t('messages.content'),
     icon: 'mdi-folder-multiple-image',
     children: [
-      { route: 'categories', name: t('messages.category'), permission: 'category.view', icon: 'mdi-folder-open-outline' },
+      { route: 'categories', name: t('messages.categories'), permission: 'category.view', icon: 'mdi-folder-open-outline' },
       // { route: 'post', name: t('messages.post'), permission: 'post.view', icon: 'mdi-book-open-page-variant' }
     ]  as MenuStruct[]
   },
