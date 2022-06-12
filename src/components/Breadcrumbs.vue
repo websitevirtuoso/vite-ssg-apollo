@@ -18,9 +18,14 @@ import AmBreadcrumbs from 'vue-3-breadcrumbs/dist/esm/AmBreadcrumbs-04351cc9'
 </script>
 
 <style lang="sass">
-  .v-breadcrumbs-item::after
-    content: "/"
-    margin-left: 8px
+  .v-breadcrumbs-item
+    transition: color 1s
+    &::after
+      content: "/"
+      margin-left: 8px
+    &--link:hover
+      text-decoration: none
+      color: rgb(var(--v-theme-primary))
 
   .v-breadcrumbs .router-link-exact-active:after
     content: ""
