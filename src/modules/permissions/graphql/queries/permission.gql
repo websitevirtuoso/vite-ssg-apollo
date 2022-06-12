@@ -1,0 +1,12 @@
+#import "../fragments/permission.fragment.gql"
+
+query PermissionsAll ($pagination: Pagination, $sort: Sortable, $filter: PermissionFilter) {
+  permissions (pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...PermissionFragment
+    }
+    total
+    hasPages
+    lastPage
+  }
+}
