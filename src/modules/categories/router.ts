@@ -7,7 +7,7 @@ const moduleRoutes = [
     component: () => import('./pages/Index.vue'),
     meta: {
       breadcrumb: {
-        label: 'Category',
+        label: 'Categories',
       },
       permission: 'category.view',
     },
@@ -30,7 +30,7 @@ const moduleRoutes = [
     meta: {
       breadcrumb: {
         label: 'Update',
-        parent: 'category',
+        parent: 'categories',
       },
       permission: 'category.upsert',
     },
