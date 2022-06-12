@@ -14,6 +14,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 // @ts-expect-error for declaration this module
 import breadcrumbs from 'vue-3-breadcrumbs'
+import '@/styles/styles.sass'
 
 // load modules
 import errorsModule from './modules/errors/index'
