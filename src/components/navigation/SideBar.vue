@@ -16,21 +16,23 @@
         <v-list-group
           v-if="link.children && checkPermission(link.children)"
           :prepend-icon="link.icon"
+          active-color="active-group-item"
+          color="primary"
           :data-test="link.name"
-          no-action
         >
           <!-- title group with arrow -->
-          <template #activator>
-            <v-list-item :title="link.name"/>
+          <template #activator="{ props }">
+            <v-list-item v-bind="props" :title="link.name" :prepend-icon="link.icon" :value="link.name" />
           </template>
 
           <!-- sub items -->
           <v-list-item
-            v-for="(subItem, i) in navLinks(link.children)" :key="i"
-            :data-test="subItem.route"
+            v-for="subItem in navLinks(link.children)" :key="subItem.name"
             :to="{ name: subItem.route }"
             :title="subItem.name"
+            :value="subItem.name"
             :append-icon="subItem.icon"
+            :data-test="subItem.route"
           />
         </v-list-group>
         <!-- top-level link-->
@@ -70,7 +72,7 @@ const menuItems = [
     name: t('messages.region'),
     icon: 'mdi-web',
     children: [
-      { route: 'categories', name: t('messages.countries'), permission: 'country.view', icon: 'mdi-folder-open-outline' },
+      { route: 'countries', name: t('messages.countries'), permission: 'country.view', icon: 'mdi-folder-open-outline' },
       // { route: 'states', name: t('messages.state'), permission: 'state.view' },
       // { route: 'cities', name: t('messages.city'), permission: 'city.view' },
       // { route: 'cities-alias', name: t('messages.city_alias'), permission: 'city_alias.view' }
@@ -107,17 +109,20 @@ const checkPermission = (links: MenuStruct[]) => {
 }
 </script>
 
-<style>
-/* todo need to get this colors from vuetify option primary color */
-header.brand{
-  background-color: #005eb6;
-  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
-}
-.brand .title{
-  font-size: 1.25rem;
-  line-height: 1.5;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+<style lang="sass">
+.brand
+  background-color: rgb(var(--v-theme-primary))
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%)
+  z-index: 1004
+  .title
+    font-size: 1.25rem
+    line-height: 1.5
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+.text-active-group-item
+  background-color:  rgb(var(--v-theme-primary))
+  color: #fff
+
 </style>
