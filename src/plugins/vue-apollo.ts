@@ -3,6 +3,7 @@ import { onError } from '@apollo/client/link/error'
 import { logErrorMessages } from '@vue/apollo-util'
 import { setContext } from '@apollo/client/link/context'
 import { AUTH_TOKEN } from '@/modules/auth/utils/auth'
+import router from '@/plugins/router'
 
 // Http endpoint
 const httpEndpoint = import.meta.env.VITE_GRAPHQL_HTTP
@@ -19,8 +20,13 @@ const httpPublicLink = createHttpLink({
 // Handle errors globally
 // https://v4.apollo.vuejs.org/guide-composable/error-handling.html#network-errors
 const errorLink = onError((error) => {
+  const { networkError } = error
   if (import.meta.env.MODE !== 'production') {
     logErrorMessages(error)
+  }
+  // @ts-expect-error invalid definition in TS for this use case
+  if (networkError && networkError.statusCode === 401) {
+    router.push({ name: 'login' })
   }
 })
 
