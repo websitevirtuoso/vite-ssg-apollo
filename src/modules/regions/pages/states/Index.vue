@@ -2,24 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col v-show="filtersShow" cols="12">
-        <v-card :title="t('action.filters')" elevation="4" class="mb-4">
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="3">
-                <filter-by-multiple v-model="rawFilter.id" type="number" :hint="t('messages.multiple_values')" :label="t('messages.id', 2)" />
-              </v-col>
-              <v-col cols="12" md="3">
-                <filter-by-text v-model="rawFilter.name" :label="t('messages.name')" />
-              </v-col>
-              <v-col cols="12" md="3">
-                <filter-by-text v-model="rawFilter.code" :label="t('messages.code')" />
-              </v-col>
-              <v-col cols="12" md="3">
-                <country-select v-model="rawFilter.country_id" hide-details clearable />
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+        <state-filter />
       </v-col>
     </v-row>
     <v-row>
@@ -61,14 +44,14 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
-import { useQuery } from '@vue/apollo-composable'
-import { StatesAll } from '../../graphql/queries/state.gql'
 import { computed, ref } from "vue"
-import pagination from "@/composables/usePagination"
-import { rawFilter, filter } from "@/composables/useFilter"
-import { ActionFilter, ActionCreate, FilterByText, FilterByMultiple } from "@/components/datatable/index"
-import CountrySelect from "@/modules/regions/components/Country.vue"
 import { useAbility } from "@casl/vue"
+import { useQuery } from '@vue/apollo-composable'
+import { filter } from "@/composables/useFilter"
+import pagination from "@/composables/usePagination"
+import { StatesAll } from '../../graphql/queries/state.gql'
+import { ActionFilter, ActionCreate } from "@/components/datatable/index"
+import StateFilter from "@/modules/regions/components/StateFilter.vue"
 
 const { t } = useI18n()
 const { can } = useAbility()
