@@ -1,10 +1,10 @@
 import { Router, RouteRecordName } from 'vue-router'
 
-const moduleRoutes = [
+const moduleStatesRoutes = [
   {
     name: 'states',
     path: '/states',
-    component: () => import('./pages/Index.vue'),
+    component: () => import('./pages/states/Index.vue'),
     meta: {
       breadcrumb: {
         label: 'States',
@@ -16,7 +16,7 @@ const moduleRoutes = [
   {
     name: 'state-create',
     path: '/states/create',
-    component: () => import('./pages/Create.vue'),
+    component: () => import('./pages/states/Create.vue'),
     meta: {
       breadcrumb: {
         label: 'Create',
@@ -27,7 +27,7 @@ const moduleRoutes = [
   {
     name: 'state-update',
     path: '/states/:id(\\d+)/update',
-    component: () => import('./pages/Update.vue'),
+    component: () => import('./pages/states/Update.vue'),
     meta: {
       breadcrumb: {
         label: 'Update',
@@ -38,6 +38,21 @@ const moduleRoutes = [
   },
 ]
 
+const moduleCountryRoute = [
+  {
+    name: 'countries',
+    path: '/countries',
+    component: () => import('./pages/countries/Index.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Countries',
+        parent: 'home',
+      },
+      permission: 'country.view',
+    },
+  },
+]
+
 export default (router: Router, parentName: RouteRecordName) => {
-  moduleRoutes.forEach((route) => router.addRoute(parentName, route))
+  ;[...moduleCountryRoute, ...moduleStatesRoutes].forEach((route) => router.addRoute(parentName, route))
 }

@@ -62,12 +62,12 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { StatesAll } from '../graphql/queries/state.gql'
+import { StatesAll } from '../../graphql/queries/state.gql'
 import { computed, ref } from "vue"
 import pagination from "@/composables/usePagination"
 import { rawFilter, filter } from "@/composables/useFilter"
 import { ActionFilter, ActionCreate, FilterByText, FilterByMultiple } from "@/components/datatable/index"
-import CountrySelect from "@/modules/countries/components/Country.vue"
+import CountrySelect from "@/modules/regions/components/Country.vue"
 import { useAbility } from "@casl/vue"
 
 const { t } = useI18n()

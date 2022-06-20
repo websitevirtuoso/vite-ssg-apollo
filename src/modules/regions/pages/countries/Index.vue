@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { CountriesAll } from '@/modules/countries/graphql/queries/country.gql'
+import { CountriesAll } from '../../graphql/queries/country.gql'
 import { computed } from "vue"
 import pagination from "@/composables/usePagination"
 
