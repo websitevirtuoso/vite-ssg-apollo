@@ -23,6 +23,7 @@ import countriesModule from './modules/countries/index'
 import statesModule from './modules/states/index'
 import permissionModule from './modules/permissions/index'
 import roleModule from './modules/roles/index'
+import listingModule from './modules/listings/index'
 import loginModule from './modules/auth/index'
 import { registerModules } from './register-modules'
 
@@ -37,6 +38,7 @@ registerModules({
   statesModule,
   permissionModule,
   roleModule,
+  listingModule,
 })
 
 createApp(App)

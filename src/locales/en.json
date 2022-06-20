@@ -121,7 +121,7 @@
     "permission": "Permission | Permissions",
     "region": "Region",
     "country": "Country | Countries",
-    "property_types": "Property types",
+    "listing_type": "Listing Type | Listing Types",
     "state": "State | States",
     "city": "City | Cities",
     "promo": "Promo | Promotions",

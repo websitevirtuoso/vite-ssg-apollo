@@ -1,0 +1,5 @@
+fragment ListingTypeFragment on ListingTypes {
+    id
+    name
+    description
+}
