@@ -21,7 +21,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.permissions')" elevation="4">
+        <v-card :title="t('messages.permission', 2)" elevation="4">
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
           </div>

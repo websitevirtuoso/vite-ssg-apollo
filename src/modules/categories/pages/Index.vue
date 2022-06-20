@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.categories')" elevation="4">
+        <v-card :title="t('messages.category', 2)" elevation="4">
 
           <div class="table-toolbar">
             <action-create v-if="can('upsert', 'category')" :to="{ name: 'category-create' }" />
@@ -17,10 +17,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr
-              v-for="category in categories.data"
-              :key="category.id"
-            >
+            <tr v-for="category in categories.data" :key="category.id">
               <td>{{ category.id }}</td>
               <td>{{ category.title }}</td>
               <td>{{ dayjs(category.created_at).format('YYYY-MM-DD HH:mm') }}</td>

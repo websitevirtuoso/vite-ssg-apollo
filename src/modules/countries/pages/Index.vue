@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.countries')" elevation="4">
+        <v-card :title="t('messages.country', 2)" elevation="4">
           <v-table>
             <thead>
             <tr>

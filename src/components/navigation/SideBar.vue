@@ -68,13 +68,13 @@ export interface MenuStruct {
 
 const menuItems = [
   { route: 'home', name: t('messages.home'), icon: 'mdi-view-dashboard', permission: 'user.view' } as MenuStruct,
-  { route: 'permissions', name: t('messages.permissions'), icon: 'mdi-lock', permission: 'permission.view' } as MenuStruct,
+  { route: 'permissions', name: t('messages.permission', 2), icon: 'mdi-lock', permission: 'permission.view' } as MenuStruct,
   {
     name: t('messages.region'),
     icon: 'mdi-web',
     children: [
-      { route: 'countries', name: t('messages.countries'), permission: 'country.view', icon: 'mdi-folder-open-outline' },
-      // { route: 'states', name: t('messages.state'), permission: 'state.view' },
+      { route: 'countries', name: t('messages.country', 2), permission: 'country.view', icon: 'mdi-earth' },
+      { route: 'states', name: t('messages.state', 2), permission: 'state.view',  icon: 'mdi-compass-rose' },
       // { route: 'cities', name: t('messages.city'), permission: 'city.view' },
       // { route: 'cities-alias', name: t('messages.city_alias'), permission: 'city_alias.view' }
     ] as MenuStruct[]
@@ -83,7 +83,7 @@ const menuItems = [
     name: t('messages.content'),
     icon: 'mdi-folder-multiple-image',
     children: [
-      { route: 'categories', name: t('messages.categories'), permission: 'category.view', icon: 'mdi-folder-open-outline' },
+      { route: 'categories', name: t('messages.category', 2), permission: 'category.view', icon: 'mdi-folder-open-outline' },
       // { route: 'post', name: t('messages.post'), permission: 'post.view', icon: 'mdi-book-open-page-variant' }
     ]  as MenuStruct[]
   },
