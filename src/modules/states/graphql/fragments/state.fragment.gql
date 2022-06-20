@@ -1,0 +1,9 @@
+fragment StateFragment on States {
+    id
+    code
+    name
+    country {
+        id
+        name
+    }
+}

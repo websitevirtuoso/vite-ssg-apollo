@@ -1,0 +1,12 @@
+#import "../fragments/state.fragment.gql"
+
+query StatesAll ($pagination: Pagination, $sort: Sortable, $filter: StateFilter) {
+  states (pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...StateFragment
+    }
+    total
+    hasPages
+    lastPage
+  }
+}

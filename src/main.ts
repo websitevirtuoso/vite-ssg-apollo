@@ -20,6 +20,7 @@ import '@/styles/styles.sass'
 import errorsModule from './modules/errors/index'
 import categoriesModule from './modules/categories/index'
 import countriesModule from './modules/countries/index'
+import statesModule from './modules/states/index'
 import permissionModule from './modules/permissions/index'
 import loginModule from './modules/auth/index'
 import { registerModules } from './register-modules'
@@ -32,6 +33,7 @@ registerModules({
   loginModule,
   categoriesModule,
   countriesModule,
+  statesModule,
   permissionModule,
 })
 
