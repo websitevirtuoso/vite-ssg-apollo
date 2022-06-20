@@ -68,6 +68,7 @@ export interface MenuStruct {
 
 const menuItems = [
   { route: 'home', name: t('messages.home'), icon: 'mdi-view-dashboard', permission: 'user.view' } as MenuStruct,
+  { route: 'roles', name: t('messages.role', 2), icon: 'mdi-eye', permission: 'role.view' } as MenuStruct,
   { route: 'permissions', name: t('messages.permission', 2), icon: 'mdi-lock', permission: 'permission.view' } as MenuStruct,
   {
     name: t('messages.region'),
