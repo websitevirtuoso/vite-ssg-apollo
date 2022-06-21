@@ -125,7 +125,7 @@
     "state": "State | States",
     "city": "City | Cities",
     "promo": "Promo | Promotions",
-    "city_alias": "City alias | City aliases",
+    "city_alias": "City Alias | City Aliases",
     "listing": "Listing | Listings",
     "create_category_first": "Please create category first",
     "multiple_values": "You can write multiple values"

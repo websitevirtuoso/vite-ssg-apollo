@@ -58,7 +58,7 @@ const moduleCitiesRoutes = [
       breadcrumb: {
         label: 'Create',
       },
-      permission: 'city.create',
+      permission: 'city.upsert',
     },
   },
   {
@@ -69,7 +69,44 @@ const moduleCitiesRoutes = [
       breadcrumb: {
         label: 'Update',
       },
-      permission: 'city.update',
+      permission: 'city.upsert',
+    },
+  },
+]
+
+const moduleCityAliasesRoutes = [
+  {
+    name: 'city-aliases',
+    path: '/city-aliases',
+    component: () => import('./pages/city_aliases/Index.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'City Aliases',
+        parent: 'home',
+      },
+      permission: 'city_alias.view',
+    },
+  },
+  {
+    name: 'city-alias-create',
+    path: '/city-aliases/create',
+    component: () => import('./pages/city_aliases/Create.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Create',
+      },
+      permission: 'city_alias.upsert',
+    },
+  },
+  {
+    name: 'city-alias-update',
+    path: '/city-aliases/:id(\\d+)/update',
+    component: () => import('./pages/city_aliases/Update.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Update alias',
+      },
+      permission: 'city_alias.upsert',
     },
   },
 ]
@@ -90,7 +127,7 @@ const moduleCountryRoute = [
 ]
 
 export default (router: Router, parentName: RouteRecordName) => {
-  ;[...moduleCountryRoute, ...moduleStatesRoutes, ...moduleCitiesRoutes].forEach((route) =>
+  ;[...moduleCountryRoute, ...moduleStatesRoutes, ...moduleCitiesRoutes, ...moduleCityAliasesRoutes].forEach((route) =>
     router.addRoute(parentName, route)
   )
 }
