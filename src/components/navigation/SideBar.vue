@@ -87,7 +87,7 @@ const menuItems = [
     icon: 'mdi-folder-multiple-image',
     children: [
       { route: 'categories', name: t('messages.category', 2), permission: 'category.view', icon: 'mdi-folder-open-outline' },
-      // { route: 'post', name: t('messages.post'), permission: 'post.view', icon: 'mdi-book-open-page-variant' }
+      { route: 'posts', name: t('messages.post', 2), permission: 'post.view', icon: 'mdi-book-open-page-variant' }
     ]  as MenuStruct[]
   },
 ]

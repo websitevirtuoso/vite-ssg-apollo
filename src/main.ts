@@ -19,6 +19,7 @@ import '@/styles/styles.sass'
 // load modules
 import errorsModule from './modules/errors/index'
 import categoriesModule from './modules/categories/index'
+import postsModule from './modules/posts/index'
 import regionsModule from './modules/regions/index'
 import permissionModule from './modules/permissions/index'
 import roleModule from './modules/roles/index'
@@ -33,6 +34,7 @@ registerModules({
   errorsModule,
   loginModule,
   categoriesModule,
+  postsModule,
   regionsModule,
   permissionModule,
   roleModule,
