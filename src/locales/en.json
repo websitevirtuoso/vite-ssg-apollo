@@ -122,6 +122,7 @@
     "region": "Region",
     "country": "Country | Countries",
     "listing_type": "Listing Type | Listing Types",
+    "listing_term": "Listing Term | Listing Terms",
     "state": "State | States",
     "city": "City | Cities",
     "promo": "Promo | Promotions",

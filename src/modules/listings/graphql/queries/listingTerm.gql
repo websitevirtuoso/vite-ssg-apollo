@@ -1,0 +1,12 @@
+#import "../fragments/listingTerm.fragment.gql"
+
+query ListingTermsAll ($pagination: Pagination, $sort: Sortable) {
+    listing_terms (pagination: $pagination, sort: $sort) {
+        data {
+            ...ListingTermFragment
+        }
+        total
+        hasPages
+        lastPage
+    }
+}
