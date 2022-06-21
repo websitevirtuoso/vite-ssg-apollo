@@ -1,0 +1,21 @@
+#import "../fragments/city.fragment.gql"
+
+query CitiesAll ($pagination: Pagination, $sort: Sortable, $filter: CityFilter) {
+  cities (pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...CityFragment
+      state {
+        id
+        name
+        country {
+          id
+          name
+        }
+      }
+    }
+    total
+    hasPages
+    lastPage
+  }
+}
+

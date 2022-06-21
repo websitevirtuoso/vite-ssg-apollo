@@ -1,0 +1,6 @@
+fragment CityFragment on Cities {
+    id
+    name
+    lat
+    lng
+}

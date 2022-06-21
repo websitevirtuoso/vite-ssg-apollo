@@ -38,6 +38,42 @@ const moduleStatesRoutes = [
   },
 ]
 
+const moduleCitiesRoutes = [
+  {
+    name: 'cities',
+    path: '/cities',
+    component: () => import('./pages/cities/Index.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Cities',
+      },
+      permission: 'city.view',
+    },
+  },
+  {
+    name: 'city-create',
+    path: '/cities/create',
+    component: () => import('./pages/cities/Create.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Create',
+      },
+      permission: 'city.create',
+    },
+  },
+  {
+    name: 'city-update',
+    path: '/cities/:id(\\d+)/update',
+    component: () => import('./pages/cities/Update.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Update',
+      },
+      permission: 'city.update',
+    },
+  },
+]
+
 const moduleCountryRoute = [
   {
     name: 'countries',
@@ -54,5 +90,7 @@ const moduleCountryRoute = [
 ]
 
 export default (router: Router, parentName: RouteRecordName) => {
-  ;[...moduleCountryRoute, ...moduleStatesRoutes].forEach((route) => router.addRoute(parentName, route))
+  ;[...moduleCountryRoute, ...moduleStatesRoutes, ...moduleCitiesRoutes].forEach((route) =>
+    router.addRoute(parentName, route)
+  )
 }

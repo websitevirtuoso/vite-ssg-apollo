@@ -77,7 +77,7 @@ const menuItems = [
     children: [
       { route: 'countries', name: t('messages.country', 2), permission: 'country.view', icon: 'mdi-earth' },
       { route: 'states', name: t('messages.state', 2), permission: 'state.view',  icon: 'mdi-compass-rose' },
-      // { route: 'cities', name: t('messages.city'), permission: 'city.view' },
+      { route: 'cities', name: t('messages.city', 2), permission: 'city.view' },
       // { route: 'cities-alias', name: t('messages.city_alias'), permission: 'city_alias.view' }
     ] as MenuStruct[]
   },
