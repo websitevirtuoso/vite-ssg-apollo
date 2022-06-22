@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.city', 2)" elevation="4">
+        <v-card :title="t('messages.city', 2)">
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
             <action-create v-if="can('upsert' , 'city')" :to="{ name: 'city-create' }"/>

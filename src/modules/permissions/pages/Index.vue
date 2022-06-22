@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col v-show="filtersShow" cols="12">
-        <v-card :title="t('action.filters')" elevation="4" class="mb-4">
+        <v-card :title="t('action.filters')" class="mb-4">
           <v-card-text>
             <v-row>
               <v-col cols="12" md="4">
@@ -21,7 +21,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.permission', 2)" elevation="4">
+        <v-card :title="t('messages.permission', 2)">
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
           </div>

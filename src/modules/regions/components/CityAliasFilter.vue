@@ -1,5 +1,5 @@
 <template>
-  <v-card :title="t('action.filters')" elevation="4" class="mb-4">
+  <v-card :title="t('action.filters')" class="mb-4">
     <v-card-text>
       <v-row>
         <v-col cols="12" md="6">
