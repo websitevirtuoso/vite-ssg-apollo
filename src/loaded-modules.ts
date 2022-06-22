@@ -1,6 +1,5 @@
 import errorsModule from './modules/errors/index'
-import categoriesModule from './modules/categories/index'
-import postsModule from './modules/posts/index'
+import blogModule from './modules/blog/index'
 import regionsModule from './modules/regions/index'
 import permissionModule from './modules/permissions/index'
 import roleModule from './modules/roles/index'
@@ -12,8 +11,7 @@ import { registerModules } from '@/register-modules'
 registerModules({
   errorsModule,
   loginModule,
-  categoriesModule,
-  postsModule,
+  blogModule,
   regionsModule,
   permissionModule,
   roleModule,

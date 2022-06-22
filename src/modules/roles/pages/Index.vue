@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.role', 2)" elevation="4">
+        <v-card :title="t('messages.role', 2)">
           <div class="table-toolbar">
             <action-create v-if="can('upsert' , 'role')" :to="{ name: 'state-create' }"/>
           </div>

@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.category', 2)" elevation="4">
+        <v-card :title="t('messages.category', 2)">
 
           <div class="table-toolbar">
             <action-create v-if="can('upsert', 'category')" :to="{ name: 'category-create' }" />
@@ -41,14 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
-import { useQuery } from '@vue/apollo-composable'
-import { CategoriesAll } from '@/modules/categories/graphql/queries/category.gql'
+import dayjs from 'dayjs'
 import { computed } from "vue"
+import { useI18n } from "vue-i18n"
 import { useAbility } from "@casl/vue"
+import { useQuery } from '@vue/apollo-composable'
 import pagination from "@/composables/usePagination"
 import { ActionCreate } from "@/components/datatable/index"
-import dayjs from 'dayjs'
+import { CategoriesAll } from '../../graphql/queries/category.gql'
 
 const { can } = useAbility()
 const { t } = useI18n()

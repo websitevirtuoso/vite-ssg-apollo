@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.post', 2)" elevation="4">
+        <v-card :title="t('messages.post', 2)">
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
             <action-create v-if="can('upsert', 'post')" :to="{ name: 'post-create' }" />
@@ -55,12 +55,12 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { PostsAll } from '../graphql/queries/post.gql'
+import { PostsAll } from '../../graphql/queries/post.gql'
 import { computed, ref } from "vue"
 import { useAbility } from "@casl/vue"
 import pagination from "@/composables/usePagination"
 import { ActionCreate, ActionFilter } from "@/components/datatable/index"
-import PostFilter from "../components/PostFilter.vue"
+import PostFilter from "../../components/PostFilter.vue"
 import dayjs from 'dayjs'
 import { filter } from "@/composables/useFilter"
 

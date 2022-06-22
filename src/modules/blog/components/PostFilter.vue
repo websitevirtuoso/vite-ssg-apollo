@@ -1,5 +1,5 @@
 <template>
-  <v-card :title="t('action.filters')" elevation="4" class="mb-4">
+  <v-card :title="t('action.filters')" class="mb-4">
     <v-card-text>
       <v-row>
         <v-col cols="12" md="3">
@@ -23,7 +23,7 @@
 import { useI18n } from "vue-i18n"
 import { FilterByText, FilterByMultiple } from "@/components/datatable/index"
 import { rawFilter } from "@/composables/useFilter"
-import { postStatuses } from "../util/enums"
+import { postStatuses } from "../constants/enums"
 
 const { t } = useI18n()
 </script>
