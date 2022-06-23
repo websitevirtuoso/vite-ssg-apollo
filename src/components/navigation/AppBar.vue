@@ -8,7 +8,7 @@
     <v-spacer />
       <v-tooltip :text="t('auth.logout')" location="bottom">
         <template #activator="{ props }">
-          <v-btn icon="mdi-exit-to-app" v-bind="props" @click="logout"/>
+          <v-btn icon="mdi-exit-to-app" v-bind="props" data-test="logout" @click="logout"/>
         </template>
       </v-tooltip>
   </v-app-bar>
