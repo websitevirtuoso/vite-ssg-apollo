@@ -32,7 +32,7 @@
             :title="subItem.name"
             :value="subItem.name"
             :append-icon="subItem.icon"
-            :data-test="subItem.route"
+            :data-test="subItem.name"
           />
         </v-list-group>
         <!-- top-level link-->
