@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :title="t('messages.listing_type', 2)">
-          <v-table>
+          <v-table data-test="datatable">
             <thead>
             <tr>
               <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>

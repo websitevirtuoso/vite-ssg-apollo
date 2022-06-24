@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :model-value="preferences.showLeftSideBar" :rail="preferences.showMiniSideBar" width="230">
+  <v-navigation-drawer :model-value="preferences.showLeftSideBar" :rail="preferences.showMiniSideBar" width="230" data-test="side-bar">
     <template #prepend>
       <header class="brand v-toolbar">
         <div class="v-toolbar__content" style="height: 64px;">

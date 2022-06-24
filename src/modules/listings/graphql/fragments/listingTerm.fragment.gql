@@ -1,4 +1,4 @@
-fragment ListingTypeFragment on ListingTerms {
+fragment ListingTermFragment on ListingTerms {
     id
     name
     description
