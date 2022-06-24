@@ -13,7 +13,7 @@
             <action-create v-if="can('upsert', 'post')" :to="{ name: 'post-create' }" />
           </div>
 
-          <v-table>
+          <v-table data-test="datatable">
             <thead>
             <tr>
               <th v-for="header in headers" :key="header.title" class="text-left">

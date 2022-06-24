@@ -25,7 +25,7 @@
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
           </div>
-          <v-table>
+          <v-table data-test="datatable">
             <thead>
             <tr>
               <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>

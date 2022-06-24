@@ -6,7 +6,7 @@
           <div class="table-toolbar">
             <action-create v-if="can('upsert' , 'role')" :to="{ name: 'state-create' }"/>
           </div>
-          <v-table>
+          <v-table data-test="datatable">
             <thead>
             <tr>
               <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
