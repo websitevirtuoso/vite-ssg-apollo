@@ -1,4 +1,4 @@
-import { AUTH_TOKEN, AUTH_TOKEN_EXPIRE } from "@/modules/auth/utils/auth"
+import { AUTH_TOKEN, AUTH_TOKEN_EXPIRE } from '../../src/modules/auth/utils/auth'
 
 Cypress.Commands.add('getBySel', (selector: string): Cypress.Chainable => {
   return cy.get(`[data-test="${selector}"]`)
@@ -60,7 +60,7 @@ Cypress.Commands.add('login', () => {
     }
   `
   cy.request({
-    log: false,
+    log: true,
     method: 'POST',
     url: `${Cypress.env('apiUrl')}/api/public`,
     body: { query: query },
@@ -78,4 +78,18 @@ Cypress.Commands.add('login', () => {
       localStorage.setItem('user', JSON.stringify(logIn.user))
     }
   )
+})
+
+Cypress.Commands.add('toggleSideMenu', (show: boolean) => {
+  cy.get('[data-test="side-bar"]').then(($sideBar) => {
+    if (show) {
+      if (!$sideBar.hasClass('v-navigation-drawer--active')) {
+        cy.getBySel('sidenav-toggle').click()
+      }
+    } else {
+      if ($sideBar.hasClass('v-navigation-drawer--active')) {
+        cy.getBySel('sidenav-toggle').click()
+      }
+    }
+  })
 })

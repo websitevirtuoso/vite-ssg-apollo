@@ -13,9 +13,8 @@ declare namespace Cypress {
      */
     getBySelLike(dataTestPrefixAttribute: string): Chainable<Element>
     errorValidation(message: string): Chainable<Element>
+    toggleSideMenu(show: boolean): void
 
-    typeRandomWords(count?: number, options?: Partial<TypeOptions>): Chainable<Element>
-    // errorValidation(message: string): Chainable<Element>
     getDataTableHeaderLength(columns: number): Chainable<Element>
     getDataTableBodyLength(columns: number): Chainable<Element>
     vSelect(message: string): Chainable<Element>
