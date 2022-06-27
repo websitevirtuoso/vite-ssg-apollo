@@ -4,7 +4,7 @@ describe('countries section', () => {
     cy.seed('CypressDatabaseSeeder')
   })
   it('should see list of countries', () => {
-    cy.intercept('POST', '/api/public?operation=CountriesAll').as('CountriesAll')
+    cy.intercept('POST', '/api/public?operation=GetCountries').as('queryGetCountries')
     cy.login()
     cy.visit('/')
 
@@ -15,7 +15,7 @@ describe('countries section', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/countries`)
 
     // check that Request been made
-    cy.wait('@CountriesAll').then(({ response }) => {
+    cy.wait('@queryGetCountries').then(({ response }) => {
       // @ts-expect-error undefined variable
       expect(response.body.data.countries).to.exist
     })

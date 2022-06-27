@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { PermissionsAll } from '../graphql/queries/permission.gql'
+import GetPermissions from '../graphql/queries/get_permissions.gql'
 import { computed, ref } from "vue"
 import pagination from "@/composables/usePagination"
 import dayjs from 'dayjs'
@@ -88,6 +88,6 @@ const prev = () => {
 }
 
 // todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(PermissionsAll, { pagination, filter })
+const { result } = useQuery(GetPermissions, { pagination, filter })
 const permissions = computed(() => result.value?.permissions ?? { data: [] })
 </script>

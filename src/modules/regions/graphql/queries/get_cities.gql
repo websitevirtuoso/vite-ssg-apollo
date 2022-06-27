@@ -1,6 +1,6 @@
 #import "../fragments/city.fragment.gql"
 
-query CitiesAll ($pagination: Pagination, $sort: Sortable, $filter: CityFilter) {
+query GetCities ($pagination: Pagination, $sort: Sortable, $filter: CityFilter) {
   cities (pagination: $pagination, sort: $sort, filter: $filter) {
     data {
       ...CityFragment

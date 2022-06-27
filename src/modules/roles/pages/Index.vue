@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { RolesAll } from '../graphql/queries/role.gql'
+import GetRoles from '../graphql/queries/get_roles.gql'
 import { computed } from "vue"
 import pagination from "@/composables/usePagination"
 import dayjs from 'dayjs'
@@ -68,6 +68,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(RolesAll, { pagination })
+const { result } = useQuery(GetRoles, { pagination })
 const roles = computed(() => result.value?.roles ?? { data: [] })
 </script>

@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { PostsAll } from '../../graphql/queries/post.gql'
+import GetPosts from '../../graphql/queries/get_posts.gql'
 import { computed, ref } from "vue"
 import { useAbility } from "@casl/vue"
 import pagination from "@/composables/usePagination"
@@ -90,6 +90,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(PostsAll, { pagination, filter }, { clientId: 'public' })
+const { result } = useQuery(GetPosts, { pagination, filter }, { clientId: 'public' })
 const posts = computed(() => result.value?.posts ?? { data: [] })
 </script>

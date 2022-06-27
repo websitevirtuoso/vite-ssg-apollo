@@ -48,7 +48,7 @@ import { useAbility } from "@casl/vue"
 import { useQuery } from '@vue/apollo-composable'
 import pagination from "@/composables/usePagination"
 import { ActionCreate } from "@/components/datatable/index"
-import { CategoriesAll } from '../../graphql/queries/category.gql'
+import GetCategories from '../../graphql/queries/get_categories.gql'
 
 const { can } = useAbility()
 const { t } = useI18n()
@@ -68,6 +68,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(CategoriesAll, { pagination }, { clientId: 'public' })
+const { result } = useQuery(GetCategories, { pagination }, { clientId: 'public' })
 const categories = computed(() => result.value?.categories ?? { data: [] })
 </script>

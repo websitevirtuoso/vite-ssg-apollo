@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { CountriesAll } from '../../graphql/queries/country.gql'
+import GetCountries from '../../graphql/queries/get_countries.gql'
 import { computed } from "vue"
 import pagination from "@/composables/usePagination"
 
@@ -60,6 +60,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(CountriesAll, { pagination }, { clientId: 'public' })
+const { result } = useQuery(GetCountries, { pagination }, { clientId: 'public' })
 const countries = computed(() => result.value?.countries ?? { data: [] })
 </script>

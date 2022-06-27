@@ -1,6 +1,6 @@
 #import "../fragments/category.fragment.gql"
 
-query CategoriesAll ($pagination: Pagination, $sort: Sortable) {
+query GetCategories ($pagination: Pagination, $sort: Sortable) {
     categories (pagination: $pagination, sort: $sort) {
         data {
             ...CategoryFragment
@@ -8,13 +8,5 @@ query CategoriesAll ($pagination: Pagination, $sort: Sortable) {
         total
         hasPages
         lastPage
-    }
-}
-
-query CategoryByID ($id: [ID]!) {
-    categories (filter: {id: $id}) {
-        data {
-            ...CategoryFragment
-        }
     }
 }

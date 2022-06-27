@@ -5,7 +5,7 @@ describe('listing terms section', () => {
     cy.seed('ListingTermTableSeeder')
   })
   it('should see list of listing terms', () => {
-    cy.intercept('POST', '/api/public?operation=ListingTermsAll').as('queryListingTermsAll')
+    cy.intercept('POST', '/api/public?operation=GetListingTerms').as('queryGetListingTerms')
     cy.login()
     cy.visit('/')
 
@@ -14,7 +14,7 @@ describe('listing terms section', () => {
     cy.getBySel('listing-terms').click()
     cy.url().should('eq', `${Cypress.config().baseUrl}/listings/terms`)
 
-    cy.wait('@queryListingTermsAll').then(({ response }) => {
+    cy.wait('@queryGetListingTerms').then(({ response }) => {
       // @ts-expect-error undefined variable
       expect(response.body.data.listing_terms).to.exist
     })

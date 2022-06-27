@@ -1,6 +1,6 @@
 #import "../fragments/listingType.fragment.gql"
 
-query ListingTypesAll ($pagination: Pagination, $sort: Sortable) {
+query GetListingTypes ($pagination: Pagination, $sort: Sortable) {
     listing_types (pagination: $pagination, sort: $sort) {
         data {
             ...ListingTypeFragment

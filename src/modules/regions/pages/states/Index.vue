@@ -49,7 +49,7 @@ import { useAbility } from "@casl/vue"
 import { useQuery } from '@vue/apollo-composable'
 import { filter } from "@/composables/useFilter"
 import pagination from "@/composables/usePagination"
-import { StatesAll } from '../../graphql/queries/state.gql'
+import GetStates from '../../graphql/queries/get_states.gql'
 import { ActionFilter, ActionCreate } from "@/components/datatable/index"
 import StateFilter from "@/modules/regions/components/StateFilter.vue"
 
@@ -73,6 +73,6 @@ const prev = () => {
 }
 
 // todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(StatesAll, { pagination, filter }, { clientId: 'public' })
+const { result } = useQuery(GetStates, { pagination, filter }, { clientId: 'public' })
 const states = computed(() => result.value?.states ?? { data: [] })
 </script>

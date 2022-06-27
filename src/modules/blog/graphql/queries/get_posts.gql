@@ -1,6 +1,6 @@
 #import "../fragments/post.fragment.gql"
 
-query PostsAll ($pagination: Pagination, $sort: Sortable, $filter: PostFilter) {
+query GetPosts ($pagination: Pagination, $sort: Sortable, $filter: PostFilter) {
     posts (pagination: $pagination, sort: $sort, filter: $filter) {
         data {
             ...PostFragment

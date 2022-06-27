@@ -4,7 +4,7 @@ describe('permissions section', () => {
     cy.seed('CypressDatabaseSeeder')
   })
   it('should see list of permissions', () => {
-    cy.intercept('POST', '/api?operation=PermissionsAll').as('queryPermissionsAll')
+    cy.intercept('POST', '/api?operation=GetPermissions').as('queryGetPermissions')
     cy.login()
     cy.visit('/')
 
@@ -14,7 +14,7 @@ describe('permissions section', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/permissions`)
 
     // check that Request been made
-    cy.wait('@queryPermissionsAll').then(({ response }) => {
+    cy.wait('@queryGetPermissions').then(({ response }) => {
       // @ts-expect-error undefined variable
       expect(response.body.data.permissions).to.exist
     })

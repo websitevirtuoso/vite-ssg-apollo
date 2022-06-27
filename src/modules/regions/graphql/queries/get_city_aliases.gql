@@ -1,6 +1,6 @@
 #import "../fragments/cityAlias.fragment.gql"
 
-query CityAliasesAll ($pagination: Pagination, $sort: Sortable, $filter: CityAliasFilter) {
+query GetCityAliases ($pagination: Pagination, $sort: Sortable, $filter: CityAliasFilter) {
     city_aliases (pagination: $pagination, sort: $sort, filter: $filter) {
         data {
             ...CityAliasFragment

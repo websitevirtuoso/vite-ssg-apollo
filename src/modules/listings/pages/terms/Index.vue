@@ -27,7 +27,7 @@
 import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import { ListingTermsAll } from '../../graphql/queries/listingTerm.gql'
+import GetListingTerms from '../../graphql/queries/get_listing_terms.gql'
 
 const { t } = useI18n()
 
@@ -37,6 +37,6 @@ const headers = [
   { text: t('messages.description'), value: 'description' },
 ]
 
-const { result } = useQuery(ListingTermsAll, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })
+const { result } = useQuery(GetListingTerms, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })
 const listing_terms = computed(() => result.value?.listing_terms ?? { data: [] })
 </script>
