@@ -1,6 +1,6 @@
-import { Router, RouteRecordName } from 'vue-router'
+import { Router, RouteRecordName, RouteRecordRaw } from 'vue-router'
 
-const moduleStatesRoutes = [
+const moduleStatesRoutes: Array<RouteRecordRaw> = [
   {
     name: 'states',
     path: '/states',

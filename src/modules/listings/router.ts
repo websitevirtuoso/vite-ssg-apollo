@@ -1,6 +1,6 @@
-import { Router, RouteRecordName } from 'vue-router'
+import { Router, RouteRecordName, RouteRecordRaw } from 'vue-router'
 
-const moduleListingTypesRoutes = [
+const moduleListingTypesRoutes: Array<RouteRecordRaw> = [
   {
     name: 'listing-types',
     path: '/listings/types',

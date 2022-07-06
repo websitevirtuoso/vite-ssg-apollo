@@ -1,6 +1,6 @@
-import { Router, RouteRecordName } from 'vue-router'
+import { Router, RouteRecordName, RouteRecordRaw } from 'vue-router'
 
-const moduleRoute = {
+const moduleRoute: RouteRecordRaw = {
   name: 'permissions',
   path: '/permissions',
   component: () => import('./pages/Index.vue'),

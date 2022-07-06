@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { getTokenTtl, AUTH_TOKEN } from '@/modules/auth/utils/auth'
 import ability from '@/modules/auth/utils/ability'
 
-const routes = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'root',

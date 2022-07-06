@@ -1,6 +1,6 @@
-import { Router } from 'vue-router'
+import { Router, RouteRecordRaw } from 'vue-router'
 
-const moduleRoute = {
+const moduleRoute: RouteRecordRaw = {
   name: 'error',
   path: '/error',
   component: () => import('./layouts/ErrorPage.vue'),
