@@ -6,7 +6,3 @@ mutation CategoryUpsert ($id: ID, $title: String!) {
     }
 }
 
-mutation CategoryDelete ($id: [ID]!) {
-    categoryDelete(id: $id)
-}
-

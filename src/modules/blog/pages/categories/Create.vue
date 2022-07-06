@@ -31,11 +31,11 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
 import { gqlHandleError } from "@/helpers/handleErrors"
-import useVSchema from '../../helpers/validation_schema'
+import useVSchema from '../../helpers/validationSchemaCategory'
 import { Field, Form, SubmissionContext } from "vee-validate"
 import { gqlAddCacheElement } from "@/plugins/apollo/helpers"
-import { CategoriesAll } from '../../graphql/queries/category.gql'
-import { CategoryUpsert } from '../../graphql/mutations/category.gql'
+import GetCategories from '../../graphql/queries/getCategories.gql'
+import CategoryUpsert from '../../graphql/mutations/categoryUpsert.gql'
 import { useNotification } from "@/modules/notifications/useNotification"
 
 const router = useRouter();
@@ -49,7 +49,7 @@ const createCategory = ({ title }: { title: string }, form: SubmissionContext) =
   mutate({ title },
     {
       update: (cache, { data: { categoryUpsert } }) => {
-        gqlAddCacheElement(cache, CategoriesAll, 'categories', categoryUpsert)
+        gqlAddCacheElement(cache, GetCategories, 'categories', categoryUpsert)
       }
     })
 
