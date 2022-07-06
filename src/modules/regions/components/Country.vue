@@ -6,12 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import { CountriesAll } from '../graphql/queries/country.gql'
+import GetCountries from '../graphql/queries/getCountries.gql'
 import { useQuery } from "@vue/apollo-composable"
 import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 
 const { t } = useI18n()
-const { result } = useQuery(CountriesAll, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })
+const { result } = useQuery(GetCountries, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })
 const countries = computed(() => result.value?.countries ?? { data: [] })
 </script>

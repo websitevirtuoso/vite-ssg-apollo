@@ -41,20 +41,20 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
 import { gqlHandleError } from "@/helpers/handleErrors"
-import useVSchema from '../../helpers/validation_schema_state'
+import useVSchema from '../../helpers/validationSchemaState'
 import { Field, Form, SubmissionContext } from "vee-validate"
-import { StateUpsert } from '../../graphql/mutations/state.gql'
+import StateUpsert from '../../graphql/mutations/state.gql'
 import CountrySelect from "../../components/Country.vue"
 import { useNotification } from "@/modules/notifications/useNotification"
+import { StateInput } from "@/modules/regions/types"
 
 const router = useRouter();
 const { t } = useI18n()
 const vSchema = useVSchema(t)
 const notification = useNotification()
-
 const { mutate, loading, onDone, onError } = useMutation(StateUpsert)
 
-const createState = ({ code, name, country_id }: { code: string, name: string, country_id: number }, form: SubmissionContext) => {
+const createState = ({ code, name, country_id }: StateInput, form: SubmissionContext) => {
   mutate({ code, name, country_id })
 
   onDone(() => {

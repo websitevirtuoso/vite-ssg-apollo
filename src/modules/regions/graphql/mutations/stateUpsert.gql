@@ -5,7 +5,3 @@ mutation StateUpsert ($id: ID, $code: String!, $name: String!, $country_id: ID!)
         ...StateFragment
     }
 }
-
-mutation StateDelete ($id: [ID]!) {
-    stateDelete(id: $id)
-}
