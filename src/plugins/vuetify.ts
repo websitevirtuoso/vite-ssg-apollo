@@ -15,6 +15,14 @@ export default createVuetify({
     VTextField: {
       variant: 'underlined',
     },
+    VCombobox: {
+      VChip: {
+        density: 'comfortable',
+      },
+    },
+    VTextarea: {
+      variant: 'underlined',
+    },
     VCard: { elevation: '3' },
     VCardActions: { VBtn: { variant: 'flat' } },
   },
