@@ -1,4 +1,4 @@
-import { apolloDefaultClient, apolloPublicClient } from '@/plugins/vue-apollo'
+import { apolloDefaultClient, apolloPublicClient } from '@/plugins/apollo/vue-apollo'
 
 export const AUTH_TOKEN = 'apollo-bearer-auth-token'
 export const AUTH_TOKEN_EXPIRE = 'apollo-token-expires_in'

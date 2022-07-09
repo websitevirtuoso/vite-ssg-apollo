@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :model-value="preferences.showLeftSideBar" :rail="preferences.showMiniSideBar" width="230" data-test="side-bar">
+  <v-navigation-drawer v-model="showLeftSideBar" :rail="preferences.showMiniSideBar" width="230" data-test="side-bar">
     <template #prepend>
       <header class="brand v-toolbar">
         <div class="v-toolbar__content" style="height: 64px;">
@@ -11,106 +11,44 @@
       </header>
     </template>
     <v-list dense expand data-test="left-menu">
-      <template v-for="link in navLinks(menuItems)" :key="link.name">
-        <!--group with subitems-->
-        <v-list-group
-          v-if="link.children && checkPermission(link.children)"
-          :prepend-icon="link.icon"
-          active-color="active-group-item"
-          color="primary"
-          :data-test="link.name"
-        >
-          <!-- title group with arrow -->
-          <template #activator="{ props }">
-            <v-list-item v-bind="props" :title="link.name" :prepend-icon="link.icon" :value="link.name" />
-          </template>
-
-          <!-- sub items -->
-          <v-list-item
-            v-for="subItem in navLinks(link.children)" :key="subItem.name"
-            :to="{ name: subItem.route }"
-            :title="subItem.name"
-            :value="subItem.name"
-            :append-icon="subItem.icon"
-            :data-test="subItem.name"
-          />
-        </v-list-group>
-        <!-- top-level link-->
-        <v-list-item
-          v-else-if="checkPermission(link.children)"
-          :prepend-icon="link.icon"
-          :data-test="link.route"
-          :title="link.name"
-          :to="link.route ? { name: link.route } : null"
-        />
-      </template>
+      <side-menu :items="allowedMenuItems" />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-import { usePreferences } from "@/stores/preferences";
-import { useI18n } from "vue-i18n";
-import { useAbility } from "@casl/vue";
+import { usePreferences } from "@/stores/preferences"
+import { useAbility } from "@casl/vue"
 import logo from '@/assets/img/logo.png'
+import SideMenu from "./SideMenu.vue"
+import { MenuStruct, menuItems } from "@/components/navigation/MenuItems"
+import { storeToRefs } from 'pinia'
 
 const siteName = import.meta.env.VITE_APP_NAME;
-const preferences = usePreferences();
-const { t } = useI18n()
-const { can } = useAbility();
+const preferences = usePreferences()
+const { can } = useAbility()
 
-export interface MenuStruct {
-  name: string
-  icon: string
-  route: string
-  permission: string
-}
+const { showLeftSideBar } = storeToRefs(preferences)
 
-const menuItems = [
-  { route: 'home', name: t('messages.home'), icon: 'mdi-view-dashboard', permission: 'user.view' } as MenuStruct,
-  { route: 'roles', name: t('messages.role', 2), icon: 'mdi-eye', permission: 'role.view' } as MenuStruct,
-  { route: 'listing-types', name: t('messages.listing_type', 2), permission: 'listing_type.view', icon: 'mdi-home-city' } as MenuStruct,
-  { route: 'listing-terms', name: t('messages.listing_term', 2), permission: 'listing_term.view', icon: 'mdi-calendar-clock' } as MenuStruct,
-  { route: 'permissions', name: t('messages.permission', 2), icon: 'mdi-lock', permission: 'permission.view' } as MenuStruct,
-  {
-    name: t('messages.region'),
-    icon: 'mdi-web',
-    children: [
-      { route: 'countries', name: t('messages.country', 2), permission: 'country.view', icon: 'mdi-earth' },
-      { route: 'states', name: t('messages.state', 2), permission: 'state.view',  icon: 'mdi-compass-rose' },
-      { route: 'cities', name: t('messages.city', 2), permission: 'city.view', icon: 'mdi-city-variant' },
-      { route: 'city-aliases', name: t('messages.city_alias', 2), permission: 'city_alias.view', icon: 'mdi-city' }
-    ] as MenuStruct[]
-  },
-  {
-    name: t('messages.content'),
-    icon: 'mdi-folder-multiple-image',
-    children: [
-      { route: 'categories', name: t('messages.category', 2), permission: 'category.view', icon: 'mdi-folder-open-outline' },
-      { route: 'posts', name: t('messages.post', 2), permission: 'post.view', icon: 'mdi-book-open-page-variant' }
-    ]  as MenuStruct[]
-  },
-]
-
-const navLinks = (arr: MenuStruct[]) => {
-  return arr.filter(link => {
-    if (link.permission) {
-      const [subject, permission] = link.permission.split('.')
-      return can(permission, subject)
+/*
+* Exclude all menu items if user doesn't have permission to see them
+* */
+function flatFilter(arr: MenuStruct[]) {
+  return arr.filter(item => {
+    let keep = true
+    if(item.permission) {
+      const [subject, permission] = item.permission.split('.')
+      keep = can(permission, subject)
     }
-    return true
-  })
+    if (keep && item.children) {
+      item.children = flatFilter(item.children);
+    }
+    return keep;
+  });
 }
 
-const checkPermission = (links: MenuStruct[]) => {
-  if (Array.isArray(links)) {
-    return links.filter(v => {
-      const [subject, permission] = v.permission.split('.')
-      return can(permission, subject)
-    }).length > 0
-  }
-  return true
-}
+// filter second time to remove group of items if this group doesn't have any items
+const allowedMenuItems = flatFilter(menuItems).filter(item => !(item.children && item.children.length === 0))
 </script>
 
 <style lang="sass">
@@ -128,5 +66,4 @@ const checkPermission = (links: MenuStruct[]) => {
 .text-active-group-item
   background-color:  rgb(var(--v-theme-primary))
   color: #fff
-
 </style>

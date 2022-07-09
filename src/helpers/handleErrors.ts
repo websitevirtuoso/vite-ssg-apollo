@@ -1,5 +1,6 @@
 import { SubmissionContext } from 'vee-validate'
 import { ApolloError } from '@apollo/client/core'
+import { useNotification } from '@/modules/notifications/useNotification'
 
 export const gqlHandleError = (error: ApolloError, currentForm?: SubmissionContext) => {
   // if form exist and gql error exist do next
@@ -10,5 +11,9 @@ export const gqlHandleError = (error: ApolloError, currentForm?: SubmissionConte
     )) {
       currentForm.setErrors({ [fieldsName]: validationError })
     }
+  } else if (error.graphQLErrors[0].message) {
+    // todo change notification plugin
+    // const notification = useNotification()
+    // notification.error(error.graphQLErrors[0].message)
   }
 }
