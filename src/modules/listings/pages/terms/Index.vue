@@ -27,7 +27,7 @@
 import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import GetListingTerms from '../../graphql/queries/get_listing_terms.gql'
+import GetListingTerms from '../../graphql/queries/getListingTerms.gql'
 
 const { t } = useI18n()
 
