@@ -22,7 +22,7 @@ const moduleRoutes: Array<RouteRecordRaw> = [
         label: 'Create',
         parent: 'role',
       },
-      permission: 'role.create',
+      permission: 'role.upsert',
     },
   },
   {
@@ -34,7 +34,7 @@ const moduleRoutes: Array<RouteRecordRaw> = [
         label: 'Update',
         parent: 'role',
       },
-      permission: 'role.update',
+      permission: 'role.upsert',
     },
   },
 ]

@@ -4,7 +4,7 @@
       <v-col cols="12">
         <v-card :title="t('messages.role', 2)">
           <div class="table-toolbar">
-            <action-create v-if="can('upsert' , 'role')" :to="{ name: 'state-create' }"/>
+            <action-create v-if="can('upsert' , 'role')" :to="{ name: 'role-create' }"/>
           </div>
           <v-table data-test="datatable">
             <thead>
@@ -20,6 +20,9 @@
               <td>{{ role.name }}</td>
               <td>{{ dayjs(role.created_at).format('YYYY-MM-DD HH:mm') }}</td>
               <td>{{ dayjs(role.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
+              <td v-if="can('upsert', 'role')">
+                <action-update :text="t('action.update')" @click="router.push({ name: 'role-update', params: { id: role.id }})" />
+              </td>
             </tr>
             </tbody>
           </v-table>
@@ -41,14 +44,16 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
-import GetRoles from '../graphql/queries/get_roles.gql'
+import GetRoles from '../graphql/queries/getRoles.gql'
 import { computed } from "vue"
 import pagination from "@/composables/usePagination"
 import dayjs from 'dayjs'
-import { ActionCreate } from "@/components/datatable/index"
+import { ActionCreate, ActionUpdate } from "@/components/datatable/index"
 import { useAbility } from "@casl/vue"
+import { useRouter } from "vue-router"
 
 const { t } = useI18n()
+const router = useRouter()
 const { can } = useAbility()
 
 const headers = [
@@ -58,6 +63,7 @@ const headers = [
   { text: t('messages.system_name'), value: 'name' },
   { text: t('messages.created_at'), value: 'created_at' },
   { text: t('messages.updated_at'), value: 'updated_at' },
+  can('upsert', 'role') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
 ]
 
 // tmp functions
