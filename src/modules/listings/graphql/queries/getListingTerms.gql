@@ -1,7 +1,7 @@
 #import "../fragments/listingTerm.fragment.gql"
 
-query GetListingTerms ($pagination: Pagination, $sort: Sortable) {
-    listing_terms (pagination: $pagination, sort: $sort) {
+query GetListingTerms ($pagination: Pagination, $sort: Sortable, $filter: ListingTermFilter) {
+    listing_terms (pagination: $pagination, sort: $sort, filter: $filter) {
         data {
             ...ListingTermFragment
         }

@@ -1,0 +1,7 @@
+#import "../fragments/listingTerm.fragment.gql"
+
+mutation listingTermUpdate ($id: ID!, $name: String!, $description: String!) {
+    listingTermUpdate (id: $id, name: $name, description: $description) {
+        ...ListingTermFragment
+    }
+}

@@ -14,6 +14,9 @@
               <td>{{ listing_type.id }}</td>
               <td>{{ listing_type.name }}</td>
               <td>{{ listing_type.description }}</td>
+              <td v-if="can('update', 'listing_type')">
+                <action-update :text="t('action.update')" @click="router.push({ name: 'listing-type-update', params: { id: listing_type.id }})" />
+              </td>
             </tr>
             </tbody>
           </v-table>
@@ -28,13 +31,19 @@ import { computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { useQuery } from '@vue/apollo-composable'
 import GetListingTypes from '../../graphql/queries/getListingTypes.gql'
+import { ActionUpdate } from "@/components/datatable/index"
+import { useAbility } from "@casl/vue"
+import { useRouter } from "vue-router"
 
 const { t } = useI18n()
+const { can } = useAbility()
+const router = useRouter()
 
 const headers = [
   { text: '#', value: 'id' },
   { text: t('messages.name'), value: 'name' },
   { text: t('messages.description'), value: 'description' },
+  can('update', 'listing_type') ? { text: t('messages.actions'), value: 'action', sortable: false, align: 'right' } : {}
 ]
 
 const { result } = useQuery(GetListingTypes, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })
