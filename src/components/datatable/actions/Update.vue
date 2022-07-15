@@ -3,7 +3,7 @@
     <template #activator="{ props }">
       <v-btn
         v-bind="props" icon="mdi-pencil" size="small" flat
-        test-attr="update" :text="text" class="mr-1" @click="$emit('click')"/>
+        data-test="update" :text="text" class="mr-1" @click="$emit('click')"/>
     </template>
   </v-tooltip>
 </template>

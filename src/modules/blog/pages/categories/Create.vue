@@ -33,8 +33,6 @@ import { useMutation } from '@vue/apollo-composable'
 import { gqlHandleError } from "@/helpers/handleErrors"
 import useVSchema from '../../helpers/validationSchemaCategory'
 import { Field, Form, SubmissionContext } from "vee-validate"
-import { gqlAddCacheElement } from "@/plugins/apollo/helpers"
-import GetCategories from '../../graphql/queries/getCategories.gql'
 import CategoryUpsert from '../../graphql/mutations/categoryUpsert.gql'
 import { useNotification } from "@/modules/notifications/useNotification"
 
@@ -46,12 +44,7 @@ const notification = useNotification()
 const { mutate, loading, onDone, onError } = useMutation(CategoryUpsert)
 
 const createCategory = ({ title }: { title: string }, form: SubmissionContext) => {
-  mutate({ title },
-    {
-      update: (cache, { data: { categoryUpsert } }) => {
-        gqlAddCacheElement(cache, GetCategories, 'categories', categoryUpsert)
-      }
-    })
+  mutate({ title })
 
   onDone(() => {
     notification.success(t('action.create_success'));

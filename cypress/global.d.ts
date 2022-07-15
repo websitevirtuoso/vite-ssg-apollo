@@ -20,6 +20,12 @@ declare namespace Cypress {
     vSelect(message: string): Chainable<Element>
     notification(message: string): void
 
+    /**
+     * Make HTTP request to the app.
+     * @example
+     * cy.gqlRequest('/api', 'gql query/mutation as a string', {}, 'Create Alert');
+     */
+    gqlRequest(schemaUrl: string, gqlQuery: string, gqlVariables: object, message: string): void
     //laravel cypress commands
     /**
      * Log in the user with the given attributes, or create a new user and then log them in.

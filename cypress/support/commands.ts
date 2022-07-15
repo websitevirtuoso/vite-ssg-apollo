@@ -84,12 +84,41 @@ Cypress.Commands.add('toggleSideMenu', (show: boolean) => {
   cy.get('[data-test="side-bar"]').then(($sideBar) => {
     if (show) {
       if (!$sideBar.hasClass('v-navigation-drawer--active')) {
-        cy.getBySel('sidenav-toggle').click()
+        cy.get('[data-test="sidenav-toggle"]').click()
       }
     } else {
       if ($sideBar.hasClass('v-navigation-drawer--active')) {
-        cy.getBySel('sidenav-toggle').click()
+        cy.get('[data-test="sidenav-toggle"]').click()
       }
     }
   })
 })
+
+/**
+ * Make HTTP request to the app.
+ * @example
+ * cy.gqlRequest('/api/public', '/api/communication/alerts', 'Create Alert');
+ */
+Cypress.Commands.add(
+  'gqlRequest',
+  (schemaUrl = '/api', gqlQuery: string, gqlVariables: object, message: string): void => {
+    // get the authentication token from local storage if it exists
+    const token = localStorage.getItem(AUTH_TOKEN)
+
+    cy.request({
+      log: true,
+      method: 'POST',
+      url: `${Cypress.env('apiUrl')}${schemaUrl}`,
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+      body: {
+        query: gqlQuery,
+        variables: gqlVariables,
+      },
+    }).then(({ body: { data } }) => {
+      cy.log(message)
+      cy.log(data)
+    })
+  }
+)
