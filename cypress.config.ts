@@ -2,7 +2,7 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://127.0.0.1:3000',
+    baseUrl: 'http://127.0.0.1:5173',
     chromeWebSecurity: false,
     defaultCommandTimeout: 6000, // default value 4000
     specPattern: './src/modules/**/*.spec.ts',

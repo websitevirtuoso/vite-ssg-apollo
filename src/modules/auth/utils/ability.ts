@@ -1,6 +1,6 @@
 import { defineAbility } from '@casl/ability'
 import { User, Role, Permission, AbilityPermission } from './types'
-import router from '@/plugins/router'
+// import router from '@/plugins/router'
 
 const ability = defineAbility((can) => {
   // if exist user then parse it
@@ -9,7 +9,7 @@ const ability = defineAbility((can) => {
     parseUserPermissions(JSON.parse(user)).forEach((item) => can(item.permission, item.subject))
   } else {
     // todo call notification plugin and add message - 'Please authenticate'
-    router.push({ name: 'login' })
+    // router.push({ name: 'login' })
   }
 })
 
