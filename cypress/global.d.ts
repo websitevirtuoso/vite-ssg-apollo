@@ -14,6 +14,7 @@ declare namespace Cypress {
     getBySelLike(dataTestPrefixAttribute: string): Chainable<Element>
     errorValidation(message: string): Chainable<Element>
     toggleSideMenu(show: boolean): void
+    toggleElement(dataTestAttribute: string, show: boolean): void
 
     getDataTableHeaderLength(columns: number): Chainable<Element>
     getDataTableBodyLength(columns: number): Chainable<Element>

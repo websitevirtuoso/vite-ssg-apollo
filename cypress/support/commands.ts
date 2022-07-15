@@ -94,6 +94,20 @@ Cypress.Commands.add('toggleSideMenu', (show: boolean) => {
   })
 })
 
+Cypress.Commands.add('toggleElement', (dataTestAttribute: string, show: boolean) => {
+  cy.get(`[data-test="${dataTestAttribute}"]`).then(($element) => {
+    if (show) {
+      if (!$element.hasClass('active')) {
+        cy.get(`[data-test="${dataTestAttribute}"]`).click()
+      }
+    } else {
+      if ($element.hasClass('active')) {
+        cy.get(`[data-test="${dataTestAttribute}"]`).click()
+      }
+    }
+  })
+})
+
 /**
  * Make HTTP request to the app.
  * @example
