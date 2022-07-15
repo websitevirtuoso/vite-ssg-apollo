@@ -2,6 +2,10 @@ import { intercepts, categories } from './support'
 import { categoryUpsert } from './graphql/mutations/categoryUpsert'
 
 describe('Update', () => {
+  before(() => {
+    cy.refreshDatabase()
+    cy.seed('CypressDatabaseSeeder')
+  })
   beforeEach(() => {
     cy.login()
     intercepts()
@@ -16,13 +20,13 @@ describe('Update', () => {
   })
 
   it('should display fields required', () => {
-    cy.getBySel('category.title').clear()
-    cy.getBySel('category.submit').click()
+    cy.getBySel('category.title').find('input').clear()
+    cy.getBySel('category.submit').should('be.disabled')
 
     cy.getBySel('category.title').errorValidation('Title is a required field')
   })
 
-  it.only('should update', () => {
+  it('should update', () => {
     const category = categories.generateCategory()
     cy.getBySel('category.title').find('input').clear().type(category.title)
     cy.getBySel('category.submit').click()
@@ -34,6 +38,7 @@ describe('Update', () => {
 
     cy.notification('Record has been updated')
     cy.url().should('eq', `${Cypress.config().baseUrl}/categories`)
+    cy.wait('@queryGetCategories')
     cy.getBySel('datatable').get('tbody tr').should('contain', category.title)
   })
 })

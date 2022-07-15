@@ -1,6 +1,10 @@
 import { intercepts, categories } from './support'
 
 describe('Create', () => {
+  before(() => {
+    cy.refreshDatabase()
+    cy.seed('CypressDatabaseSeeder')
+  })
   beforeEach(() => {
     cy.login()
     intercepts()
@@ -12,6 +16,7 @@ describe('Create', () => {
 
   it('should display required fields', () => {
     cy.getBySel('category.submit').click()
+    cy.getBySel('category.submit').should('be.disabled')
 
     cy.getBySel('category.title').errorValidation('Title is a required field')
   })
@@ -29,6 +34,7 @@ describe('Create', () => {
 
     cy.notification('Record has been created')
     cy.url().should('eq', `${Cypress.config().baseUrl}/categories`)
+    cy.wait('@queryGetCategories')
     cy.getBySel('datatable').get('tbody tr').should('contain', category.title)
   })
 })
