@@ -43,7 +43,7 @@ import { useMutation } from '@vue/apollo-composable'
 import { gqlHandleError } from "@/helpers/handleErrors"
 import useVSchema from '../../helpers/validationSchemaState'
 import { Field, Form, SubmissionContext } from "vee-validate"
-import StateUpsert from '../../graphql/mutations/state.gql'
+import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
 import CountrySelect from "../../components/Country.vue"
 import { useNotification } from "@/modules/notifications/useNotification"
 import { StateInput } from "@/modules/regions/types"

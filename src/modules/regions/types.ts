@@ -4,6 +4,17 @@ export interface Country {
   code: string
 }
 
+export interface State {
+  id: string
+  name: string
+  code: string
+  country: {
+    id: string
+    name: string
+    code: string
+  }
+}
+
 export interface StateInput {
   code: string
   name: string

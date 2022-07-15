@@ -3,16 +3,18 @@
     <v-card-text>
       <v-row>
         <v-col cols="12" md="3">
-          <filter-by-multiple v-model="rawFilter.id" type="number" :hint="t('messages.multiple_values')" :label="t('messages.id', 2)" />
+          <filter-by-multiple
+            v-model="rawFilter.id" type="number"
+            :hint="t('messages.multiple_values')" :label="t('messages.id', 2)" data-test="filter.state.id" />
         </v-col>
         <v-col cols="12" md="3">
-          <filter-by-text v-model="rawFilter.name" :label="t('messages.name')" />
+          <filter-by-text v-model="rawFilter.name" :label="t('messages.name')" data-test="filter.state.name" />
         </v-col>
         <v-col cols="12" md="3">
-          <filter-by-text v-model="rawFilter.code" :label="t('messages.code')" />
+          <filter-by-text v-model="rawFilter.code" :label="t('messages.code')" data-test="filter.state.code" />
         </v-col>
         <v-col cols="12" md="3">
-          <country-select v-model="rawFilter.country_id" hide-details clearable />
+          <country-select v-model="rawFilter.country_id" hide-details clearable data-test="filter.state.country" />
         </v-col>
       </v-row>
     </v-card-text>
