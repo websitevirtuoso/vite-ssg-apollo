@@ -3,7 +3,7 @@ before(() => {
   cy.seed('CypressDatabaseSeeder')
 })
 
-it('page not found', () => {
+it('access denied', () => {
   cy.login()
   cy.visit('/access-denied')
 
