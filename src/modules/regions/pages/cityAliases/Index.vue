@@ -25,6 +25,9 @@
               <td>{{ city_alias.city.name }}</td>
               <td>{{ city_alias.city.state.name }}</td>
               <td>{{ city_alias.city.state.country.name }}</td>
+              <td v-if="can('upsert', 'city_alias')">
+                <action-update :text="t('action.update')" @click="router.push({ name: 'city-alias-update', params: { id: city_alias.id }})" />
+              </td>
             </tr>
             </tbody>
           </v-table>
@@ -50,12 +53,14 @@ import { useAbility } from "@casl/vue"
 import { useQuery } from '@vue/apollo-composable'
 import { filter } from "@/composables/useFilter"
 import pagination from "@/composables/usePagination"
-import GetCityAliases from '../../graphql/queries/get_city_aliases.gql'
-import { ActionFilter, ActionCreate } from "@/components/datatable/index"
+import GetCityAliases from '../../graphql/queries/getCityAliases.gql'
+import { ActionFilter, ActionCreate, ActionUpdate } from "@/components/datatable/index"
 import CityAliasFilter from "@/modules/regions/components/CityAliasFilter.vue"
+import { useRouter } from "vue-router"
 
 const { t } = useI18n()
 const { can } = useAbility()
+const router = useRouter()
 const filtersShow = ref(false)
 
 const headers = [
@@ -64,6 +69,7 @@ const headers = [
   { text: t('messages.city'), value: 'city' },
   { text: t('messages.state'), value: 'state' }, /* todo make sortable */
   { text: t('messages.country'), value: 'country' }, /* todo make sortable */
+  can('upsert', 'city_alias') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
 ]
 
 // tmp functions
@@ -75,6 +81,6 @@ const prev = () => {
 }
 
 // todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(GetCityAliases, { pagination, filter }, { clientId: 'public' })
+const { result } = useQuery(GetCityAliases, { pagination, filter }, { clientId: 'public', debounce: 3000 })
 const city_aliases = computed(() => result.value?.city_aliases ?? { data: [] })
 </script>

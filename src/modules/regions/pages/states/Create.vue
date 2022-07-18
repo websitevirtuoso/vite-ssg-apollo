@@ -16,15 +16,18 @@
                   :error-messages="errors" data-test="state.code" />
               </Field>
               <Field v-slot="{ field, errors }" name="country_id">
-                <country-select
-                  v-bind="field" :error-messages="errors"
-                  data-test="state.country" :return-object="false" />
+                <countries-query v-slot="{ items, loading }">
+                  <v-select
+                    v-bind="field" :items="items" :label="t('messages.country')"
+                    :error-messages="errors" item-title="name" item-value="id" :loading="loading" data-test="state.country"
+                  />
+                </countries-query>
               </Field>
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                color="primary" type="submit" :loading="loading"
+                color="primary" type="submit" :loading="mutationLoading"
                 :disabled="Object.keys(formErrors).length !== 0" data-test="state.submit">
                 {{ t('action.create') }}
               </v-btn>
@@ -44,7 +47,7 @@ import { gqlHandleError } from "@/helpers/handleErrors"
 import useVSchema from '../../helpers/validationSchemaState'
 import { Field, Form, SubmissionContext } from "vee-validate"
 import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
-import CountrySelect from "../../components/Country.vue"
+import CountriesQuery from "../../components/RenderlessCountriesQuery.vue"
 import { useNotification } from "@/modules/notifications/useNotification"
 import { StateInput } from "@/modules/regions/types"
 
@@ -52,7 +55,7 @@ const router = useRouter();
 const { t } = useI18n()
 const vSchema = useVSchema(t)
 const notification = useNotification()
-const { mutate, loading, onDone, onError } = useMutation(StateUpsert)
+const { mutate, loading: mutationLoading, onDone, onError } = useMutation(StateUpsert)
 
 const createState = ({ code, name, country_id }: StateInput, form: SubmissionContext) => {
   mutate({ code, name, country_id })

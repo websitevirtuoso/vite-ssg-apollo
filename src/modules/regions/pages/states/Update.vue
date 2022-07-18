@@ -19,15 +19,19 @@
                   :error-messages="errors" data-test="state.code" />
               </Field>
               <Field v-slot="{ field, errors, value }" name="country_id">
-                <country-select
-                  v-bind="field" :model-value="value" :error-messages="errors"
-                  data-test="state.country" :return-object="false" />
+                <countries-query v-slot="{ items, loading }">
+                  <v-select
+                    v-bind="field" :model-value="value" :items="items" :label="t('messages.country')"
+                    :error-messages="errors" item-title="name" item-value="id" :loading="loading"
+                    data-test="state.country"
+                  />
+                </countries-query>
               </Field>
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                color="primary" type="submit" :loading="loading"
+                color="primary" type="submit" :loading="mutationLoading"
                 :disabled="Object.keys(formErrors).length !== 0" data-test="state.submit">
                 {{ t('action.update') }}
               </v-btn>
@@ -44,7 +48,7 @@ import { reactive } from "vue"
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from "vue-router"
 import { gqlHandleError } from "@/helpers/handleErrors"
-import CountrySelect from "../../components/Country.vue"
+import CountriesQuery from "../../components/RenderlessCountriesQuery.vue"
 import { Field, Form, SubmissionContext } from "vee-validate"
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import GetStates from '../../graphql/queries/getStates.gql'
@@ -62,7 +66,7 @@ const notification = useNotification()
 const initialValues = reactive({ id: '', code: '', name: '', country_id: '' })
 
 const { onResult } = useQuery(GetStates, { filter: { id: [route.params.id] } }, { clientId: 'public' })
-const { mutate, loading, onDone, onError } = useMutation(StateUpsert)
+const { mutate, loading: mutationLoading, onDone, onError } = useMutation(StateUpsert)
 
 onResult(queryResult => {
   redirectNotFoundIfEmpty(queryResult.data.states.data[0])

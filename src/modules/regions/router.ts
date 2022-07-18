@@ -78,7 +78,7 @@ const moduleCityAliasesRoutes = [
   {
     name: 'city-aliases',
     path: '/city-aliases',
-    component: () => import('./pages/city_aliases/Index.vue'),
+    component: () => import('./pages/cityAliases/Index.vue'),
     meta: {
       breadcrumb: {
         label: 'City Aliases',
@@ -90,7 +90,7 @@ const moduleCityAliasesRoutes = [
   {
     name: 'city-alias-create',
     path: '/city-aliases/create',
-    component: () => import('./pages/city_aliases/Create.vue'),
+    component: () => import('./pages/cityAliases/Create.vue'),
     meta: {
       breadcrumb: {
         label: 'Create',
@@ -101,7 +101,7 @@ const moduleCityAliasesRoutes = [
   {
     name: 'city-alias-update',
     path: '/city-aliases/:id(\\d+)/update',
-    component: () => import('./pages/city_aliases/Update.vue'),
+    component: () => import('./pages/cityAliases/Update.vue'),
     meta: {
       breadcrumb: {
         label: 'Update alias',

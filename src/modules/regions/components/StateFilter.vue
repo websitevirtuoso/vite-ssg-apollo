@@ -14,7 +14,12 @@
           <filter-by-text v-model="rawFilter.code" :label="t('messages.code')" data-test="filter.state.code" />
         </v-col>
         <v-col cols="12" md="3">
-          <country-select v-model="rawFilter.country_id" hide-details clearable data-test="filter.state.country" />
+          <countries-query v-slot="{ items, loading }">
+            <v-select
+              v-model="rawFilter.country_id" :items="items" :label="t('messages.country')"
+              item-title="name" item-value="id" :loading="loading" data-test="filter.state.country"
+            />
+          </countries-query>
         </v-col>
       </v-row>
     </v-card-text>
@@ -23,7 +28,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
-import CountrySelect from "@/modules/regions/components/Country.vue"
+import CountriesQuery from "@/modules/regions/components/RenderlessCountriesQuery.vue"
 import { FilterByText, FilterByMultiple } from "@/components/datatable/index"
 import { rawFilter } from "@/composables/useFilter"
 

@@ -9,10 +9,19 @@
           <filter-by-text v-model="rawFilter.name" :label="t('messages.name')" />
         </v-col>
         <v-col cols="12" md="3">
-          <state-select v-model="rawFilter.state_id" hide-details :return-object="false" />
+          <states-query v-slot="{ items, loading }">
+            <v-combobox
+              v-model="rawFilter.state_id" :items="items" :label="t('messages.state')"
+              item-title="name" item-value="id" multiple chips closable-chips clearable :loading="loading" hide-details :return-object="false" />
+          </states-query>
         </v-col>
         <v-col cols="12" md="3">
-          <country-select v-model="rawFilter.country_id" hide-details clearable />
+          <countries-query v-slot="{ items, loading }">
+            <v-select
+              v-model="rawFilter.country_id" :items="items" :label="t('messages.country')"
+              item-title="name" item-value="id" :loading="loading" hide-details clearable
+            />
+          </countries-query>
         </v-col>
       </v-row>
     </v-card-text>
@@ -21,8 +30,8 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n"
-import CountrySelect from "@/modules/regions/components/Country.vue"
-import StateSelect from "@/modules/regions/components/State.vue"
+import CountriesQuery from "@/modules/regions/components/RenderlessCountriesQuery.vue"
+import StatesQuery from "@/modules/regions/components/RenderlessStatesQuery.vue"
 import { FilterByText, FilterByMultiple } from "@/components/datatable/index"
 import { rawFilter } from "@/composables/useFilter"
 
