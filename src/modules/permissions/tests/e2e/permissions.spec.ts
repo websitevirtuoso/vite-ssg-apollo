@@ -10,7 +10,7 @@ describe('permissions section', () => {
 
     cy.toggleSideMenu(true)
     // check menu direct to countries
-    cy.getBySel('permissions').click()
+    cy.getBySel('Permissions').click()
     cy.url().should('eq', `${Cypress.config().baseUrl}/permissions`)
 
     // check that Request been made
