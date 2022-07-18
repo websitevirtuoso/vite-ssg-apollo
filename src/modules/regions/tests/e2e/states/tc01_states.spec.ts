@@ -1,4 +1,4 @@
-import { intercepts, states } from './support'
+import { CyState, intercepts, states } from './support'
 import { stateUpsert } from './graphql/mutations/stateUpsert'
 
 describe('States Navigation and Datatable', () => {
@@ -16,8 +16,7 @@ describe('States Navigation and Datatable', () => {
     states.navigation.create(false)
   })
 
-  it.only('should see list of states', () => {
-    cy.gqlRequest('/api', stateUpsert, states.generateState(), 'Create State Record')
+  it('should see list of states', () => {
     states.navigation.show(false)
 
     cy.getDataTableHeaderLength(5)
