@@ -1,5 +1,4 @@
-import { CyState, intercepts, states } from './support'
-import { stateUpsert } from './graphql/mutations/stateUpsert'
+import { intercepts, states } from './support'
 
 describe('States Navigation and Datatable', () => {
   before(() => {

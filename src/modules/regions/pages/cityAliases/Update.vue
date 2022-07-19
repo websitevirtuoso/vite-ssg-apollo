@@ -13,23 +13,26 @@
                   v-bind="field" :model-value="value" type="text" :label="t('messages.name')"
                   :error-messages="errors" data-test="alias.name" />
               </Field>
-              <countries-query v-slot="{ items, loading }">
-                <v-select
-                  v-model="country" :items="items" :label="t('messages.country')"
-                  item-title="name" item-value="id" :loading="loading"
-                  prepend-icon="mdi-earth" data-test="alias.country"
-                  @update:model-value="countryChange"
-                />
-              </countries-query>
-              <states-query v-if="country" v-slot="{ items, loading }" :country_id="country">
-                <v-select
-                  v-model="state" :items="items" :label="t('messages.state')" :loading="loading"
-                  prepend-icon="mdi-compass" item-title="name" item-value="id" data-test="alias.state"
-                  @update:model-value="stateChange"
-                />
-              </states-query>
-              <Field v-slot="{ field, errors, value }" name="city_id">
-                <cities-query v-if="state" v-slot="{ items, loading }" :state_id="state" :name="cityNameSearch" :limit="2000">
+              <Field v-slot="{ field, errors, value }" v-model="country_id" name="country_id">
+                <countries-query v-slot="{ items, loading }">
+                  <v-select
+                    v-bind="field" :items="items" :label="t('messages.country')" :loading="loading"
+                    :error-messages="errors" :model-value="value" item-title="name" item-value="id"
+                    prepend-icon="mdi-earth" data-test="alias.country" @update:model-value="countryChange"
+                  />
+                </countries-query>
+              </Field>
+              <Field v-slot="{ field, errors, value }" v-model="state_id" name="state_id">
+                <states-query v-if="country_id" v-slot="{ items, loading }" :country_id="country_id">
+                  <v-select
+                    v-bind="field" :items="items" :label="t('messages.state')" :loading="loading"
+                    :error-messages="errors" :model-value="value" prepend-icon="mdi-compass" item-title="name" item-value="id"
+                    data-test="alias.state" @update:model-value="stateChange"
+                  />
+                </states-query>
+              </Field>
+              <Field v-slot="{ field, errors, value }" v-model="city_id" name="city_id">
+                <cities-query v-if="state_id" v-slot="{ items, loading }" :state_id="state_id" :name="cityNameSearch" :limit="2000">
                   <v-autocomplete
                     v-bind="field" v-model:search="cityNameSearch" :model-value="value" :items="items"
                     :loading="loading" :label="t('messages.city')" :placeholder="t('action.search_live')"
@@ -80,15 +83,16 @@ const router = useRouter()
 const vSchema = useVSchema(t)
 const notification = useNotification()
 
-const country = ref(null)
-const state = ref(null)
+const country_id = ref(null)
+const state_id = ref(null)
+const city_id = ref(null)
 const cityNameSearch = ref(null)
-const initialValues = reactive({ id: '', name: '', city_id: null })
+const initialValues = reactive({ id: '', name: '', country_id: null, state_id: null, city_id: null })
 
 // reset values when state changed
-const stateChange = () => initialValues.city_id = null; cityNameSearch.value = null
+const stateChange = () => city_id.value = null; cityNameSearch.value = null
 // reset values when country changed
-const countryChange = () => state.value = null; stateChange()
+const countryChange = () => state_id.value = null; stateChange()
 
 const { onResult } = useQuery(GetCityAliases, { filter: { id: [route.params.id] } }, { clientId: 'public' })
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(CityAliasUpsert)
@@ -99,9 +103,11 @@ onResult(queryResult => {
   initialValues.id = queryResult.data.city_aliases.data[0].id
   initialValues.name = queryResult.data.city_aliases.data[0].name
   initialValues.city_id = queryResult.data.city_aliases.data[0].city.id
+  initialValues.state_id = queryResult.data.city_aliases.data[0].city.state.id
+  initialValues.country_id = queryResult.data.city_aliases.data[0].city.state.country.id
 
-  state.value = queryResult.data.city_aliases.data[0].city.state.id
-  country.value = queryResult.data.city_aliases.data[0].city.state.country.id
+  state_id.value = queryResult.data.city_aliases.data[0].city.state.id
+  country_id.value = queryResult.data.city_aliases.data[0].city.state.country.id
   // state component has event onChange, we need to reset search model
   cityNameSearch.value = null
 })
