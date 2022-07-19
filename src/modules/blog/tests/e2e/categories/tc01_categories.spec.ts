@@ -17,7 +17,7 @@ describe('Categories Navigation and Datatable', () => {
     categories.navigation.create(false)
   })
 
-  it.only('should see list of categories', () => {
+  it('should see list of categories', () => {
     cy.gqlRequest('/api', categoryUpsert, categories.generateCategory(), 'Create Category Record')
     categories.navigation.show(false)
 
