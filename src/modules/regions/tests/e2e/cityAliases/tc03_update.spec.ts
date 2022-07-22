@@ -11,7 +11,7 @@ describe('Update', () => {
     cy.login()
   })
 
-  it.only('should display required fields', () => {
+  it('should display required fields', () => {
     // @ts-expect-error cityAlias unknown type
     cy.create('App\\Models\\CityAlias').then((cityAlias: CyCityAlias) => {
       aliases.navigation.update(cityAlias)
@@ -46,7 +46,7 @@ describe('Update', () => {
     })
   })
 
-  it.only('should update', () => {
+  it('should update', () => {
     // @ts-expect-error cityAlias unknown type
     cy.create('App\\Models\\CityAlias').then((cityAlias: CyCityAlias) => {
       aliases.navigation.update(cityAlias)
