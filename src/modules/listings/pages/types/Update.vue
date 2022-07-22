@@ -15,7 +15,7 @@
               </Field>
               <Field v-slot="{ field, errors, value }" name="description">
                 <v-textarea
-                  v-bind="field" :model-value="value" type="text" :label="t('messages.meta_description')"
+                  v-bind="field" :model-value="value" type="text" :label="t('messages.description')"
                   :error-messages="errors" data-test="listing_type.description"
                   filled auto-grow counter />
               </Field>
