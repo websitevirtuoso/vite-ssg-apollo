@@ -8,11 +8,15 @@ export interface State {
   id: string
   name: string
   code: string
-  country: {
-    id: string
-    name: string
-    code: string
-  }
+  country: Country
+}
+
+export interface City {
+  id: string
+  name: string
+  lat: string
+  lng: string
+  state: State
 }
 
 export interface StateInput {
