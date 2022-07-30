@@ -136,3 +136,18 @@ Cypress.Commands.add(
     })
   }
 )
+
+// https://www.cypress.io/blog/2020/02/12/working-with-iframes-in-cypress/
+// @ts-expect-error prevSubject unknown type
+Cypress.Commands.add('findEditorField', { prevSubject: true }, (subject) => {
+  return (
+    cy
+      .wrap(subject)
+      .find('iframe')
+      .its('0.contentDocument.body')
+      .should('not.be.empty')
+      // wraps "body" DOM element to allow
+      // chaining more Cypress commands, like ".find(...)"
+      .then(cy.wrap)
+  )
+})

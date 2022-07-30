@@ -20,6 +20,7 @@ declare namespace Cypress {
     getDataTableBodyLength(columns: number): Chainable<Element>
     vSelect(message: string): Chainable<Element>
     notification(message: string): void
+    findEditorField(): Chainable<Element>
 
     /**
      * Make HTTP request to the app.

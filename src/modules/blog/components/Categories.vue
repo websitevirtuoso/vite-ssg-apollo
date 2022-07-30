@@ -1,4 +1,4 @@
-<template>mainPassword!@#$
+<template>
   <v-select
     v-bind="$attrs" :items="categories.data" :label="t('messages.category')"
     item-title="title" item-value="id" required

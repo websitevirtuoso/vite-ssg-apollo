@@ -6,10 +6,7 @@
           v-slot="{ errors: formErrors }" as="v-form"
           :initial-values="initialValues"
           :validation-schema="vSchema" @submit="updateCategory">
-          <v-card>
-            <v-card-title>
-              {{ t('messages.update_', { title: 'category' }) }}
-            </v-card-title>
+          <v-card :title="t('messages.update_', { title: 'category' })">
             <v-card-text>
               <Field v-slot="{ field, errors, value }" name="title">
                 <v-text-field

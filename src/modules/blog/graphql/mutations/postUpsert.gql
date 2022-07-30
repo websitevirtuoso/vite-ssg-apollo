@@ -1,0 +1,28 @@
+#import "../fragments/post.fragment.gql"
+
+mutation PostUpsert (
+    $id: ID,
+    $title: String!,
+    $status: post_status!,
+    $content: String!,
+    $slug: String,
+    $image: String,
+    $meta_title: String,
+    $meta_keyword: String,
+    $meta_description: String,
+    $category_id: ID!
+) {
+    postUpsert (
+        id: $id,
+        title: $title,
+        status: $status,
+        content: $content,
+        slug: $slug,
+        image: $image,
+        meta_title: $meta_title,
+        meta_keyword: $meta_keyword,
+        meta_description: $meta_description,
+        category_id: $category_id) {
+        ...PostFragment
+    }
+}
