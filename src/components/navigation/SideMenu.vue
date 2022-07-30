@@ -27,9 +27,6 @@
 
 <script setup lang="ts">
 import SideMenuItem from "./SideMenuItem.vue"
-import { useDisplay } from "vuetify"
-
-// const { lgAndUp } = useDisplay()
 
 defineProps({
   items: {

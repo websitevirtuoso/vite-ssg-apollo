@@ -62,8 +62,4 @@ const allowedMenuItems = flatFilter(menuItems).filter(item => !(item.children &&
     overflow: hidden
     text-overflow: ellipsis
     white-space: nowrap
-
-.text-active-group-item
-  background-color:  rgb(var(--v-theme-primary))
-  color: #fff
 </style>
