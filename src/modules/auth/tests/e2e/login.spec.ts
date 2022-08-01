@@ -38,7 +38,6 @@ describe('Login.vue', () => {
   })
 
   it('should allow to login', () => {
-    cy.visit('/login')
     cy.getBySel('login.email').type(Cypress.env('userEmail'))
     cy.getBySel('login.password').type(Cypress.env('userPassword'))
     cy.getBySel('login.submit').click()

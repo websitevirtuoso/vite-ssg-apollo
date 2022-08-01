@@ -18,28 +18,3 @@ mutation Login ($email: String!, $password: String!) {
         }
     }
 }
-
-mutation LogOut {
-    logOut
-}
-
-mutation RefreshToken {
-    updateToken {
-        access_token
-        token_type
-        expires_in
-        user {
-            id
-            first_name
-            last_name
-            roles {
-                id
-                name
-                permissions {
-                    id
-                    name
-                }
-            }
-        }
-    }
-}
