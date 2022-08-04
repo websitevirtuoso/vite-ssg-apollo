@@ -25,6 +25,13 @@ export interface StateInput {
   country_id: number
 }
 
+export interface CityInput {
+  name: string
+  lat: number
+  lng: number
+  state_id: number
+}
+
 export interface CityAliasInput {
   name: string
   city_id: number
