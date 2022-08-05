@@ -12,6 +12,7 @@ import { abilitiesPlugin } from '@casl/vue'
 import ability from '@/modules/auth/utils/ability'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import VueGoogleMaps from '@fawmi/vue-google-maps'
 // @ts-expect-error for declaration this module
 import breadcrumbs from 'vue-3-breadcrumbs'
 import '@/styles/styles.sass'
@@ -34,4 +35,5 @@ createApp(App)
   .use(breadcrumbs)
   .use(abilitiesPlugin, ability, { useGlobalProperties: true })
   .use(createHead())
+  .use(VueGoogleMaps, { load: { key: import.meta.env.VITE_GOOGLE_API_KEY, libraries: 'places' } })
   .mount('#app')

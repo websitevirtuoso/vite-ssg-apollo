@@ -26,6 +26,13 @@
               <td>{{ city.lng }}</td>
               <td>{{ city.state.name }}</td>
               <td>{{ city.state.country.name }}</td>
+              <td>
+                <action-update
+                  v-if="can('upsert', 'city')"
+                  :text="t('action.update')"
+                  @click="router.push({ name: 'city-update', params: { id: city.id }})" />
+                <action-view :text="t('action.preview')" @click="showOnMap(city)" />
+              </td>
             </tr>
             </tbody>
           </v-table>
@@ -39,25 +46,40 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+
+        <show-city-on-map
+          v-if="Object.keys(selectedCity).length !== 0"
+          :name="selectedCity.name" :lat="selectedCity.lat" :lng="selectedCity.lng"
+          :show="show" @close="closeOnMap" />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
+// libs
 import { useI18n } from "vue-i18n"
-import { computed, ref } from "vue"
+import { computed, ref, reactive } from "vue"
 import { useAbility } from "@casl/vue"
+import { useRouter } from "vue-router"
 import { useQuery } from '@vue/apollo-composable'
+
+// custom
 import { filter } from "@/composables/useFilter"
 import pagination from "@/composables/usePagination"
-import GetCities from '../../graphql/queries/get_cities.gql'
-import { ActionFilter, ActionCreate } from "@/components/datatable/index"
+import GetCities from '../../graphql/queries/getCities.gql'
+import { ActionFilter, ActionCreate, ActionView, ActionUpdate } from "@/components/datatable/index"
 import CityFilter from "@/modules/regions/components/CityFilter.vue"
+import ShowCityOnMap from "@/modules/regions/components/ShowCityOnMap.vue"
+import { City } from "@/modules/regions/types"
 
 const { t } = useI18n()
 const { can } = useAbility()
+const router = useRouter()
 const filtersShow = ref(false)
+const show = ref(false)
+
+const selectedCity = reactive({}) as City
 
 const headers = [
   { text: '#', value: 'id' },
@@ -66,6 +88,7 @@ const headers = [
   { text: t('messages.lng'), value: 'lng' },
   { text: t('messages.state'), value: 'state' }, /* todo make sortable */
   { text: t('messages.country'), value: 'country' }, /* todo make sortable */
+  can('upsert', 'city') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
 ]
 
 // tmp functions
@@ -74,6 +97,14 @@ const next = () => {
 }
 const prev = () => {
   pagination.page--
+}
+const showOnMap = (city: City) => {
+  show.value = true
+  Object.assign(selectedCity, city)
+}
+const closeOnMap = () => {
+  show.value = false
+  Object.assign(selectedCity, {})
 }
 
 // todo filters very reactive need to add debounce for filters input

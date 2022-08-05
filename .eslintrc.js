@@ -13,6 +13,9 @@ module.exports = {
     'plugin:cypress/recommended', // cy
     'prettier',
   ],
+  globals: {
+    google: 'readonly', //  to make variable google available without eslint error need to define it as global object
+  },
   rules: {
     'object-curly-spacing': ['error', 'always'],
     // have to disable this rule because it is simplify naming props with API variables

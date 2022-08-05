@@ -54,7 +54,6 @@ describe('Create', () => {
       cy.url().should('eq', `${Cypress.config().baseUrl}/posts`)
       cy.wait('@queryGetPosts')
 
-      console.log(newPost)
       cy.getBySel('datatable')
         .get('tbody tr')
         .should('contain', newPost.title)
