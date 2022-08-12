@@ -1,0 +1,23 @@
+#import "../fragments/promo.fragment.gql"
+
+mutation PromoUpsert (
+    $id: ID,
+    $code: String!,
+    $discount: Int!,
+    $use: Int!,
+    $short_description: String!,
+    $description: String!,
+    $expire_at: Date!,
+    $rules: PromoRulesInput!) {
+    promoUpsert (
+        id: $id,
+        code: $code,
+        discount: $discount,
+        use: $use,
+        short_description: $short_description,
+        description: $description,
+        expire_at: $expire_at,
+        rules: $rules) {
+        ...PromoFragment
+    }
+}
