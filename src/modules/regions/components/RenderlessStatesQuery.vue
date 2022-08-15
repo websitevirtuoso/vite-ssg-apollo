@@ -19,8 +19,8 @@ export default defineComponent({
       type: String,
       required: false,
     },
-    country_id: {
-      type: String,
+    country_ids: {
+      type: Array,
       required: false,
     }
   },

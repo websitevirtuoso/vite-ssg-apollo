@@ -31,7 +31,7 @@
                 </countries-query>
               </Field>
               <Field v-slot="{ field, errors, value }" v-model="city.state_id" name="state_id">
-                <states-query v-if="city.country_id" ref="states" v-slot="{ items, loading }" :country_id="city.country_id">
+                <states-query v-if="city.country_id" ref="states" v-slot="{ items, loading }" :country_ids="[city.country_id]">
                   <v-select
                     v-bind="field" :items="items" :label="t('messages.state')" :loading="loading"
                     :model-value="value" prepend-icon="mdi-compass" item-title="name" item-value="id"

@@ -19,12 +19,12 @@ export default {
       type: String,
       required: false,
     },
-    state_id: {
-      type: String,
+    state_ids: {
+      type: Array,
       required: false,
     },
-    country_id: {
-      type: String,
+    country_ids: {
+      type: Array,
       required: false,
     },
     limit: {

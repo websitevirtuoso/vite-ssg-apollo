@@ -23,7 +23,7 @@
                 </countries-query>
               </Field>
               <Field v-slot="{ field, errors, value }" v-model="state_id" name="state_id">
-                <states-query v-if="country_id" v-slot="{ items, loading }" :country_id="country_id">
+                <states-query v-if="country_id" v-slot="{ items, loading }" :country_ids="[country_id]">
                   <v-select
                     v-bind="field" :items="items" :label="t('messages.state')" :loading="loading"
                     :model-value="value" prepend-icon="mdi-compass" item-title="name" item-value="id"
@@ -32,7 +32,7 @@
                 </states-query>
               </Field>
               <Field v-slot="{ field, errors, value }" v-model="city_id" name="city_id">
-                <cities-query v-if="state_id" v-slot="{ items, loading }" :state_id="state_id" :name="cityNameSearch">
+                <cities-query v-if="state_id" v-slot="{ items, loading }" :state_ids="[state_id]" :name="cityNameSearch">
                   <v-autocomplete
                     v-bind="field" v-model:search="cityNameSearch" :model-value="value" :label="t('messages.city')"
                     :items="items" :loading="loading" :placeholder="t('action.search_live')" :error-messages="errors"
