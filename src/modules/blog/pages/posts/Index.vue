@@ -1,9 +1,11 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-show="filtersShow" cols="12">
-        <post-filter />
-      </v-col>
+      <transition name="scroll-y-reverse-transition">
+        <v-col v-show="filtersShow" cols="12">
+          <post-filter />
+        </v-col>
+      </transition>
     </v-row>
     <v-row>
       <v-col cols="12">

@@ -1,23 +1,25 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-show="filtersShow" cols="12">
-        <v-card :title="t('action.filters')" class="mb-4">
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="4">
-                <filter-by-text v-model="filter.display_name" :label="t('messages.name')" />
-              </v-col>
-              <v-col cols="12" md="4">
-                <filter-by-text v-model="filter.name" :label="t('messages.system_name')" />
-              </v-col>
-              <v-col cols="12" md="4">
-                <filter-by-text v-model="filter.description" :label="t('messages.description')" />
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
+      <transition name="scroll-y-reverse-transition">
+        <v-col v-show="filtersShow" cols="12">
+          <v-card :title="t('action.filters')" class="mb-4">
+            <v-card-text>
+              <v-row>
+                <v-col cols="12" md="4">
+                  <filter-by-text v-model="filter.display_name" :label="t('messages.name')" />
+                </v-col>
+                <v-col cols="12" md="4">
+                  <filter-by-text v-model="filter.name" :label="t('messages.system_name')" />
+                </v-col>
+                <v-col cols="12" md="4">
+                  <filter-by-text v-model="filter.description" :label="t('messages.description')" />
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </transition>
     </v-row>
     <v-row>
       <v-col cols="12">
