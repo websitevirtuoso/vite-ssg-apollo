@@ -1,10 +1,10 @@
 <script>
-import { computed } from 'vue'
+import { computed, defineComponent, watch, watchEffect } from "vue"
 import { useQuery } from "@vue/apollo-composable"
 import GetCities from '../graphql/queries/getCities.gql'
 import { excludeEmptyValues } from "@/composables/useFilter"
 
-export default {
+export default defineComponent({
   props: {
     // use this props to filter states by this fields
     id: {
@@ -33,20 +33,22 @@ export default {
       default: 50
     }
   },
-  setup(props, { slots }) {
+  setup(props, { slots, expose }) {
     const queryVariables = computed(() => {
       const { limit, ...filterProps } = props // get "filterProps" for filtering
       return { pagination: { take: limit, page: 1 }, filter: excludeEmptyValues(filterProps) }
     })
 
     // debounce in ms
-    const { result, loading } = useQuery(GetCities, queryVariables, { clientId: 'public', debounce: 500 } )
+    const { result, loading, onResult } = useQuery(GetCities, queryVariables, { clientId: 'public', debounce: 500 } )
     const cities = computed(() => result.value?.cities.data ?? [])
+
+    expose({ cities, onResult })
 
     return () => slots.default({
       items: cities.value,
       loading: loading.value
     })
   }
-}
+})
 </script>

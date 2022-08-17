@@ -1,33 +1,76 @@
 // @ts-expect-error google.map is not a module
 import google from '@types/google.maps'
-import { nextTick, reactive } from 'vue'
-import { Country, State } from '@/modules/regions/types'
-import { Ref } from 'vue-demi'
+import { nextTick, reactive, Ref } from 'vue'
+import { Country, State, City } from '@/modules/regions/types'
+
+interface google_addresses {
+  country_name: string
+  state_name: string
+  city_name: string
+  postal_code: string
+  street_number: string
+  street_name: string
+}
 
 export const onGetPlace = (place: google.maps.places.PlaceResult) => {
-  const cityName = place.address_components[0].long_name
   const lat = place.geometry.location.lat()
   const lng = place.geometry.location.lng()
-  const countryName = place.address_components.find((item: google.maps.GeocoderAddressComponent) =>
-    item.types.includes('country')
-  ).long_name
-  const stateName = place.address_components.find((item: google.maps.GeocoderAddressComponent) =>
-    item.types.includes('administrative_area_level_1')
-  ).long_name
-
-  return { cityName, lat, lng, countryName, stateName }
+  const searchOption = [
+    { search_field: 'country', var_name: 'country_name' },
+    { search_field: 'administrative_area_level_1', var_name: 'state_name' },
+    { search_field: 'locality', var_name: 'city_name' },
+    { search_field: 'postal_code', var_name: 'postal_code' },
+    { search_field: 'street_number', var_name: 'street_number' },
+    { search_field: 'route', var_name: 'street_name' },
+  ]
+  const address: google_addresses[] = []
+  searchOption.forEach((item) => {
+    const tmpName = place.address_components.find((gitem: google.maps.GeocoderAddressComponent) =>
+      gitem.types.includes(item.search_field)
+    )
+    if (tmpName !== undefined) {
+      // @ts-expect-error need to define types
+      address.push({ [item.var_name]: tmpName.long_name })
+    } else {
+      // @ts-expect-error need to define types
+      address.push({ [item.var_name]: '' })
+    }
+  })
+  return Object.assign({ lat, lng }, ...address)
 }
 
 export default () => {
-  const city = reactive({ name: '', country_id: '', state_id: '', lat: 49.9, lng: -119.4833 }) // default coords is kelowna
+  const city = reactive({
+    id: '',
+    name: '',
+    postal_code: '',
+    country_name: '',
+    state_name: '',
+    city_name: '',
+    street_address: '',
+    cityNameSearch: '',
+    country_id: '',
+    state_id: '',
+    city_id: '',
+    lat: 49.9,
+    lng: -119.4833,
+  }) // default coords is kelowna
 
   const onDraggedPin = (event: google.maps.MapMouseEvent) => {
     city.lat = event.lat()
     city.lng = event.lng()
   }
 
+  const onStateChange = () => {
+    city.id = ''
+    city.cityNameSearch = ''
+  }
+
   // reset state value when country changed
-  const onCountryChange = () => (city.state_id = '')
+  const onCountryChange = () => {
+    city.state_id = ''
+    onStateChange
+  }
 
   // get countries items via ref and find this country from out list in db
   const setCountry = (countries: Ref<null>, countryName: string) => {
@@ -47,25 +90,25 @@ export default () => {
   const setState = async (states: Ref<null>, stateName: string): Promise<void> => {
     await nextTick()
 
-    try {
-      // this case need when user change state but not country
+    const setStateID = () => {
       // @ts-expect-error property country doesn't exist on type countries
       const statesItems = states.value?.states as State[]
       const matchedState = statesItems.find((stateItem: State) => stateItem.name === stateName)
       if (matchedState) {
         city.state_id = matchedState.id
       }
+    }
+
+    try {
+      // this case need when user change state but not country
+      setStateID()
 
       // this case when user change country
       // @ts-expect-error property country doesn't exist on type states
       states.value.onResult(({ data }) => {
         // need to check that states available because function reactive
         if (data?.states) {
-          const statesItems = data.states.data as State[]
-          const matchedState = statesItems.find((stateItem: State) => stateItem.name === stateName)
-          if (matchedState) {
-            city.state_id = matchedState.id
-          }
+          setStateID()
         }
       })
     } catch (e) {
@@ -73,5 +116,34 @@ export default () => {
     }
   }
 
-  return { city, onDraggedPin, onCountryChange, onGetPlace, setCountry, setState }
+  // get cities items via ref
+  const setCity = async (cities: Ref<null>, cityName: string): Promise<void> => {
+    await nextTick()
+
+    const setCityID = () => {
+      // @ts-expect-error property cities doesn't exist on type cities
+      const citiesItems = cities.value?.cities as City[]
+      const matchedCity = citiesItems.find((cityItem: City) => cityItem.name === cityName)
+      if (matchedCity) {
+        city.city_id = matchedCity.id
+      }
+    }
+
+    try {
+      setCityID()
+
+      // this case when user change state
+      // @ts-expect-error property city doesn't exist on type cities
+      cities.value.onResult(({ data }) => {
+        // need to check that cities available because function reactive
+        if (data?.cities) {
+          setCityID()
+        }
+      })
+    } catch (e) {
+      //
+    }
+  }
+
+  return { city, onDraggedPin, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity }
 }
