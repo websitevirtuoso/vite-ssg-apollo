@@ -43,6 +43,25 @@
                   </Field>
                 </v-card-text>
               </v-window-item>
+              <v-window-item>
+                <v-card-text>
+                  <Field v-slot="{ field, errors, value }" name="meta_title">
+                    <v-text-field
+                      v-bind="field" :model-value="value" type="text" :label="t('messages.meta_title')"
+                      :error-messages="errors" data-test="post.meta_title" />
+                  </Field>
+                  <Field v-slot="{ field, errors, value }" name="meta_keyword">
+                    <v-text-field
+                      v-bind="field" :model-value="value" type="text" :label="t('messages.meta_keyword')"
+                      :error-messages="errors" data-test="post.meta_keyword" />
+                  </Field>
+                  <Field v-slot="{ field, errors, value }" name="meta_description">
+                    <v-textarea
+                      v-bind="field" :model-value="value" type="text" :label="t('messages.meta_description')"
+                      :error-messages="errors" data-test="post.meta_description" filled auto-grow counter />
+                  </Field>
+                </v-card-text>
+              </v-window-item>
             </v-window>
             <v-card-actions class="pb-3">
               <v-spacer />
@@ -91,16 +110,19 @@ const { onResult } = useQuery(GetPosts, { filter: { id: [route.params.id] } }, {
 const { mutate, loading, onDone, onError } = useMutation(PostUpsert)
 
 onResult(queryResult => {
-  redirectNotFoundIfEmpty(queryResult.data.posts.data[0])
-  initialValues.id = queryResult.data.posts.data[0].id
-  initialValues.title = queryResult.data.posts.data[0].title
-  initialValues.slug = queryResult.data.posts.data[0].slug
-  initialValues.status = queryResult.data.posts.data[0].status
-  initialValues.content = queryResult.data.posts.data[0].content
-  initialValues.meta_title = queryResult.data.posts.data[0].meta_title
-  initialValues.category_id = queryResult.data.posts.data[0].category.id
-  initialValues.meta_keyword = queryResult.data.posts.data[0].meta_keyword
-  initialValues.meta_description = queryResult.data.posts.data[0].meta_description
+  redirectNotFoundIfEmpty(queryResult.data.posts.data[0]);
+
+  ({
+    id: initialValues.id,
+    title: initialValues.title,
+    slug: initialValues.slug,
+    status: initialValues.status,
+    content: initialValues.content,
+    category: { id: initialValues.category_id },
+    meta_title: initialValues.meta_title,
+    meta_keyword: initialValues.meta_keyword,
+    meta_description: initialValues.meta_description,
+  } = queryResult.data.posts.data[0])
 })
 
 onDone(() => {
