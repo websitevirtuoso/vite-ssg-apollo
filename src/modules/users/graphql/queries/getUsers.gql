@@ -1,0 +1,16 @@
+#import "../fragments/user.fragment.gql"
+
+query GetUsers ($pagination: Pagination, $sort: Sortable, $filter: UserFilter) {
+    users (pagination: $pagination, sort: $sort, filter: $filter) {
+        data {
+            ...UserFragment
+            roles {
+                name
+                display_name
+            }
+        }
+        total
+        hasPages
+        lastPage
+    }
+}
