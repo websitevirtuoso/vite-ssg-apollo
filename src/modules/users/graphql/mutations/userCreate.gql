@@ -1,0 +1,17 @@
+#import "../fragments/user.fragment.gql"
+
+mutation UserCreate (
+    $first_name: String!, $last_name: String!, $email: String!, $password: String!, $status: user_status!,
+    $address: String, $postal_code: String, $phone: [String]!, $notify: Boolean!, $role_id: [ID]!, $city_id: ID!
+) {
+    userCreate (
+        first_name: $first_name, last_name: $last_name, email: $email, password: $password, address: $address,
+        postal_code: $postal_code, phone: $phone, notify: $notify, role_id: $role_id, city_id: $city_id,
+        status: $status
+    ) {
+        ...UserFragment
+        city {
+            name
+        }
+    }
+}

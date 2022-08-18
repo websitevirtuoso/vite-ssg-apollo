@@ -12,7 +12,7 @@
         <v-card :title="t('messages.user', 2)">
           <div class="table-toolbar">
             <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
-            <action-create v-if="can('upsert' , 'user')" :to="{ name: 'user-create' }"/>
+            <action-create v-if="can('create' , 'user')" :to="{ name: 'user-create' }"/>
           </div>
           <v-table data-test="datatable">
             <thead>
@@ -41,7 +41,7 @@
                 </td>
                 <td>{{ dayjs(user.created_at).format('YYYY-MM-DD HH:mm') }}</td>
                 <td>{{ dayjs(user.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
-                <td v-if="can('upsert', 'user')">
+                <td v-if="can('update', 'user')">
                   <action-update :text="t('action.update')" @click="router.push({ name: 'user-update', params: { id: user.id }})" />
                   <!-- todo add action to impersonate user -->
                 </td>
