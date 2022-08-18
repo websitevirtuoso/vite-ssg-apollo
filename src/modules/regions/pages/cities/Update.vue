@@ -8,16 +8,7 @@
           :validation-schema="vSchema" @submit="updateCity">
           <v-card :title="t('messages.update_', { title: 'city' })">
             <v-card-text>
-              <div class="form__group field">
-                <g-map-autocomplete
-                  id='gautocomplete'
-                  :placeholder="t('messages.location')"
-                  data-test="gmap-autocomplete"
-                  class="form__field"
-                  @place_changed="onSetPlace" />
-                <label for="gautocomplete" class="form__label">{{ t('messages.location') }}</label>
-                <!-- todo would be great to use v input from vuetify -->
-              </div>
+              <g-map-autocomplete data-test="gmap-autocomplete" @place_changed="onSetPlace" />
               <Field v-slot="{ field, errors, value }" v-model="city.name" name="name">
                 <v-text-field
                   v-bind="field" :model-value="value" type="text" :label="t('messages.name')"
@@ -130,7 +121,3 @@ const updateCity = ({ name, state_id }: CityInput, form: SubmissionContext) => {
   })
 }
 </script>
-
-<style scoped lang="scss">
-@import "../../styles/gautocompleteInput.sass";
-</style>
