@@ -5,8 +5,18 @@ query GetUsers ($pagination: Pagination, $sort: Sortable, $filter: UserFilter) {
         data {
             ...UserFragment
             roles {
+                id
                 name
                 display_name
+            }
+            city {
+                id
+                state {
+                    id
+                    country {
+                        id
+                    }
+                }
             }
         }
         total

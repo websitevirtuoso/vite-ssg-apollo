@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
+    "cypress": "vite --mode testing --port 1500",
     "serve": "vite preview",
     "build": "vite build",
     "preview": "vite preview",

@@ -9,8 +9,8 @@
         </v-col>
         <v-col cols="12" md="3">
           <v-select
-            v-model="rawFilter.status" :items="userStatuses" :label="t('messages.status')"
-            density="compact" clearable data-test="filter.user.status" />
+            v-model="rawFilter.status" :items="userStatusesItems" :label="t('messages.status')"
+            density="comfortable" clearable data-test="filter.user.status" />
         </v-col>
         <v-col cols="12" md="3">
           <filter-by-text
@@ -71,7 +71,7 @@
 // libs
 import { useI18n } from "vue-i18n"
 // custom
-import { userStatuses } from "../enums"
+import { userStatusesItems } from "../enums"
 import { rawFilter } from "@/composables/useFilter"
 import { FilterByText, FilterByMultiple } from "@/components/datatable/index"
 import RolesQuery from "@/modules/roles/components/RenderlessRolesQuery.vue"

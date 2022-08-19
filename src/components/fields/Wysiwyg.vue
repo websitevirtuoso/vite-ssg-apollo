@@ -58,9 +58,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.validation__error {
-  color: rgb(var(--v-theme-error));
-  opacity: 1;
-}
-</style>

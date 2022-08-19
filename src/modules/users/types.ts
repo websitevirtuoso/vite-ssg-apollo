@@ -5,7 +5,7 @@ export interface UserInput {
   password: string
   status: string
   phone: string[]
-  notify: string
+  notify: boolean
   address: string
   postal_code: string
   role_id: number[]

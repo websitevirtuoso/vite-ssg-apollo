@@ -1,3 +1,6 @@
+.v-card
+  overflow: inherit !important
+
 .table-toolbar
   position: absolute
   top: 0
@@ -5,5 +8,25 @@
   margin-top: -24px
   button
     margin-right: 10px
+    float: left
 
 
+.company
+  .v-badge__badge
+    height: 1.5rem
+    border-radius: 20px
+    .v-icon
+      font-size: 1.1rem
+
+  .company-banner
+    background: linear-gradient(#4568dc, #b06ab3)
+
+.phone-field
+  //border: 1px solid red
+  display: flex
+  align-items: center
+  gap: 10px
+
+.validation__error
+  color: rgb(var(--v-theme-error))
+  opacity: 1

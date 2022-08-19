@@ -1,21 +1,16 @@
 import { faker } from '@faker-js/faker'
-import { City } from '@/modules/regions/types'
+import { City, State } from '@/modules/regions/types'
 import { Role } from '@/modules/auth/utils/types'
-import { userStatuses } from '../../enums'
+import { userStatusesItems } from '../../enums'
+import { UserInput } from '@/modules/users/types'
+import { CyState } from '@/modules/regions/tests/e2e/states/support'
 
-type CyUser = {
-  first_name: string
-  last_name: string
-  email: string
-  password: string
-  phone: string[]
+interface CyUser extends UserInput {
+  id: string | undefined
   role: {
     id: string
     display_name: string
   }
-  status: string
-  address: string
-  postal_code: string
   city: City
 }
 
@@ -26,6 +21,7 @@ const intercepts = () => {
   cy.intercept('POST', '/api/public?operation=GetCountries').as('queryGetCountries')
   cy.intercept('POST', '/api?operation=GetRoles').as('queryGetRoles')
   cy.intercept('POST', '/api?operation=UserCreate').as('mutationUserCreate')
+  cy.intercept('POST', '/api?operation=UserUpdate').as('mutationUserUpdate')
 }
 
 const users = {
@@ -34,7 +30,7 @@ const users = {
     return users.getRole().then((role: Role) => {
       // @ts-expect-error unknown type
       return users.getCity().then((city: City) => {
-        const randomStatus = userStatuses[Math.floor(Math.random() * userStatuses.length)]
+        const randomStatus = userStatusesItems[Math.floor(Math.random() * userStatusesItems.length)]
         return {
           first_name: faker.name.firstName(),
           last_name: faker.name.firstName(),
@@ -53,7 +49,7 @@ const users = {
       })
     })
   },
-  // todo duplicate code hope that cypress will be able to use import to reuse this part of code
+  // todo duplicated code hope that cypress will be able to use import to reuse this part of code
   getCity: (selectWhereCityNot?: string) => {
     let whereCountryNot = ''
     if (selectWhereCityNot) {
@@ -87,27 +83,18 @@ const users = {
         .then((role: Role) => role)
     )
   },
-  // generateCity: () => {
-  //   return {
-  //     name: faker.lorem.word(10),
-  //   }
-  // },
-  // getCity: () => {
-  //   return (
-  //     cy
-  //       .php(`App\\Models\\City::with('state')->inRandomOrder()->first()`)
-  //       // @ts-expect-error variable undefined
-  //       .then((city: City) => city)
-  //   )
-  // },
-  // getState: () => {
-  //   return (
-  //     cy
-  //       .php(`App\\Models\\State::with('country')->inRandomOrder()->first()`)
-  //       // @ts-expect-error variable undefined
-  //       .then((state: State) => state)
-  //   )
-  // },
+  getUser: () => {
+    // @ts-expect-error variable undefined
+    return cy.php(`App\\Models\\User::first()`).then((state: State) => {
+      return {
+        id: state.id,
+        name: state.name,
+        code: state.code,
+        country_id: state.country.id,
+        country: state.country.name,
+      } as CyState
+    })
+  },
   navigation: {
     create: (direct = true) => {
       // visit the url directly
@@ -118,6 +105,7 @@ const users = {
         cy.getBySel('btn.create').should('have.length', 1).click()
       }
       cy.wait('@queryGetRoles')
+      cy.wait('@queryGetCountries')
       cy.url().should('eq', `${Cypress.config().baseUrl}/users/create`)
     },
     show: (direct = true) => {
@@ -132,15 +120,32 @@ const users = {
       cy.wait('@queryGetUsers')
       cy.url().should('eq', `${Cypress.config().baseUrl}/users`)
     },
-    // update: () => {
-    //   users.navigation.show()
-    //   cy.getBySel('datatable').find('tbody tr').find('[data-test="update"]').first().click()
-    //
-    //   cy.php('App\\Models\\Promo::latest()->first()').then((promo) => {
-    //     cy.url().should('eq', `${Cypress.config().baseUrl}/promotions/${promo.id}/update`)
-    //   })
-    //   cy.wait('@queryGetPromotions')
-    // },
+    update: (user: CyUser) => {
+      users.navigation.show()
+
+      cy.toggleElement('btn.filter', true)
+
+      // filter by name
+      cy.getBySel('filter.user.first_name')
+        .find('input')
+        .clear()
+        .type(user.first_name)
+        .then(() => {
+          cy.wait('@queryGetUsers')
+
+          cy.getBySel('datatable')
+            .find('tbody tr')
+            .contains(user.first_name)
+            .parents('tr')
+            .find('[data-test="update"]')
+            .click()
+          cy.url().should('eq', `${Cypress.config().baseUrl}/users/${user.id}/update`)
+          cy.wait('@queryGetRoles')
+          cy.wait('@queryGetUsers')
+          cy.wait('@queryGetStates')
+          cy.wait('@queryGetCities')
+        })
+    },
   },
 }
 

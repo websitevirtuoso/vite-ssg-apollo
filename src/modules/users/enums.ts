@@ -1,5 +1,6 @@
-export const userStatuses = ['ACTIVE', 'BLOCKED']
+export const userStatuses = { active: 'ACTIVE', blocked: 'BLOCKED' }
+export const userStatusesItems = [userStatuses.active, userStatuses.blocked]
 export const userStatusColors = [
-  { status: userStatuses[0], color: 'green' },
-  { status: userStatuses[1], color: 'red' },
+  { status: userStatuses.active, color: 'green' },
+  { status: userStatuses.blocked, color: 'red' },
 ]

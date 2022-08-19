@@ -2,12 +2,12 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://127.0.0.1:5173',
+    baseUrl: 'http://127.0.0.1:1500',
     chromeWebSecurity: false,
     defaultCommandTimeout: 6000, // default value 4000
     specPattern: './src/modules/**/*.spec.ts',
     env: {
-      apiUrl: 'http://127.0.0.1:4090',
+      apiUrl: 'http://127.0.0.1:4092',
       userEmail: 'info@rent.com',
       userPassword: 'mainPassword!@#$',
     },
