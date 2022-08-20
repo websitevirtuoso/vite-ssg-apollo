@@ -41,13 +41,21 @@
                 </td>
                 <td>{{ dayjs(user.created_at).format('YYYY-MM-DD HH:mm') }}</td>
                 <td>{{ dayjs(user.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
-                <td v-if="can('update', 'user')">
-                  <action-update :text="t('action.update')" @click="router.push({ name: 'user-update', params: { id: user.id }})" />
+                <td>
+                  <action-update
+                    v-if="can('update', 'user')"
+                    :text="t('action.update')"
+                    @click="router.push({ name: 'user-update', params: { id: user.id }})" />
+                  <update-password
+                    v-if="can('update_password', 'user')"
+                    :text="t('action.edit_password')"
+                    @click="router.push({ name: 'user-update-password', params: { id: user.id }})" />
                   <!-- todo add action to impersonate user -->
                 </td>
               </tr>
             </tbody>
           </v-table>
+          <animated-router-view />
           <v-card-actions>
             <v-spacer />
             <v-btn size="small" color="primary" @click="prev">
@@ -80,6 +88,8 @@ import { ActionCreate, ActionFilter, ActionUpdate } from "@/components/datatable
 import { filter } from "@/composables/useFilter"
 import { userStatusColors } from '../enums'
 import VChipBooleanStatus from "../components/VChipBooleanStatus.vue"
+import UpdatePassword from "@/modules/users/components/UpdatePassword.vue"
+import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
 
 const { t } = useI18n()
 const { can } = useAbility()

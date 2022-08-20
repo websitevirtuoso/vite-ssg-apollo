@@ -12,6 +12,13 @@ const moduleRoutes: Array<RouteRecordRaw> = [
       },
       permission: 'user.view',
     },
+    children: [
+      {
+        name: 'user-update-password',
+        path: '/users/:id/password',
+        component: () => import('./pages/UpdatePassword.vue'),
+      },
+    ],
   },
   {
     name: 'user-create',
