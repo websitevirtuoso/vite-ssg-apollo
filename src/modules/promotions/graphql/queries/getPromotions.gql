@@ -1,7 +1,7 @@
 #import "../fragments/promo.fragment.gql"
 
-query GetPromotions ($pagination: Pagination, $sort: Sortable, $filter: PromoFilter) {
-  promotions (pagination: $pagination, sort: $sort, filter: $filter) {
+query GetPromotions($pagination: Pagination, $sort: Sortable, $filter: PromoFilter) {
+  promotions(pagination: $pagination, sort: $sort, filter: $filter) {
     data {
       ...PromoFragment
     }

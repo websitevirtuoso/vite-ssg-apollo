@@ -1,7 +1,7 @@
 #import "../fragments/city.fragment.gql"
 
-query GetCities ($pagination: Pagination, $sort: Sortable, $filter: CityFilter) {
-  cities (pagination: $pagination, sort: $sort, filter: $filter) {
+query GetCities($pagination: Pagination, $sort: Sortable, $filter: CityFilter) {
+  cities(pagination: $pagination, sort: $sort, filter: $filter) {
     data {
       ...CityFragment
       state {
@@ -18,4 +18,3 @@ query GetCities ($pagination: Pagination, $sort: Sortable, $filter: CityFilter) 
     lastPage
   }
 }
-

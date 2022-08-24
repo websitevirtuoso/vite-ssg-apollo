@@ -11,31 +11,32 @@
       <v-col cols="12">
         <v-card :title="t('messages.city', 2)">
           <div class="table-toolbar">
-            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
-            <action-create v-if="can('upsert' , 'city')" :to="{ name: 'city-create' }"/>
+            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow" />
+            <action-create v-if="can('upsert', 'city')" :to="{ name: 'city-create' }" />
           </div>
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="city in cities.data" :key="city.id">
-              <td>{{ city.id }}</td>
-              <td>{{ city.name }}</td>
-              <td>{{ city.lat }}</td>
-              <td>{{ city.lng }}</td>
-              <td>{{ city.state.name }}</td>
-              <td>{{ city.state.country.name }}</td>
-              <td>
-                <action-update
-                  v-if="can('upsert', 'city')"
-                  :text="t('action.update')"
-                  @click="router.push({ name: 'city-update', params: { id: city.id }})" />
-                <action-view :text="t('action.preview')" @click="showOnMap(city)" />
-              </td>
-            </tr>
+              <tr v-for="city in cities.data" :key="city.id">
+                <td>{{ city.id }}</td>
+                <td>{{ city.name }}</td>
+                <td>{{ city.lat }}</td>
+                <td>{{ city.lng }}</td>
+                <td>{{ city.state.name }}</td>
+                <td>{{ city.state.country.name }}</td>
+                <td>
+                  <action-update
+                    v-if="can('upsert', 'city')"
+                    :text="t('action.update')"
+                    @click="router.push({ name: 'city-update', params: { id: city.id } })"
+                  />
+                  <action-view :text="t('action.preview')" @click="showOnMap(city)" />
+                </td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -51,8 +52,12 @@
 
         <show-city-on-map
           v-if="Object.keys(selectedCity).length !== 0"
-          :name="selectedCity.name" :lat="selectedCity.lat" :lng="selectedCity.lng"
-          :show="show" @close="closeOnMap" />
+          :name="selectedCity.name"
+          :lat="selectedCity.lat"
+          :lng="selectedCity.lng"
+          :show="show"
+          @close="closeOnMap"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -60,20 +65,20 @@
 
 <script setup lang="ts">
 // libs
-import { useI18n } from "vue-i18n"
-import { computed, ref, reactive } from "vue"
-import { useAbility } from "@casl/vue"
-import { useRouter } from "vue-router"
+import { useI18n } from 'vue-i18n'
+import { computed, ref, reactive } from 'vue'
+import { useAbility } from '@casl/vue'
+import { useRouter } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 
 // custom
-import { filter } from "@/composables/useFilter"
-import pagination from "@/composables/usePagination"
+import { filter } from '@/composables/useFilter'
+import pagination from '@/composables/usePagination'
 import GetCities from '../../graphql/queries/getCities.gql'
-import { ActionFilter, ActionCreate, ActionView, ActionUpdate } from "@/components/datatable/index"
-import CityFilter from "@/modules/regions/components/CityFilter.vue"
-import ShowCityOnMap from "@/modules/regions/components/ShowCityOnMap.vue"
-import { City } from "@/modules/regions/types"
+import { ActionFilter, ActionCreate, ActionView, ActionUpdate } from '@/components/datatable/index'
+import CityFilter from '@/modules/regions/components/CityFilter.vue'
+import ShowCityOnMap from '@/modules/regions/components/ShowCityOnMap.vue'
+import { City } from '@/modules/regions/types'
 
 const { t } = useI18n()
 const { can } = useAbility()
@@ -88,9 +93,9 @@ const headers = [
   { text: t('messages.name'), value: 'name' },
   { text: t('messages.lat'), value: 'lat' },
   { text: t('messages.lng'), value: 'lng' },
-  { text: t('messages.state'), value: 'state' }, /* todo make sortable */
-  { text: t('messages.country'), value: 'country' }, /* todo make sortable */
-  can('upsert', 'city') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  { text: t('messages.state'), value: 'state' } /* todo make sortable */,
+  { text: t('messages.country'), value: 'country' } /* todo make sortable */,
+  can('upsert', 'city') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
 
 // tmp functions

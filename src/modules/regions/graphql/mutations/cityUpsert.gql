@@ -1,15 +1,15 @@
 #import "../fragments/city.fragment.gql"
 
-mutation CityUpsert ($id: ID, $name: String!, $lat: Float!, $lng: Float!, $state_id: ID!) {
-    cityUpsert (id: $id, name: $name, lat: $lat, lng: $lng, state_id: $state_id) {
-        ...CityFragment
-        state {
-            id
-            name
-            country {
-                id
-                name
-            }
-        }
+mutation CityUpsert($id: ID, $name: String!, $lat: Float!, $lng: Float!, $state_id: ID!) {
+  cityUpsert(id: $id, name: $name, lat: $lat, lng: $lng, state_id: $state_id) {
+    ...CityFragment
+    state {
+      id
+      name
+      country {
+        id
+        name
+      }
     }
+  }
 }

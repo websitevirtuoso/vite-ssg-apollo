@@ -52,7 +52,7 @@ const updatePost = (setOptionalFields = false, checkDatabaseValues = false) => {
         .and('contain', category.title)
 
       if (checkDatabaseValues) {
-        cy.php(`App\\Models\\Post::first()`)
+        cy.php('App\\Models\\Post::first()')
           // @ts-expect-error variable undefined
           .then((postDB: Post) => {
             expect(postDB.title).to.equal(newPost.title)

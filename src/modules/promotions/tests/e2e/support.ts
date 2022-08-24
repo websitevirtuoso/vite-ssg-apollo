@@ -35,27 +35,6 @@ const promos = {
       },
     }
   },
-  // generateCity: () => {
-  //   return {
-  //     name: faker.lorem.word(10),
-  //   }
-  // },
-  // getCity: () => {
-  //   return (
-  //     cy
-  //       .php(`App\\Models\\City::with('state')->inRandomOrder()->first()`)
-  //       // @ts-expect-error variable undefined
-  //       .then((city: City) => city)
-  //   )
-  // },
-  // getState: () => {
-  //   return (
-  //     cy
-  //       .php(`App\\Models\\State::with('country')->inRandomOrder()->first()`)
-  //       // @ts-expect-error variable undefined
-  //       .then((state: State) => state)
-  //   )
-  // },
   navigation: {
     create: (direct = true) => {
       // visit the url directly

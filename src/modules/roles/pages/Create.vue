@@ -7,26 +7,42 @@
             <v-card-text>
               <Field v-slot="{ field, errors }" name="display_name">
                 <v-text-field
-                  v-bind="field" type="text" :label="t('messages.name')"
-                  :error-messages="errors" data-test="role.display_name" />
+                  v-bind="field"
+                  type="text"
+                  :label="t('messages.name')"
+                  :error-messages="errors"
+                  data-test="role.display_name"
+                />
               </Field>
               <Field v-slot="{ field, errors }" name="description">
                 <v-text-field
-                  v-bind="field" type="text" :label="t('messages.description')"
-                  :error-messages="errors" data-test="role.description" />
+                  v-bind="field"
+                  type="text"
+                  :label="t('messages.description')"
+                  :error-messages="errors"
+                  data-test="role.description"
+                />
               </Field>
               <Field v-slot="{ field, errors }" name="name">
                 <v-text-field
-                  v-bind="field" type="text" :label="t('messages.system_name')"
-                  :error-messages="errors" data-test="role.name" />
+                  v-bind="field"
+                  type="text"
+                  :label="t('messages.system_name')"
+                  :error-messages="errors"
+                  data-test="role.name"
+                />
               </Field>
               <!-- @todo need to add component v-treeview  -->
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                color="primary" type="submit" :loading="loading"
-                :disabled="Object.keys(formErrors).length !== 0" data-test="role.submit">
+                color="primary"
+                type="submit"
+                :loading="loading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                data-test="role.submit"
+              >
                 {{ t('action.create') }}
               </v-btn>
             </v-card-actions>
@@ -41,14 +57,14 @@
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
-import { gqlHandleError } from "@/helpers/handleErrors"
+import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../helpers/validationSchemaRole'
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { Field, Form, SubmissionContext } from 'vee-validate'
 import RoleUpsert from '../graphql/mutations/roleUpsert.gql'
-import { useNotification } from "@/modules/notifications/useNotification"
-import { RoleInput } from "@/modules/roles/types"
+import { useNotification } from '@/modules/notifications/useNotification'
+import { RoleInput } from '@/modules/roles/types'
 
-const router = useRouter();
+const router = useRouter()
 const { t } = useI18n()
 const vSchema = useVSchema(t)
 const notification = useNotification()
@@ -59,11 +75,11 @@ const createRole = ({ name, display_name, description, permission_id }: RoleInpu
   mutate({ name, display_name, description, permission_id })
 
   onDone(() => {
-    notification.success(t('action.create_success'));
+    notification.success(t('action.create_success'))
     router.push({ name: 'roles' })
   })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 /schema.graphql
+/.env
+/.env.testing
+/public.schema.graphql
+/default.schema.graphql

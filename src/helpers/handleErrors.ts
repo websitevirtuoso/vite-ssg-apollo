@@ -1,6 +1,6 @@
 import { SubmissionContext } from 'vee-validate'
 import { ApolloError } from '@apollo/client/core'
-import { useNotification } from '@/modules/notifications/useNotification'
+// import { useNotification } from '@/modules/notifications/useNotification'
 
 export const gqlHandleError = (error: ApolloError, currentForm?: SubmissionContext) => {
   // if form exist and gql error exist do next

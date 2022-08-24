@@ -11,26 +11,29 @@
       <v-col cols="12">
         <v-card :title="t('messages.city_alias', 2)">
           <div class="table-toolbar">
-            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
-            <action-create v-if="can('upsert' , 'city_alias')" :to="{ name: 'city-alias-create' }"/>
+            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow" />
+            <action-create v-if="can('upsert', 'city_alias')" :to="{ name: 'city-alias-create' }" />
           </div>
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="city_alias in city_aliases.data" :key="city_alias.id">
-              <td>{{ city_alias.id }}</td>
-              <td>{{ city_alias.name }}</td>
-              <td>{{ city_alias.city.name }}</td>
-              <td>{{ city_alias.city.state.name }}</td>
-              <td>{{ city_alias.city.state.country.name }}</td>
-              <td v-if="can('upsert', 'city_alias')">
-                <action-update :text="t('action.update')" @click="router.push({ name: 'city-alias-update', params: { id: city_alias.id }})" />
-              </td>
-            </tr>
+              <tr v-for="city_alias in city_aliases.data" :key="city_alias.id">
+                <td>{{ city_alias.id }}</td>
+                <td>{{ city_alias.name }}</td>
+                <td>{{ city_alias.city.name }}</td>
+                <td>{{ city_alias.city.state.name }}</td>
+                <td>{{ city_alias.city.state.country.name }}</td>
+                <td v-if="can('upsert', 'city_alias')">
+                  <action-update
+                    :text="t('action.update')"
+                    @click="router.push({ name: 'city-alias-update', params: { id: city_alias.id } })"
+                  />
+                </td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -49,16 +52,16 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
-import { computed, ref } from "vue"
-import { useAbility } from "@casl/vue"
+import { useI18n } from 'vue-i18n'
+import { computed, ref } from 'vue'
+import { useAbility } from '@casl/vue'
 import { useQuery } from '@vue/apollo-composable'
-import { filter } from "@/composables/useFilter"
-import pagination from "@/composables/usePagination"
+import { filter } from '@/composables/useFilter'
+import pagination from '@/composables/usePagination'
 import GetCityAliases from '../../graphql/queries/getCityAliases.gql'
-import { ActionFilter, ActionCreate, ActionUpdate } from "@/components/datatable/index"
-import CityAliasFilter from "@/modules/regions/components/CityAliasFilter.vue"
-import { useRouter } from "vue-router"
+import { ActionFilter, ActionCreate, ActionUpdate } from '@/components/datatable/index'
+import CityAliasFilter from '@/modules/regions/components/CityAliasFilter.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { can } = useAbility()
@@ -69,9 +72,9 @@ const headers = [
   { text: '#', value: 'id' },
   { text: t('messages.name'), value: 'name' },
   { text: t('messages.city'), value: 'city' },
-  { text: t('messages.state'), value: 'state' }, /* todo make sortable */
-  { text: t('messages.country'), value: 'country' }, /* todo make sortable */
-  can('upsert', 'city_alias') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  { text: t('messages.state'), value: 'state' } /* todo make sortable */,
+  { text: t('messages.country'), value: 'country' } /* todo make sortable */,
+  can('upsert', 'city_alias') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
 
 // tmp functions

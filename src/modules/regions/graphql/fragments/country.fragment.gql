@@ -1,5 +1,5 @@
 fragment CountryFragment on Countries {
-    id
-    code
-    name
+  id
+  code
+  name
 }

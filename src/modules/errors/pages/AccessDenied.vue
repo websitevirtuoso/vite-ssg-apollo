@@ -3,7 +3,7 @@
     <v-container fluid fill-height>
       <v-layout class="align-center justify-center h-screen">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="logo" alt="">
+          <img :src="logo" alt="" />
         </div>
         <div class="text-md-center">
           <h1 class="page_error" data-test="title">403</h1>

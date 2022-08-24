@@ -2,8 +2,8 @@
   <v-navigation-drawer v-model="showLeftSideBar" :rail="preferences.showMiniSideBar" width="230" data-test="side-bar">
     <template #prepend>
       <header class="brand v-toolbar pl-4">
-        <div class="v-toolbar__content" style="height: 64px;">
-          <img :src="logo" height="36" alt="">
+        <div class="v-toolbar__content" style="height: 64px">
+          <img :src="logo" height="36" alt="" />
           <div class="ml-0 pl-5">
             <span class="title hidden-sm-and-down text-white">{{ siteName }}</span>
           </div>
@@ -17,38 +17,38 @@
 </template>
 
 <script setup lang="ts">
-import { usePreferences } from "@/stores/preferences"
-import { useAbility } from "@casl/vue"
+import { usePreferences } from '@/stores/preferences'
+import { useAbility } from '@casl/vue'
 import logo from '@/assets/img/logo.png'
-import SideMenu from "./SideMenu.vue"
-import { MenuStruct, menuItems } from "@/components/navigation/MenuItems"
+import SideMenu from './SideMenu.vue'
+import { MenuStruct, menuItems } from '@/components/navigation/MenuItems'
 import { storeToRefs } from 'pinia'
 
-const siteName = import.meta.env.VITE_APP_NAME;
+const siteName = import.meta.env.VITE_APP_NAME
 const preferences = usePreferences()
 const { can } = useAbility()
 
 const { showLeftSideBar } = storeToRefs(preferences)
 
 /*
-* Exclude all menu items if user doesn't have permission to see them
-* */
+ * Exclude all menu items if user doesn't have permission to see them
+ * */
 function flatFilter(arr: MenuStruct[]) {
-  return arr.filter(item => {
+  return arr.filter((item) => {
     let keep = true
-    if(item.permission) {
+    if (item.permission) {
       const [subject, permission] = item.permission.split('.')
       keep = can(permission, subject)
     }
     if (keep && item.children) {
-      item.children = flatFilter(item.children);
+      item.children = flatFilter(item.children)
     }
-    return keep;
-  });
+    return keep
+  })
 }
 
 // filter second time to remove group of items if this group doesn't have any items
-const allowedMenuItems = flatFilter(menuItems).filter(item => !(item.children && item.children.length === 0))
+const allowedMenuItems = flatFilter(menuItems).filter((item) => !(item.children && item.children.length === 0))
 </script>
 
 <style lang="sass">

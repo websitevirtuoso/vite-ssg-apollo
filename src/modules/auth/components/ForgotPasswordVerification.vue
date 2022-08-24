@@ -6,7 +6,10 @@
         <ol>
           <li>We emailed a password reset link to your email. Please follow the instructions in that email.</li>
           <li>Check the inbox of the email address you use to sign in to your account.</li>
-          <li>Check your Spam or Bulk Mail folders. It's possible that the email we tried to send you was caught by a spam or bulk mail filter in your email system.</li>
+          <li>
+            Check your Spam or Bulk Mail folders. It's possible that the email we tried to send you was caught by a spam or bulk mail filter
+            in your email system.
+          </li>
         </ol>
       </v-card-text>
       <v-card-actions>
@@ -21,7 +24,7 @@
 defineProps({
   show: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>

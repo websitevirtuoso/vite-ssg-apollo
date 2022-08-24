@@ -13,11 +13,18 @@ module.exports = {
     'plugin:cypress/recommended', // cy
     'prettier',
   ],
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+  },
   globals: {
     google: 'readonly', //  to make variable google available without eslint error need to define it as global object
   },
   rules: {
     'object-curly-spacing': ['error', 'always'],
+    semi: ['error', 'never'],
+    quotes: [2, 'single', 'avoid-escape'],
     // have to disable this rule because it is simplify naming props with API variables
     'vue/prop-name-casing': 'off',
     'vue/no-v-html': 'off',

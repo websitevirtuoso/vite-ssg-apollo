@@ -1,7 +1,7 @@
 #import "../fragments/permission.fragment.gql"
 
-query GetPermissions ($pagination: Pagination, $sort: Sortable, $filter: PermissionFilter) {
-  permissions (pagination: $pagination, sort: $sort, filter: $filter) {
+query GetPermissions($pagination: Pagination, $sort: Sortable, $filter: PermissionFilter) {
+  permissions(pagination: $pagination, sort: $sort, filter: $filter) {
     data {
       ...PermissionFragment
     }

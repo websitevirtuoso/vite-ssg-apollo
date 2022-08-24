@@ -1,8 +1,8 @@
 <script>
-import { computed, defineComponent, watch, watchEffect } from "vue"
-import { useQuery } from "@vue/apollo-composable"
+import { computed, defineComponent } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
 import GetCities from '../graphql/queries/getCities.gql'
-import { excludeEmptyValues } from "@/composables/useFilter"
+import { excludeEmptyValues } from '@/composables/useFilter'
 
 export default defineComponent({
   props: {
@@ -30,8 +30,8 @@ export default defineComponent({
     limit: {
       type: Number,
       required: false,
-      default: 50
-    }
+      default: 50,
+    },
   },
   setup(props, { slots, expose }) {
     const queryVariables = computed(() => {
@@ -40,15 +40,16 @@ export default defineComponent({
     })
 
     // debounce in ms
-    const { result, loading, onResult } = useQuery(GetCities, queryVariables, { clientId: 'public', debounce: 500 } )
+    const { result, loading, onResult } = useQuery(GetCities, queryVariables, { clientId: 'public', debounce: 500 })
     const cities = computed(() => result.value?.cities.data ?? [])
 
     expose({ cities, onResult })
 
-    return () => slots.default({
-      items: cities.value,
-      loading: loading.value
-    })
-  }
+    return () =>
+      slots.default({
+        items: cities.value,
+        loading: loading.value,
+      })
+  },
 })
 </script>

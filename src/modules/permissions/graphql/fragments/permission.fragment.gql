@@ -1,8 +1,8 @@
 fragment PermissionFragment on Permissions {
-    id
-    name
-    display_name
-    description
-    created_at
-    updated_at
+  id
+  name
+  display_name
+  description
+  created_at
+  updated_at
 }

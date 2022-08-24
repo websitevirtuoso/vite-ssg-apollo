@@ -1,17 +1,17 @@
 fragment PostFragment on Posts {
+  id
+  title
+  image
+  slug
+  content
+  status
+  meta_title
+  meta_keyword
+  meta_description
+  updated_at
+  created_at
+  category {
     id
     title
-    image
-    slug
-    content
-    status
-    meta_title
-    meta_keyword
-    meta_description
-    updated_at
-    created_at
-    category {
-        id
-        title
-    }
+  }
 }

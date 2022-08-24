@@ -1,7 +1,7 @@
 #import "../fragments/cityAlias.fragment.gql"
 
-mutation CityAliasUpsert ($id: ID, $name: String!, $city_id: ID!) {
-    cityAliasUpsert (id: $id, name: $name, city_id: $city_id) {
-        ...CityAliasFragment
-    }
+mutation CityAliasUpsert($id: ID, $name: String!, $city_id: ID!) {
+  cityAliasUpsert(id: $id, name: $name, city_id: $city_id) {
+    ...CityAliasFragment
+  }
 }

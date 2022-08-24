@@ -1,13 +1,13 @@
 fragment UserFragment on Users {
-    id
-    email
-    address
-    phone
-    postal_code
-    first_name
-    last_name
-    notify
-    status
-    created_at
-    updated_at
+  id
+  email
+  address
+  phone
+  postal_code
+  first_name
+  last_name
+  notify
+  status
+  created_at
+  updated_at
 }

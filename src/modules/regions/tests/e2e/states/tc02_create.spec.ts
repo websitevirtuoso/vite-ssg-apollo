@@ -51,11 +51,7 @@ describe('Create', () => {
           cy.wait('@queryGetStates')
 
           // using filter to get just created state
-          cy.getBySel('datatable')
-            .get('tbody tr')
-            .should('contain', state.name)
-            .and('contain', state.code)
-            .and('contain', state.country)
+          cy.getBySel('datatable').get('tbody tr').should('contain', state.name).and('contain', state.code).and('contain', state.country)
         })
     })
   })

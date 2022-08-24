@@ -1,12 +1,12 @@
 #import "../fragments/category.fragment.gql"
 
-query GetCategories ($pagination: Pagination, $sort: Sortable, $filter: CategoryFilter) {
-    categories (pagination: $pagination, sort: $sort, filter: $filter) {
-        data {
-            ...CategoryFragment
-        }
-        total
-        hasPages
-        lastPage
+query GetCategories($pagination: Pagination, $sort: Sortable, $filter: CategoryFilter) {
+  categories(pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...CategoryFragment
     }
+    total
+    hasPages
+    lastPage
+  }
 }

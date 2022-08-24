@@ -4,26 +4,26 @@
       <v-col cols="12">
         <v-card :title="t('messages.role', 2)">
           <div class="table-toolbar">
-            <action-create v-if="can('upsert' , 'role')" :to="{ name: 'role-create' }"/>
+            <action-create v-if="can('upsert', 'role')" :to="{ name: 'role-create' }" />
           </div>
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="role in roles.data" :key="role.id">
-              <td>{{ role.id }}</td>
-              <td>{{ role.display_name }}</td>
-              <td>{{ role.description }}</td>
-              <td>{{ role.name }}</td>
-              <td>{{ dayjs(role.created_at).format('YYYY-MM-DD HH:mm') }}</td>
-              <td>{{ dayjs(role.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
-              <td v-if="can('upsert', 'role')">
-                <action-update :text="t('action.update')" @click="router.push({ name: 'role-update', params: { id: role.id }})" />
-              </td>
-            </tr>
+              <tr v-for="role in roles.data" :key="role.id">
+                <td>{{ role.id }}</td>
+                <td>{{ role.display_name }}</td>
+                <td>{{ role.description }}</td>
+                <td>{{ role.name }}</td>
+                <td>{{ dayjs(role.created_at).format('YYYY-MM-DD HH:mm') }}</td>
+                <td>{{ dayjs(role.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
+                <td v-if="can('upsert', 'role')">
+                  <action-update :text="t('action.update')" @click="router.push({ name: 'role-update', params: { id: role.id } })" />
+                </td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -42,15 +42,15 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import GetRoles from '../graphql/queries/getRoles.gql'
-import { computed } from "vue"
-import pagination from "@/composables/usePagination"
+import { computed } from 'vue'
+import pagination from '@/composables/usePagination'
 import dayjs from 'dayjs'
-import { ActionCreate, ActionUpdate } from "@/components/datatable/index"
-import { useAbility } from "@casl/vue"
-import { useRouter } from "vue-router"
+import { ActionCreate, ActionUpdate } from '@/components/datatable/index'
+import { useAbility } from '@casl/vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -63,7 +63,7 @@ const headers = [
   { text: t('messages.system_name'), value: 'name' },
   { text: t('messages.created_at'), value: 'created_at' },
   { text: t('messages.updated_at'), value: 'updated_at' },
-  can('upsert', 'role') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  can('upsert', 'role') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
 
 // tmp functions

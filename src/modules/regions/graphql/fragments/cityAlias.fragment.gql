@@ -1,16 +1,16 @@
 fragment CityAliasFragment on CityAliases {
+  id
+  name
+  city {
     id
     name
-    city {
+    state {
+      id
+      name
+      country {
         id
         name
-        state {
-            id
-            name
-            country {
-                id
-                name
-            }
-        }
+      }
     }
+  }
 }

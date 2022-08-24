@@ -1,7 +1,7 @@
 import { App, createApp } from 'vue'
 import Notification from './Notification.vue'
 import { DefaultOptions, notificationInjectionKey } from './types'
-import { Vuetify } from '@vue/runtime-core'
+import { Vuetify } from 'vue'
 
 export default {
   install: (app: App, vuetify: Vuetify, options: DefaultOptions): void => {

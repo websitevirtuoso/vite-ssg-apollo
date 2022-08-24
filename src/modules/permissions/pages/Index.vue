@@ -25,23 +25,23 @@
       <v-col cols="12">
         <v-card :title="t('messages.permission', 2)">
           <div class="table-toolbar">
-            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
+            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow" />
           </div>
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="permission in permissions.data" :key="permission.id">
-              <td>{{ permission.id }}</td>
-              <td>{{ permission.display_name }}</td>
-              <td>{{ permission.description }}</td>
-              <td>{{ permission.name }}</td>
-              <td>{{ dayjs(permission.created_at).format('YYYY-MM-DD HH:mm') }}</td>
-              <td>{{ dayjs(permission.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
-            </tr>
+              <tr v-for="permission in permissions.data" :key="permission.id">
+                <td>{{ permission.id }}</td>
+                <td>{{ permission.display_name }}</td>
+                <td>{{ permission.description }}</td>
+                <td>{{ permission.name }}</td>
+                <td>{{ dayjs(permission.created_at).format('YYYY-MM-DD HH:mm') }}</td>
+                <td>{{ dayjs(permission.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -60,13 +60,13 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import GetPermissions from '../graphql/queries/getPermissions.gql'
-import { computed, ref } from "vue"
-import pagination from "@/composables/usePagination"
+import { computed, ref } from 'vue'
+import pagination from '@/composables/usePagination'
 import dayjs from 'dayjs'
-import { ActionFilter, FilterByText } from "@/components/datatable/index"
+import { ActionFilter, FilterByText } from '@/components/datatable/index'
 
 const { t } = useI18n()
 const filtersShow = ref(false)

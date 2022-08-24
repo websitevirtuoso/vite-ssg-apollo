@@ -1,26 +1,18 @@
 <template>
-  <v-snackbar
-    v-model="show"
-    :color="color"
-    :timeout="timeout"
-    :multi-line="multiline"
-    data-test="notification"
-  >
+  <v-snackbar v-model="show" :color="color" :timeout="timeout" :multi-line="multiline" data-test="notification">
     {{ message }}
     <template #actions>
-      <v-btn color="black" text @click="close">
-        Close
-      </v-btn>
+      <v-btn color="black" text @click="close"> Close </v-btn>
     </template>
   </v-snackbar>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { Options } from "./types";
+import { defineComponent } from 'vue'
+import { Options } from './types'
 
 export default defineComponent({
-  name: "Notification",
+  name: 'Notification',
   props: {
     defaultTimeout: {
       type: Number,
@@ -38,7 +30,7 @@ export default defineComponent({
       color: '',
       timeout: this.defaultTimeout,
       multiline: this.defaultMultiLine,
-    };
+    }
   },
   methods: {
     success(msg: string, opt?: Options) {
@@ -60,8 +52,8 @@ export default defineComponent({
       this.showNotification()
     },
     changeOptions(opt?: Options) {
-      if(opt){
-        Object.keys(opt).forEach(key => {
+      if (opt) {
+        Object.keys(opt).forEach((key) => {
           // @ts-expect-error for props
           this[key] = opt[key as keyof Options]
         })
@@ -74,5 +66,5 @@ export default defineComponent({
       this.show = false
     },
   },
-});
+})
 </script>

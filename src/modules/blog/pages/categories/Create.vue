@@ -6,16 +6,18 @@
           <v-card :title="t('messages.create_', { title: 'category' })">
             <v-card-text>
               <Field v-slot="{ field, errors }" name="title">
-                <v-text-field
-                    v-bind="field" type="text" :label="t('messages.title')"
-                    :error-messages="errors" data-test="category.title" />
+                <v-text-field v-bind="field" type="text" :label="t('messages.title')" :error-messages="errors" data-test="category.title" />
               </Field>
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                  color="primary" type="submit" :loading="loading"
-                  :disabled="Object.keys(formErrors).length !== 0" data-test="category.submit">
+                color="primary"
+                type="submit"
+                :loading="loading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                data-test="category.submit"
+              >
                 {{ t('action.create') }}
               </v-btn>
             </v-card-actions>
@@ -30,13 +32,13 @@
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
-import { gqlHandleError } from "@/helpers/handleErrors"
+import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../../helpers/validationSchemaCategory'
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { Field, Form, SubmissionContext } from 'vee-validate'
 import CategoryUpsert from '../../graphql/mutations/categoryUpsert.gql'
-import { useNotification } from "@/modules/notifications/useNotification"
+import { useNotification } from '@/modules/notifications/useNotification'
 
-const router = useRouter();
+const router = useRouter()
 const { t } = useI18n()
 const vSchema = useVSchema(t)
 const notification = useNotification()
@@ -47,11 +49,11 @@ const createCategory = ({ title }: { title: string }, form: SubmissionContext) =
   mutate({ title })
 
   onDone(() => {
-    notification.success(t('action.create_success'));
+    notification.success(t('action.create_success'))
     router.push({ name: 'categories' })
   })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

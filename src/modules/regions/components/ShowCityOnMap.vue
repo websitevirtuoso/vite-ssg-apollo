@@ -5,12 +5,14 @@
       <v-card-title class="text-h5 grey lighten-2">{{ name }}</v-card-title>
 
       <v-card-text>
-        <g-map-map :center="{ lat, lng }" :zoom="9" :options="{ zoomControl: true, clickableIcons: false, disableDefaultUI: true }" style="width: 500px; height: 45vh;">
+        <g-map-map
+          :center="{ lat, lng }"
+          :zoom="9"
+          :options="{ zoomControl: true, clickableIcons: false, disableDefaultUI: true }"
+          style="width: 500px; height: 45vh"
+        >
           <g-map-marker :position="{ lat, lng }" />
         </g-map-map>
-<!--        <show-map-with-marker-->
-<!--          :lat="lat" :lng="lng" width="600px" :zoom="9"-->
-<!--          :options="{ zoomControl: true, clickableIcons: false, disableDefaultUI: true }" />-->
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
@@ -23,27 +25,27 @@
 
 <script setup lang="ts">
 // import ShowMapWithMarker from "@/components/gmap/ShowMapWithMarker.vue"
-import { useI18n } from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
 defineProps({
   show: {
     type: Boolean,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   lat: {
     type: Number,
-    required: true
+    required: true,
   },
   lng: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 })
 
 defineEmits<{

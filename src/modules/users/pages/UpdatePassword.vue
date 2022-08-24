@@ -2,34 +2,45 @@
   <div>
     <v-dialog v-model="dialog" :persistent="true" width="500">
       <v-card :title="t('messages.update_user_password')">
-        <v-card-title class="subheading font-weight-bold text-center">
-          {{ user.first_name }} {{ user.last_name }}
-        </v-card-title>
-        <Form
-          v-slot="{ errors: formErrors }" as="v-form"
-          :validation-schema="vSchema" @submit="updatePassword">
+        <v-card-title class="subheading font-weight-bold text-center"> {{ user.first_name }} {{ user.last_name }} </v-card-title>
+        <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="updatePassword">
           <v-card-text>
             <Field v-slot="{ field, errors }" name="password">
               <v-text-field
-                v-bind="field" :label="t('auth.email')" required :error-messages="errors"
-                data-test="update_password.password" class="mt-5"
-                :type="showPassword ? 'text' : 'password'" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="showPassword = !showPassword" />
+                v-bind="field"
+                :label="t('auth.email')"
+                required
+                :error-messages="errors"
+                data-test="update_password.password"
+                class="mt-5"
+                :type="showPassword ? 'text' : 'password'"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="showPassword = !showPassword"
+              />
             </Field>
 
             <Field v-slot="{ field, errors }" name="passwordConfirmation">
               <v-text-field
-                v-bind="field" :label="t('auth.email')" required :error-messages="errors"
-                data-test="update_password.password_confirmation" :type="showPassword ? 'text' : 'password'" />
+                v-bind="field"
+                :label="t('auth.email')"
+                required
+                :error-messages="errors"
+                data-test="update_password.password_confirmation"
+                :type="showPassword ? 'text' : 'password'"
+              />
             </Field>
           </v-card-text>
 
           <v-card-actions class="pb-3">
             <v-spacer />
-            <v-btn color="green darken-1" text @click="router.push({ name: 'users'})">{{ t('action.cancel') }}</v-btn>
+            <v-btn color="green darken-1" text @click="router.push({ name: 'users' })">{{ t('action.cancel') }}</v-btn>
             <v-btn
-              color="primary" type="submit" :loading="mutationLoading"
-              :disabled="Object.keys(formErrors).length !== 0" data-test="user.submit">
+              color="primary"
+              type="submit"
+              :loading="mutationLoading"
+              :disabled="Object.keys(formErrors).length !== 0"
+              data-test="user.submit"
+            >
               {{ t('action.update') }}
             </v-btn>
           </v-card-actions>
@@ -39,20 +50,19 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 // libs
-import { computed, ref } from "vue"
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from "vue-router"
-import { useMutation, useQuery } from "@vue/apollo-composable"
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { useRoute, useRouter } from 'vue-router'
+import { useMutation, useQuery } from '@vue/apollo-composable'
+import { Field, Form, SubmissionContext } from 'vee-validate'
 
 // custom
-import { gqlHandleError } from "@/helpers/handleErrors"
-import useVSchema from "@/modules/auth/helpers/validationSchemaUpdatePassword"
+import { gqlHandleError } from '@/helpers/handleErrors'
+import useVSchema from '@/modules/auth/helpers/validationSchemaUpdatePassword'
 import UserUpdatePassword from '../graphql/mutations/userUpdatePassword.gql'
-import { useNotification } from "@/modules/notifications/useNotification"
+import { useNotification } from '@/modules/notifications/useNotification'
 import GetUsers from '../graphql/queries/getUsers.gql'
 
 const { t } = useI18n()
@@ -76,7 +86,7 @@ onDone(() => {
 const updatePassword = ({ password }: { password: string }, form: SubmissionContext) => {
   mutate({ id: route.params.id, password })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

@@ -1,8 +1,7 @@
 #import "../fragments/role.fragment.gql"
 
-mutation RoleUpsert ($id: ID, $name: String!, $display_name: String!, $description: String!, $permission_id: [ID]) {
-    roleUpsert (id: $id, name: $name, display_name: $display_name, description: $description, permission_id: $permission_id) {
-        ...RoleFragment
-    }
+mutation RoleUpsert($id: ID, $name: String!, $display_name: String!, $description: String!, $permission_id: [ID]) {
+  roleUpsert(id: $id, name: $name, display_name: $display_name, description: $description, permission_id: $permission_id) {
+    ...RoleFragment
+  }
 }
-

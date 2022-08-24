@@ -25,9 +25,7 @@ export const onGetPlace = (place: google.maps.places.PlaceResult) => {
   ]
   const address: google_addresses[] = []
   searchOption.forEach((item) => {
-    const tmpName = place.address_components.find((gitem: google.maps.GeocoderAddressComponent) =>
-      gitem.types.includes(item.search_field)
-    )
+    const tmpName = place.address_components.find((gitem: google.maps.GeocoderAddressComponent) => gitem.types.includes(item.search_field))
     if (tmpName !== undefined) {
       // @ts-expect-error need to define types
       address.push({ [item.var_name]: tmpName.long_name })

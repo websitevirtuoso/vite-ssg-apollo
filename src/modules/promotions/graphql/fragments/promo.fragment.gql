@@ -1,13 +1,13 @@
 fragment PromoFragment on Promotions {
-    id
-    code
-    discount
-    short_description
-    description
-    use
-    created_at
-    expire_at
-    rules {
-        user_use_once
-    }
+  id
+  code
+  discount
+  short_description
+  description
+  use
+  created_at
+  expire_at
+  rules {
+    user_use_once
+  }
 }

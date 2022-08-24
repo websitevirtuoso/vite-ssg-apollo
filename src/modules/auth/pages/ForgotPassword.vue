@@ -9,8 +9,16 @@
 
         <Field v-slot="{ field, errors }" name="email">
           <v-text-field
-            v-bind="field" :label="t('auth.email')" type="email" required :error-messages="errors"
-            append-inner-icon="mdi-email" autocomplete="username email" data-test="forget_password.email" class="mt-5" />
+            v-bind="field"
+            :label="t('auth.email')"
+            type="email"
+            required
+            :error-messages="errors"
+            append-inner-icon="mdi-email"
+            autocomplete="username email"
+            data-test="forget_password.email"
+            class="mt-5"
+          />
         </Field>
       </v-card-text>
       <v-card-actions>
@@ -18,8 +26,13 @@
           <v-row no-gutters>
             <v-col cols="12">
               <v-btn
-                block color="primary" :loading="loading"
-                :disabled="Object.keys(formErrors).length !== 0" type="submit" data-test="forget_password.submit">
+                block
+                color="primary"
+                :loading="loading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                type="submit"
+                data-test="forget_password.submit"
+              >
                 {{ t('auth.forgot_password') }}
               </v-btn>
             </v-col>
@@ -34,19 +47,18 @@
   </Form>
 </template>
 
-
 <script setup lang="ts">
 // libs
-import { ref } from "vue"
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { Field, Form, SubmissionContext } from 'vee-validate'
 
 // custom
-import { gqlHandleError } from "@/helpers/handleErrors"
-import useVSchema from "@/modules/auth/helpers/validationSchemaForgotPassword"
-import ForgotPassword from "@/modules/auth/graphql/mutations/forgotPassword.gql"
-import ForgotPasswordVerification from "@/modules/auth/components/ForgotPasswordVerification.vue"
+import { gqlHandleError } from '@/helpers/handleErrors'
+import useVSchema from '@/modules/auth/helpers/validationSchemaForgotPassword'
+import ForgotPassword from '@/modules/auth/graphql/mutations/forgotPassword.gql'
+import ForgotPasswordVerification from '@/modules/auth/components/ForgotPasswordVerification.vue'
 
 const { t } = useI18n()
 const vSchema = useVSchema(t)
@@ -59,10 +71,10 @@ onDone(() => {
 })
 
 const forgotPassword = ({ email }: { email: string }, form: SubmissionContext) => {
-  const host = window.location.protocol + "//" + window.location.host
+  const host = window.location.protocol + '//' + window.location.host
   mutate({ email, route_update_password: `${host}/update-password/:token/email/:email/` })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

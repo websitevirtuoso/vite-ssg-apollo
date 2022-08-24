@@ -1,26 +1,26 @@
 #import "../fragments/user.fragment.gql"
 
-query GetUsers ($pagination: Pagination, $sort: Sortable, $filter: UserFilter) {
-    users (pagination: $pagination, sort: $sort, filter: $filter) {
-        data {
-            ...UserFragment
-            roles {
-                id
-                name
-                display_name
-            }
-            city {
-                id
-                state {
-                    id
-                    country {
-                        id
-                    }
-                }
-            }
+query GetUsers($pagination: Pagination, $sort: Sortable, $filter: UserFilter) {
+  users(pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...UserFragment
+      roles {
+        id
+        name
+        display_name
+      }
+      city {
+        id
+        state {
+          id
+          country {
+            id
+          }
         }
-        total
-        hasPages
-        lastPage
+      }
     }
+    total
+    hasPages
+    lastPage
+  }
 }

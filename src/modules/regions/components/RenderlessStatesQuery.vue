@@ -1,8 +1,8 @@
 <script>
 import { computed, defineComponent } from 'vue'
-import { useQuery } from "@vue/apollo-composable"
+import { useQuery } from '@vue/apollo-composable'
 import GetStates from '../graphql/queries/getStates.gql'
-import { excludeEmptyValues } from "@/composables/useFilter"
+import { excludeEmptyValues } from '@/composables/useFilter'
 
 export default defineComponent({
   props: {
@@ -22,7 +22,7 @@ export default defineComponent({
     country_ids: {
       type: Array,
       required: false,
-    }
+    },
   },
   setup(props, { slots, expose }) {
     const queryVariables = computed(() => {
@@ -34,10 +34,11 @@ export default defineComponent({
 
     expose({ states, onResult })
 
-    return () => slots.default({
-      items: states.value,
-      loading: loading.value
-    })
-  }
+    return () =>
+      slots.default({
+        items: states.value,
+        loading: loading.value,
+      })
+  },
 })
 </script>

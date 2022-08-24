@@ -1,4 +1,4 @@
-import { intercepts, promos, CyPromo } from './support'
+import { intercepts, promos } from './support'
 
 describe('Update', () => {
   before(() => {
@@ -21,7 +21,7 @@ describe('Update', () => {
     cy.getBySel('promo.use').find('input').clear()
     cy.getBySel('promo.expire_at').clear()
     cy.getBySel('promo.short_description').find('input').clear()
-    cy.getBySel('promo.description').findEditorField().type(`{selectall}{backspace}`)
+    cy.getBySel('promo.description').findEditorField().type('{selectall}{backspace}')
     cy.getBySel('promo.submit').should('be.disabled')
 
     cy.getBySel('promo.code').errorValidation('Code is a required field')
@@ -36,35 +36,32 @@ describe('Update', () => {
   })
 
   it('should update', () => {
-    // @ts-expect-error promo unknown type
-    cy.php('App\\Models\\Promo::latest()->first()').then((promo: CyPromo) => {
-      const newPromo = promos.generatePromo()
+    const newPromo = promos.generatePromo()
 
-      cy.getBySel('promo.code').find('input').clear().type(newPromo.code)
-      cy.getBySel('promo.discount').find('input').clear().type(String(newPromo.discount))
-      cy.getBySel('promo.use').find('input').clear().type(String(newPromo.use))
-      cy.getBySel('promo.expire_at').clear().type(newPromo.expire_at)
-      cy.getBySel('promo.short_description').find('input').clear().type(newPromo.short_description)
-      cy.getBySel('promo.description').findEditorField().type(`{selectall}{backspace}${newPromo.description}`)
-      cy.getBySel('promo.submit').click()
+    cy.getBySel('promo.code').find('input').clear().type(newPromo.code)
+    cy.getBySel('promo.discount').find('input').clear().type(String(newPromo.discount))
+    cy.getBySel('promo.use').find('input').clear().type(String(newPromo.use))
+    cy.getBySel('promo.expire_at').clear().type(newPromo.expire_at)
+    cy.getBySel('promo.short_description').find('input').clear().type(newPromo.short_description)
+    cy.getBySel('promo.description').findEditorField().type(`{selectall}{backspace}${newPromo.description}`)
+    cy.getBySel('promo.submit').click()
 
-      cy.wait('@mutationPromoUpsert').then(({ response }) => {
-        // @ts-expect-error undefined variable
-        expect(response.body.data.promoUpsert).to.exist
-        // @ts-expect-error undefined variable
-        expect(response.body.data.promoUpsert.id).to.exist
-      })
-
-      cy.notification('Record has been updated')
-      cy.url().should('eq', `${Cypress.config().baseUrl}/promotions`)
-      cy.wait('@queryGetPromotions')
-
-      cy.getBySel('datatable')
-        .get('tbody tr')
-        .should('contain', newPromo.code.toUpperCase())
-        .and('contain', newPromo.discount)
-        .and('contain', newPromo.use)
-        .and('contain', newPromo.short_description)
+    cy.wait('@mutationPromoUpsert').then(({ response }) => {
+      // @ts-expect-error undefined variable
+      expect(response.body.data.promoUpsert).to.exist
+      // @ts-expect-error undefined variable
+      expect(response.body.data.promoUpsert.id).to.exist
     })
+
+    cy.notification('Record has been updated')
+    cy.url().should('eq', `${Cypress.config().baseUrl}/promotions`)
+    cy.wait('@queryGetPromotions')
+
+    cy.getBySel('datatable')
+      .get('tbody tr')
+      .should('contain', newPromo.code.toUpperCase())
+      .and('contain', newPromo.discount)
+      .and('contain', newPromo.use)
+      .and('contain', newPromo.short_description)
   })
 })

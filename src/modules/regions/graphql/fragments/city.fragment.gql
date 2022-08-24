@@ -1,6 +1,6 @@
 fragment CityFragment on Cities {
-    id
-    name
-    lat
-    lng
+  id
+  name
+  lat
+  lng
 }

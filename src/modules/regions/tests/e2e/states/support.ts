@@ -18,7 +18,7 @@ const intercepts = () => {
 const states = {
   generateState: () => {
     // @ts-expect-error variable undefined
-    return cy.php(`App\\Models\\Country::first()`).then((country: Country) => {
+    return cy.php('App\\Models\\Country::first()').then((country: Country) => {
       return {
         name: faker.lorem.word(10),
         code: faker.address.stateAbbr(),
@@ -29,7 +29,7 @@ const states = {
   },
   getState: () => {
     // @ts-expect-error variable undefined
-    return cy.php(`App\\Models\\State::with('country')->first()`).then((state: State) => {
+    return cy.php('App\\Models\\State::with(\'country\')->first()').then((state: State) => {
       return {
         id: state.id,
         name: state.name,
@@ -76,12 +76,7 @@ const states = {
         .then(() => {
           cy.wait('@queryGetStates')
 
-          cy.getBySel('datatable')
-            .find('tbody tr')
-            .contains(state.name)
-            .parents('tr')
-            .find('[data-test="update"]')
-            .click()
+          cy.getBySel('datatable').find('tbody tr').contains(state.name).parents('tr').find('[data-test="update"]').click()
           cy.url().should('eq', `${Cypress.config().baseUrl}/states/${state.id}/update`)
           cy.wait('@queryGetStates')
         })

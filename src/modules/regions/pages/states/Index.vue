@@ -11,25 +11,25 @@
       <v-col cols="12">
         <v-card :title="t('messages.state', 2)">
           <div class="table-toolbar">
-            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
-            <action-create v-if="can('upsert' , 'state')" :to="{ name: 'state-create' }"/>
+            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow" />
+            <action-create v-if="can('upsert', 'state')" :to="{ name: 'state-create' }" />
           </div>
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="state in states.data" :key="state.id">
-              <td>{{ state.id }}</td>
-              <td>{{ state.code }}</td>
-              <td>{{ state.name }}</td>
-              <td>{{ state.country.name }}</td>
-              <td v-if="can('upsert', 'state')">
-                <action-update :text="t('action.update')" @click="router.push({ name: 'state-update', params: { id: state.id }})" />
-              </td>
-            </tr>
+              <tr v-for="state in states.data" :key="state.id">
+                <td>{{ state.id }}</td>
+                <td>{{ state.code }}</td>
+                <td>{{ state.name }}</td>
+                <td>{{ state.country.name }}</td>
+                <td v-if="can('upsert', 'state')">
+                  <action-update :text="t('action.update')" @click="router.push({ name: 'state-update', params: { id: state.id } })" />
+                </td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -48,16 +48,16 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
-import { computed, ref } from "vue"
-import { useAbility } from "@casl/vue"
+import { useI18n } from 'vue-i18n'
+import { computed, ref } from 'vue'
+import { useAbility } from '@casl/vue'
 import { useQuery } from '@vue/apollo-composable'
-import { filter } from "@/composables/useFilter"
-import pagination from "@/composables/usePagination"
+import { filter } from '@/composables/useFilter'
+import pagination from '@/composables/usePagination'
 import GetStates from '../../graphql/queries/getStates.gql'
-import { ActionFilter, ActionCreate, ActionUpdate } from "@/components/datatable/index"
-import StateFilter from "@/modules/regions/components/StateFilter.vue"
-import { useRouter } from "vue-router";
+import { ActionFilter, ActionCreate, ActionUpdate } from '@/components/datatable/index'
+import StateFilter from '@/modules/regions/components/StateFilter.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { can } = useAbility()
@@ -69,7 +69,7 @@ const headers = [
   { text: t('messages.code'), value: 'code' },
   { text: t('messages.name'), value: 'name' },
   { text: t('messages.country'), value: 'country' },
-  can('upsert', 'state') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  can('upsert', 'state') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
 
 // tmp functions

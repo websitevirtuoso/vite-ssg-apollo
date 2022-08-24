@@ -3,26 +3,45 @@
     <v-row justify="space-around">
       <v-col cols="12" md="8">
         <Form
-          v-slot="{ errors: formErrors }" as="v-form"
+          v-slot="{ errors: formErrors }"
+          as="v-form"
           :initial-values="initialValues"
-          :validation-schema="vSchema" @submit="updateState">
+          :validation-schema="vSchema"
+          @submit="updateState"
+        >
           <v-card :title="t('messages.update_', { title: 'state' })">
             <v-card-text>
               <Field v-slot="{ field, errors, value }" name="name">
                 <v-text-field
-                  v-bind="field" :model-value="value" type="text" :label="t('messages.name')"
-                  :error-messages="errors" data-test="state.name" />
+                  v-bind="field"
+                  :model-value="value"
+                  type="text"
+                  :label="t('messages.name')"
+                  :error-messages="errors"
+                  data-test="state.name"
+                />
               </Field>
               <Field v-slot="{ field, errors, value }" name="code">
                 <v-text-field
-                  v-bind="field" :model-value="value" type="text" :label="t('messages.code')"
-                  :error-messages="errors" data-test="state.code" />
+                  v-bind="field"
+                  :model-value="value"
+                  type="text"
+                  :label="t('messages.code')"
+                  :error-messages="errors"
+                  data-test="state.code"
+                />
               </Field>
               <Field v-slot="{ field, errors, value }" name="country_id">
                 <countries-query v-slot="{ items, loading }">
                   <v-select
-                    v-bind="field" :model-value="value" :items="items" :label="t('messages.country')"
-                    :error-messages="errors" item-title="name" item-value="id" :loading="loading"
+                    v-bind="field"
+                    :model-value="value"
+                    :items="items"
+                    :label="t('messages.country')"
+                    :error-messages="errors"
+                    item-title="name"
+                    item-value="id"
+                    :loading="loading"
                     data-test="state.country"
                   />
                 </countries-query>
@@ -31,8 +50,12 @@
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                color="primary" type="submit" :loading="mutationLoading"
-                :disabled="Object.keys(formErrors).length !== 0" data-test="state.submit">
+                color="primary"
+                type="submit"
+                :loading="mutationLoading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                data-test="state.submit"
+              >
                 {{ t('action.update') }}
               </v-btn>
             </v-card-actions>
@@ -44,19 +67,19 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue"
+import { reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from "vue-router"
-import { gqlHandleError } from "@/helpers/handleErrors"
-import CountriesQuery from "../../components/RenderlessCountriesQuery.vue"
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { useRoute, useRouter } from 'vue-router'
+import { gqlHandleError } from '@/helpers/handleErrors'
+import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
+import { Field, Form, SubmissionContext } from 'vee-validate'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 import GetStates from '../../graphql/queries/getStates.gql'
 import useVSchema from '../../helpers/validationSchemaState'
-import { useNotification } from "@/modules/notifications/useNotification"
-import StateUpsert from "../../graphql/mutations/stateUpsert.gql"
-import { redirectNotFoundIfEmpty } from "@/composables/useRedirect"
-import { StateInput } from "@/modules/regions/types"
+import { useNotification } from '@/modules/notifications/useNotification'
+import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
+import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
+import { StateInput } from '@/modules/regions/types'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -68,7 +91,7 @@ const initialValues = reactive({ id: '', code: '', name: '', country_id: '' })
 const { onResult } = useQuery(GetStates, { filter: { id: [route.params.id] } }, { clientId: 'public' })
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(StateUpsert)
 
-onResult(queryResult => {
+onResult((queryResult) => {
   redirectNotFoundIfEmpty(queryResult.data.states.data[0])
   initialValues.id = queryResult.data.states.data[0].id
   initialValues.code = queryResult.data.states.data[0].code
@@ -77,14 +100,14 @@ onResult(queryResult => {
 })
 
 onDone(() => {
-  notification.success(t('action.update_success'));
+  notification.success(t('action.update_success'))
   router.push({ name: 'states' })
 })
 
 const updateState = ({ code, name, country_id }: StateInput, form: SubmissionContext) => {
   mutate({ id: initialValues.id, code, name, country_id })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

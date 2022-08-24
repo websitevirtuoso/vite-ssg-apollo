@@ -44,12 +44,7 @@ const categories = {
     },
     update: (category: CyCategory) => {
       categories.navigation.show()
-      cy.getBySel('datatable')
-        .find('tbody tr')
-        .contains(category.title)
-        .parents('tr')
-        .find('[data-test="update"]')
-        .click()
+      cy.getBySel('datatable').find('tbody tr').contains(category.title).parents('tr').find('[data-test="update"]').click()
 
       cy.php('App\\Modules\\Categories\\Models\\Category::latest()->first()').then((category) => {
         cy.url().should('eq', `${Cypress.config().baseUrl}/categories/${category.id}/update`)

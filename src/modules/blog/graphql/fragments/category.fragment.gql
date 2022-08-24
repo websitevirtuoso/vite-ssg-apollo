@@ -1,6 +1,6 @@
 fragment CategoryFragment on Categories {
-    id
-    title
-    created_at
-    updated_at
+  id
+  title
+  created_at
+  updated_at
 }

@@ -1,6 +1,6 @@
 <script>
-import { computed, defineComponent } from "vue"
-import { useQuery } from "@vue/apollo-composable"
+import { computed, defineComponent } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
 import GetCountries from '../graphql/queries/getCountries.gql'
 
 export default defineComponent({
@@ -10,10 +10,11 @@ export default defineComponent({
 
     expose({ countries, loading })
 
-    return () => slots.default({
-      items: countries.value,
-      loading: loading.value
-    })
-  }
+    return () =>
+      slots.default({
+        items: countries.value,
+        loading: loading.value,
+      })
+  },
 })
 </script>

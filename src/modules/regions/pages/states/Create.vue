@@ -6,20 +6,22 @@
           <v-card :title="t('messages.create_', { title: 'state' })">
             <v-card-text>
               <Field v-slot="{ field, errors }" name="name">
-                <v-text-field
-                  v-bind="field" type="text" :label="t('messages.name')"
-                  :error-messages="errors" data-test="state.name" />
+                <v-text-field v-bind="field" type="text" :label="t('messages.name')" :error-messages="errors" data-test="state.name" />
               </Field>
               <Field v-slot="{ field, errors }" name="code">
-                <v-text-field
-                  v-bind="field" type="text" :label="t('messages.code')"
-                  :error-messages="errors" data-test="state.code" />
+                <v-text-field v-bind="field" type="text" :label="t('messages.code')" :error-messages="errors" data-test="state.code" />
               </Field>
               <Field v-slot="{ field, errors }" name="country_id">
                 <countries-query v-slot="{ items, loading }">
                   <v-select
-                    v-bind="field" :items="items" :label="t('messages.country')"
-                    :error-messages="errors" item-title="name" item-value="id" :loading="loading" data-test="state.country"
+                    v-bind="field"
+                    :items="items"
+                    :label="t('messages.country')"
+                    :error-messages="errors"
+                    item-title="name"
+                    item-value="id"
+                    :loading="loading"
+                    data-test="state.country"
                   />
                 </countries-query>
               </Field>
@@ -27,8 +29,12 @@
             <v-card-actions class="pb-3">
               <v-spacer />
               <v-btn
-                color="primary" type="submit" :loading="mutationLoading"
-                :disabled="Object.keys(formErrors).length !== 0" data-test="state.submit">
+                color="primary"
+                type="submit"
+                :loading="mutationLoading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                data-test="state.submit"
+              >
                 {{ t('action.create') }}
               </v-btn>
             </v-card-actions>
@@ -43,15 +49,15 @@
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
-import { gqlHandleError } from "@/helpers/handleErrors"
+import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../../helpers/validationSchemaState'
-import { Field, Form, SubmissionContext } from "vee-validate"
+import { Field, Form, SubmissionContext } from 'vee-validate'
 import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
-import CountriesQuery from "../../components/RenderlessCountriesQuery.vue"
-import { useNotification } from "@/modules/notifications/useNotification"
-import { StateInput } from "@/modules/regions/types"
+import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
+import { useNotification } from '@/modules/notifications/useNotification'
+import { StateInput } from '@/modules/regions/types'
 
-const router = useRouter();
+const router = useRouter()
 const { t } = useI18n()
 const vSchema = useVSchema(t)
 const notification = useNotification()
@@ -61,11 +67,11 @@ const createState = ({ code, name, country_id }: StateInput, form: SubmissionCon
   mutate({ code, name, country_id })
 
   onDone(() => {
-    notification.success(t('action.create_success'));
+    notification.success(t('action.create_success'))
     router.push({ name: 'states' })
   })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

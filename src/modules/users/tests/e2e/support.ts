@@ -78,14 +78,14 @@ const users = {
   getRole: () => {
     return (
       cy
-        .php(`App\\Models\\Role::inRandomOrder()->first()`)
+        .php('App\\Models\\Role::inRandomOrder()->first()')
         // @ts-expect-error variable undefined
         .then((role: Role) => role)
     )
   },
   getUser: () => {
     // @ts-expect-error variable undefined
-    return cy.php(`App\\Models\\User::first()`).then((state: State) => {
+    return cy.php('App\\Models\\User::first()').then((state: State) => {
       return {
         id: state.id,
         name: state.name,
@@ -133,12 +133,7 @@ const users = {
         .then(() => {
           cy.wait('@queryGetUsers')
 
-          cy.getBySel('datatable')
-            .find('tbody tr')
-            .contains(user.first_name)
-            .parents('tr')
-            .find('[data-test="update"]')
-            .click()
+          cy.getBySel('datatable').find('tbody tr').contains(user.first_name).parents('tr').find('[data-test="update"]').click()
           cy.url().should('eq', `${Cypress.config().baseUrl}/users/${user.id}/update`)
           cy.wait('@queryGetRoles')
           cy.wait('@queryGetUsers')

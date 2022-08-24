@@ -9,16 +9,27 @@
 
         <Field v-slot="{ field, errors }" name="password">
           <v-text-field
-            v-bind="field" :label="t('auth.email')" required :error-messages="errors"
-            data-test="update_password.password" class="mt-5"
-            :type="showPassword ? 'text' : 'password'" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPassword = !showPassword" />
+            v-bind="field"
+            :label="t('auth.email')"
+            required
+            :error-messages="errors"
+            data-test="update_password.password"
+            class="mt-5"
+            :type="showPassword ? 'text' : 'password'"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
+          />
         </Field>
 
         <Field v-slot="{ field, errors }" name="passwordConfirmation">
           <v-text-field
-            v-bind="field" :label="t('auth.email')" required :error-messages="errors"
-            data-test="update_password.password_confirmation" :type="showPassword ? 'text' : 'password'" />
+            v-bind="field"
+            :label="t('auth.email')"
+            required
+            :error-messages="errors"
+            data-test="update_password.password_confirmation"
+            :type="showPassword ? 'text' : 'password'"
+          />
         </Field>
       </v-card-text>
       <v-card-actions>
@@ -26,8 +37,13 @@
           <v-row no-gutters>
             <v-col cols="12">
               <v-btn
-                block color="primary" :loading="loading"
-                :disabled="Object.keys(formErrors).length !== 0" type="submit" data-test="update_password.submit">
+                block
+                color="primary"
+                :loading="loading"
+                :disabled="Object.keys(formErrors).length !== 0"
+                type="submit"
+                data-test="update_password.submit"
+              >
                 {{ t('auth.change_password') }}
               </v-btn>
             </v-col>
@@ -41,20 +57,19 @@
   </Form>
 </template>
 
-
 <script setup lang="ts">
 // libs
-import { ref } from "vue"
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useMutation } from '@vue/apollo-composable'
-import { Field, Form, SubmissionContext } from "vee-validate"
-import { useRoute, useRouter } from "vue-router"
+import { Field, Form, SubmissionContext } from 'vee-validate'
+import { useRoute, useRouter } from 'vue-router'
 
 // custom
-import { gqlHandleError } from "@/helpers/handleErrors"
-import useVSchema from "@/modules/auth/helpers/validationSchemaUpdatePassword"
-import UpdatePassword from "@/modules/auth/graphql/mutations/updatePassword.gql"
-import { useNotification } from "@/modules/notifications/useNotification"
+import { gqlHandleError } from '@/helpers/handleErrors'
+import useVSchema from '@/modules/auth/helpers/validationSchemaUpdatePassword'
+import UpdatePassword from '@/modules/auth/graphql/mutations/updatePassword.gql'
+import { useNotification } from '@/modules/notifications/useNotification'
 
 const { t } = useI18n()
 const vSchema = useVSchema()
@@ -73,7 +88,7 @@ onDone(() => {
 const updatePassword = ({ password }: { password: string }, form: SubmissionContext) => {
   mutate({ token: route.params.token, password })
 
-  onError(error => {
+  onError((error) => {
     gqlHandleError(error, form)
   })
 }

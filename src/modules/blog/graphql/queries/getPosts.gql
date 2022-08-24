@@ -1,12 +1,12 @@
 #import "../fragments/post.fragment.gql"
 
-query GetPosts ($pagination: Pagination, $sort: Sortable, $filter: PostFilter) {
-    posts (pagination: $pagination, sort: $sort, filter: $filter) {
-        data {
-            ...PostFragment
-        }
-        total
-        hasPages
-        lastPage
+query GetPosts($pagination: Pagination, $sort: Sortable, $filter: PostFilter) {
+  posts(pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...PostFragment
     }
+    total
+    hasPages
+    lastPage
+  }
 }

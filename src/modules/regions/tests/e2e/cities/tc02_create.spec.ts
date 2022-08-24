@@ -34,12 +34,7 @@ describe('Create', () => {
     cities.getState().then((state: State) => {
       const newCity = cities.generateCity()
 
-      cy.getBySel('gmap-autocomplete')
-        .type('Vancouver')
-        .get('div.pac-container .pac-item')
-        .should('be.visible')
-        .first()
-        .click()
+      cy.getBySel('gmap-autocomplete').type('Vancouver').get('div.pac-container .pac-item').should('be.visible').first().click()
       cy.getBySel('city.name').find('input').clear().type(newCity.name)
       cy.getBySel('city.country').vSelect(state.country.name)
       cy.wait('@queryGetStates')

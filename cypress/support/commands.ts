@@ -113,29 +113,26 @@ Cypress.Commands.add('toggleElement', (dataTestAttribute: string, show: boolean)
  * @example
  * cy.gqlRequest('/api/public', '/api/communication/alerts', 'Create Alert');
  */
-Cypress.Commands.add(
-  'gqlRequest',
-  (schemaUrl = '/api', gqlQuery: string, gqlVariables: object, message: string): void => {
-    // get the authentication token from local storage if it exists
-    const token = localStorage.getItem(AUTH_TOKEN)
+Cypress.Commands.add('gqlRequest', (schemaUrl = '/api', gqlQuery: string, gqlVariables: object, message: string): void => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem(AUTH_TOKEN)
 
-    cy.request({
-      log: true,
-      method: 'POST',
-      url: `${Cypress.env('apiUrl')}${schemaUrl}`,
-      headers: {
-        authorization: token ? `Bearer ${token}` : '',
-      },
-      body: {
-        query: gqlQuery,
-        variables: gqlVariables,
-      },
-    }).then(({ body: { data } }) => {
-      cy.log(message)
-      cy.log(data)
-    })
-  }
-)
+  cy.request({
+    log: true,
+    method: 'POST',
+    url: `${Cypress.env('apiUrl')}${schemaUrl}`,
+    headers: {
+      authorization: token ? `Bearer ${token}` : '',
+    },
+    body: {
+      query: gqlQuery,
+      variables: gqlVariables,
+    },
+  }).then(({ body: { data } }) => {
+    cy.log(message)
+    cy.log(data)
+  })
+})
 
 // https://www.cypress.io/blog/2020/02/12/working-with-iframes-in-cypress/
 // @ts-expect-error prevSubject unknown type

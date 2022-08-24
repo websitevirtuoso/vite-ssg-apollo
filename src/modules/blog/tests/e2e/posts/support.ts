@@ -31,7 +31,7 @@ const posts = {
   getCategory: () => {
     return (
       cy
-        .php(`App\\Modules\\Categories\\Models\\Category::first()`)
+        .php('App\\Modules\\Categories\\Models\\Category::first()')
         // @ts-expect-error variable undefined
         .then((category: Category) => category)
     )
@@ -74,12 +74,7 @@ const posts = {
         .then(() => {
           cy.wait('@queryGetPosts')
 
-          cy.getBySel('datatable')
-            .find('tbody tr')
-            .contains(post.title)
-            .parents('tr')
-            .find('[data-test="update"]')
-            .click()
+          cy.getBySel('datatable').find('tbody tr').contains(post.title).parents('tr').find('[data-test="update"]').click()
           cy.url().should('eq', `${Cypress.config().baseUrl}/posts/${post.id}/update`)
           cy.wait('@queryGetPosts')
         })

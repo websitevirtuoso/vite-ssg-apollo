@@ -1,7 +1,7 @@
 #import "../fragments/state.fragment.gql"
 
-query GetStates ($pagination: Pagination, $sort: Sortable, $filter: StateFilter) {
-  states (pagination: $pagination, sort: $sort, filter: $filter) {
+query GetStates($pagination: Pagination, $sort: Sortable, $filter: StateFilter) {
+  states(pagination: $pagination, sort: $sort, filter: $filter) {
     data {
       ...StateFragment
     }

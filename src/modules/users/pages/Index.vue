@@ -11,8 +11,8 @@
       <v-col cols="12">
         <v-card :title="t('messages.user', 2)">
           <div class="table-toolbar">
-            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow"/>
-            <action-create v-if="can('create' , 'user')" :to="{ name: 'user-create' }"/>
+            <action-filter v-model="filtersShow" @click="filtersShow = !filtersShow" />
+            <action-create v-if="can('create', 'user')" :to="{ name: 'user-create' }" />
           </div>
           <v-table data-test="datatable">
             <thead>
@@ -30,7 +30,7 @@
                   <v-chip-boolean-status :status="user.notify" />
                 </td>
                 <td>
-                  <v-chip :color="userStatusColors.find(item => item.status === user.status).color" dark small>
+                  <v-chip :color="userStatusColors.find((item) => item.status === user.status).color" dark small>
                     {{ user.status }}
                   </v-chip>
                 </td>
@@ -45,11 +45,13 @@
                   <action-update
                     v-if="can('update', 'user')"
                     :text="t('action.update')"
-                    @click="router.push({ name: 'user-update', params: { id: user.id }})" />
+                    @click="router.push({ name: 'user-update', params: { id: user.id } })"
+                  />
                   <update-password
                     v-if="can('update_password', 'user')"
                     :text="t('action.edit_password')"
-                    @click="router.push({ name: 'user-update-password', params: { id: user.id }})" />
+                    @click="router.push({ name: 'user-update-password', params: { id: user.id } })"
+                  />
                   <!-- todo add action to impersonate user -->
                 </td>
               </tr>
@@ -74,21 +76,21 @@
 <script setup lang="ts">
 // libs
 import dayjs from 'dayjs'
-import { computed, ref } from "vue"
-import { useI18n } from "vue-i18n"
-import { useAbility } from "@casl/vue"
-import { useRouter } from "vue-router"
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useAbility } from '@casl/vue'
+import { useRouter } from 'vue-router'
 import { useQuery } from '@vue/apollo-composable'
 
 // custom
 import GetUsers from '../graphql/queries/getUsers.gql'
-import pagination from "@/composables/usePagination"
-import UserFilter from "../components/UserFilter.vue"
-import { ActionCreate, ActionFilter, ActionUpdate } from "@/components/datatable/index"
-import { filter } from "@/composables/useFilter"
+import pagination from '@/composables/usePagination'
+import UserFilter from '../components/UserFilter.vue'
+import { ActionCreate, ActionFilter, ActionUpdate } from '@/components/datatable/index'
+import { filter } from '@/composables/useFilter'
 import { userStatusColors } from '../enums'
-import VChipBooleanStatus from "../components/VChipBooleanStatus.vue"
-import UpdatePassword from "@/modules/users/components/UpdatePassword.vue"
+import VChipBooleanStatus from '../components/VChipBooleanStatus.vue'
+import UpdatePassword from '@/modules/users/components/UpdatePassword.vue'
 import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
 
 const { t } = useI18n()
@@ -106,7 +108,7 @@ const headers = [
   { text: t('messages.role'), value: 'role' },
   { text: t('messages.created_at'), value: 'created_at' },
   { text: t('messages.updated_at'), value: 'updated_at' },
-  can('upsert', 'user') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  can('upsert', 'user') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
 
 // tmp functions

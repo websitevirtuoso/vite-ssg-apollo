@@ -5,21 +5,18 @@
         <v-card :title="t('messages.country', 2)">
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">
-                {{ header.text }}
-              </th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">
+                  {{ header.text }}
+                </th>
+              </tr>
             </thead>
             <tbody>
-            <tr
-              v-for="country in countries.data"
-              :key="country.id"
-            >
-              <td>{{ country.id }}</td>
-              <td>{{ country.code }}</td>
-              <td>{{ country.name }}</td>
-            </tr>
+              <tr v-for="country in countries.data" :key="country.id">
+                <td>{{ country.id }}</td>
+                <td>{{ country.code }}</td>
+                <td>{{ country.name }}</td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -38,11 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from "vue-i18n"
+import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import GetCountries from '../../graphql/queries/getCountries.gql'
-import { computed } from "vue"
-import pagination from "@/composables/usePagination"
+import { computed } from 'vue'
+import pagination from '@/composables/usePagination'
 
 const { t } = useI18n()
 

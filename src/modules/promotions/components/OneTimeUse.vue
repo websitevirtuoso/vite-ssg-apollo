@@ -15,15 +15,15 @@
 defineProps({
   modelValue: {
     type: Number,
-    required: true
+    required: true,
   },
   positiveText: {
     type: String,
-    required: true
+    required: true,
   },
   negativeText: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>

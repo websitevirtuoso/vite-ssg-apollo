@@ -85,12 +85,7 @@ const aliases = {
         .then(() => {
           cy.wait('@queryGetCityAliases')
 
-          cy.getBySel('datatable')
-            .find('tbody tr')
-            .contains(alias.name)
-            .parents('tr')
-            .find('[data-test="update"]')
-            .click()
+          cy.getBySel('datatable').find('tbody tr').contains(alias.name).parents('tr').find('[data-test="update"]').click()
           cy.url().should('eq', `${Cypress.config().baseUrl}/city-aliases/${alias.id}/update`)
           cy.wait('@queryGetCityAliases')
         })

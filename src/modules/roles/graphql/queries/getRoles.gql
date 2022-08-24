@@ -1,12 +1,12 @@
 #import "../fragments/role.fragment.gql"
 
-query GetRoles ($pagination: Pagination, $sort: Sortable, $filter: RoleFilter) {
-    roles (pagination: $pagination, sort: $sort, filter: $filter) {
-        data {
-            ...RoleFragment
-        }
-        total
-        hasPages
-        lastPage
+query GetRoles($pagination: Pagination, $sort: Sortable, $filter: RoleFilter) {
+  roles(pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...RoleFragment
     }
+    total
+    hasPages
+    lastPage
+  }
 }

@@ -3,29 +3,31 @@
     <v-row>
       <v-col cols="12">
         <v-card :title="t('messages.category', 2)">
-
           <div class="table-toolbar">
             <action-create v-if="can('upsert', 'category')" :to="{ name: 'category-create' }" />
           </div>
 
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">
-                {{ header.text }}
-              </th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">
+                  {{ header.text }}
+                </th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="category in categories.data" :key="category.id">
-              <td>{{ category.id }}</td>
-              <td>{{ category.title }}</td>
-              <td>{{ dayjs(category.created_at).format('YYYY-MM-DD HH:mm') }}</td>
-              <td>{{ dayjs(category.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
-              <td v-if="can('upsert', 'category')">
-                <action-update :text="t('action.update')" @click="router.push({ name: 'category-update', params: { id: category.id }})" />
-              </td>
-            </tr>
+              <tr v-for="category in categories.data" :key="category.id">
+                <td>{{ category.id }}</td>
+                <td>{{ category.title }}</td>
+                <td>{{ dayjs(category.created_at).format('YYYY-MM-DD HH:mm') }}</td>
+                <td>{{ dayjs(category.updated_at).format('YYYY-MM-DD HH:mm') }}</td>
+                <td v-if="can('upsert', 'category')">
+                  <action-update
+                    :text="t('action.update')"
+                    @click="router.push({ name: 'category-update', params: { id: category.id } })"
+                  />
+                </td>
+              </tr>
             </tbody>
           </v-table>
           <v-card-actions>
@@ -45,14 +47,14 @@
 
 <script setup lang="ts">
 import dayjs from 'dayjs'
-import { computed } from "vue"
-import { useI18n } from "vue-i18n"
-import { useAbility } from "@casl/vue"
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useAbility } from '@casl/vue'
 import { useQuery } from '@vue/apollo-composable'
-import pagination from "@/composables/usePagination"
-import { ActionCreate, ActionUpdate } from "@/components/datatable/index"
+import pagination from '@/composables/usePagination'
+import { ActionCreate, ActionUpdate } from '@/components/datatable/index'
 import GetCategories from '../../graphql/queries/getCategories.gql'
-import { useRouter } from "vue-router"
+import { useRouter } from 'vue-router'
 
 const { can } = useAbility()
 const router = useRouter()
@@ -63,9 +65,8 @@ const headers = [
   { text: t('messages.title'), value: 'title' },
   { text: t('messages.updated_at'), value: 'updated_at' },
   { text: t('messages.created_at'), value: 'created_at' },
-  can('upsert', 'category') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {}
+  can('upsert', 'category') ? { text: t('messages.actions'), value: 'action', width: '15px', align: 'right' } : {},
 ]
-
 
 // tmp functions
 const next = () => {

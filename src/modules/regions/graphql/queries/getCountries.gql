@@ -1,7 +1,7 @@
 #import "../fragments/country.fragment.gql"
 
-query GetCountries ($pagination: Pagination, $sort: Sortable) {
-  countries (pagination: $pagination, sort: $sort) {
+query GetCountries($pagination: Pagination, $sort: Sortable) {
+  countries(pagination: $pagination, sort: $sort) {
     data {
       ...CountryFragment
     }

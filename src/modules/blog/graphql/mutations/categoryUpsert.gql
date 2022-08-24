@@ -1,8 +1,7 @@
 #import "../fragments/category.fragment.gql"
 
-mutation CategoryUpsert ($id: ID, $title: String!) {
-    categoryUpsert (id: $id, title: $title) {
-        ...CategoryFragment
-    }
+mutation CategoryUpsert($id: ID, $title: String!) {
+  categoryUpsert(id: $id, title: $title) {
+    ...CategoryFragment
+  }
 }
-
