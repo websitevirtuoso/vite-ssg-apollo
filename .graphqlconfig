@@ -1,14 +1,18 @@
 {
   "name": "GraphQL Schema",
-  "schemaPath": "./schema.graphql",
   "extensions": {
     "endpoints": {
       "default": {
         "url": "http://localhost:4090/api",
+        "headers": {
+          "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwOTAvYXBpL3B1YmxpYyIsImlhdCI6MTY2MTMxODQ1NywiZXhwIjoxNjYyNTI4MDU3LCJuYmYiOjE2NjEzMTg0NTcsImp0aSI6IjI5aHhTelFGQkdqVkR6S0oiLCJzdWIiOiIyIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.pXautvnKL_Kwe0bWQX4gGPZwQGvl2alDSS_3W8xobS4"
+        },
+        "schemaPath": "./default.schema.graphql",
         "introspect": true
       },
       "public": {
         "url": "http://localhost:4090/api/public",
+        "schemaPath": "./public.schema.graphql",
         "introspect": true
       }
     }
