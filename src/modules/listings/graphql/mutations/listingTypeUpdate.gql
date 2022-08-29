@@ -1,7 +1,7 @@
 #import "../fragments/listingType.fragment.gql"
 
-mutation listingTypeUpdate ($id: ID!, $name: String!, $description: String!) {
-    listingTypeUpdate (id: $id, name: $name, description: $description) {
-        ...ListingTypeFragment
-    }
+mutation listingTypeUpdate($id: ID!, $name: String!, $description: String!) {
+  listingTypeUpdate(id: $id, name: $name, description: $description) {
+    ...ListingTypeFragment
+  }
 }

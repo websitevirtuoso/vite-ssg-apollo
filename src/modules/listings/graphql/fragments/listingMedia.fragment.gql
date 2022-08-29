@@ -1,0 +1,7 @@
+fragment ListingMediaFragment on ListingMedias {
+  id
+  is_local
+  is_primary
+  path
+  position
+}

@@ -29,6 +29,7 @@ export const menuItems: MenuStruct[] = [
     icon: 'mdi-lock',
     permission: 'permission.view',
   },
+  { route: 'listings', name: i18n.global.t('messages.listing', 2), permission: 'listing.view', icon: 'mdi-home' },
   { route: 'users', name: i18n.global.t('messages.user', 2), permission: 'user.view', icon: 'mdi-contacts' },
   { route: 'promos', name: i18n.global.t('messages.promo', 2), icon: 'mdi-bullhorn', permission: 'promo.view' },
   {

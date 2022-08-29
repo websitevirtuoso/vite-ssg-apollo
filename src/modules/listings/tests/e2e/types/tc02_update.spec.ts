@@ -30,10 +30,7 @@ describe('Update', () => {
       listingTypes.navigation.update(listingType)
 
       const newListingType = listingTypes.generateListingType()
-      cy.getBySel('listing_type.description')
-        .find('textarea[name="description"]')
-        .clear()
-        .type(newListingType.description)
+      cy.getBySel('listing_type.description').find('textarea[name="description"]').clear().type(newListingType.description)
       cy.getBySel('listing_type.submit').click()
 
       cy.wait('@mutationListingTypeUpdate').then(({ response }) => {
@@ -47,10 +44,7 @@ describe('Update', () => {
       cy.url().should('eq', `${Cypress.config().baseUrl}/listings/types`)
       cy.wait('@queryGetListingTypes')
 
-      cy.getBySel('datatable')
-        .get('tbody tr')
-        .should('contain', listingType.name)
-        .and('contain', newListingType.description)
+      cy.getBySel('datatable').get('tbody tr').should('contain', listingType.name).and('contain', newListingType.description)
     })
   })
 })

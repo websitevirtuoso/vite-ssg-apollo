@@ -5,19 +5,22 @@
         <v-card :title="t('messages.listing_term', 2)">
           <v-table data-test="datatable">
             <thead>
-            <tr>
-              <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
-            </tr>
+              <tr>
+                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="listing_term in listing_terms.data" :key="listing_term.id">
-              <td>{{ listing_term.id }}</td>
-              <td>{{ listing_term.name }}</td>
-              <td>{{ listing_term.description }}</td>
-              <td v-if="can('update', 'listing_term')">
-                <action-update :text="t('action.update')" @click="router.push({ name: 'listing-term-update', params: { id: listing_term.id }})" />
-              </td>
-            </tr>
+              <tr v-for="listing_term in listing_terms.data" :key="listing_term.id">
+                <td>{{ listing_term.id }}</td>
+                <td>{{ listing_term.name }}</td>
+                <td>{{ listing_term.description }}</td>
+                <td v-if="can('update', 'listing_term')">
+                  <action-update
+                    :text="t('action.update')"
+                    @click="router.push({ name: 'listing-term-update', params: { id: listing_term.id } })"
+                  />
+                </td>
+              </tr>
             </tbody>
           </v-table>
         </v-card>
@@ -27,13 +30,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue"
-import { useI18n } from "vue-i18n"
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useQuery } from '@vue/apollo-composable'
 import GetListingTerms from '../../graphql/queries/getListingTerms.gql'
-import { ActionUpdate } from "@/components/datatable/index"
-import { useAbility } from "@casl/vue"
-import { useRouter } from "vue-router"
+import { ActionUpdate } from '@/components/datatable/index'
+import { useAbility } from '@casl/vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { can } = useAbility()
@@ -43,7 +46,7 @@ const headers = [
   { text: '#', value: 'id' },
   { text: t('messages.name'), value: 'name' },
   { text: t('messages.description'), value: 'description' },
-  can('update', 'listing_term') ? { text: t('messages.actions'), value: 'action', sortable: false, align: 'right' } : {}
+  can('update', 'listing_term') ? { text: t('messages.actions'), value: 'action', sortable: false, align: 'right' } : {},
 ]
 
 const { result } = useQuery(GetListingTerms, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })

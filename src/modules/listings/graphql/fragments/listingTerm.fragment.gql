@@ -1,5 +1,5 @@
 fragment ListingTermFragment on ListingTerms {
-    id
-    name
-    description
+  id
+  name
+  description
 }

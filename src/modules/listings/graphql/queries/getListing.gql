@@ -1,0 +1,66 @@
+#import "../fragments/listing.fragment.gql"
+#import "../fragments/listingMedia.fragment.gql"
+#import "../fragments/listingTerm.fragment.gql"
+#import "../fragments/listingType.fragment.gql"
+
+query GetListing($id: [ID]!) {
+  listings(filter: { id: $id }) {
+    data {
+      ...ListingFragment
+      bathrooms
+      bedrooms
+      description
+      initiator {
+        id
+        name
+        url
+      }
+      available_at
+      expire_at
+      pets
+      price
+      deposit
+      lat
+      lng
+      postal_code
+      square_feet
+      term {
+        ...ListingTermFragment
+      }
+      type {
+        ...ListingTypeFragment
+      }
+      media {
+        ...ListingMediaFragment
+      }
+      user {
+        id
+        first_name
+        last_name
+        email
+        address
+        postal_code
+        notify
+        status
+        created_at
+        updated_at
+        city {
+          id
+          name
+          state {
+            id
+            name
+            country {
+              id
+              code
+            }
+          }
+        }
+        roles {
+          id
+          display_name
+        }
+      }
+    }
+  }
+}

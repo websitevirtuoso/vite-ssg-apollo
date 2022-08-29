@@ -1,0 +1,22 @@
+fragment ListingFragment on Listings {
+  id
+  status
+  price
+  address
+  created_at
+  updated_at
+  features
+  city {
+    id
+    name
+    state {
+      id
+      name
+      country {
+        id
+        name
+        code
+      }
+    }
+  }
+}

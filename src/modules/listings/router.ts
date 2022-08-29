@@ -52,6 +52,57 @@ const moduleListingTermRoutes = [
   },
 ]
 
+const moduleListingRoutes = [
+  {
+    name: 'listings',
+    path: '/listings',
+    component: () => import('./pages/listings/Index.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Listing',
+        parent: 'home',
+      },
+      permission: 'listing.view',
+    },
+  },
+  {
+    name: 'listing-create',
+    path: '/listing/create',
+    component: () => import('./pages/listings/Create.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Create',
+        parent: 'listing',
+      },
+      permission: 'listing.create',
+    },
+  },
+  {
+    name: 'listing-update',
+    path: '/listing/:id/update',
+    component: () => import('./pages/listings/Update.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'Update',
+        parent: 'listing',
+      },
+      permission: 'listing.update',
+    },
+  },
+  {
+    name: 'listing-view',
+    path: '/listings/:id/view',
+    component: () => import('./pages/listings/View.vue'),
+    meta: {
+      breadcrumb: {
+        label: 'View',
+        parent: 'listing',
+      },
+      permission: 'listing.view',
+    },
+  },
+]
+
 export default (router: Router, parentName: RouteRecordName) => {
-  ;[...moduleListingTermRoutes, ...moduleListingTypesRoutes].forEach((route) => router.addRoute(parentName, route))
+  ;[...moduleListingTermRoutes, ...moduleListingTypesRoutes, ...moduleListingRoutes].forEach((route) => router.addRoute(parentName, route))
 }

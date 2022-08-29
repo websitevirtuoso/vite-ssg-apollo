@@ -30,10 +30,7 @@ describe('Update', () => {
       listingTerms.navigation.update(listingTerm)
 
       const newListingTerm = listingTerms.generateListingTerm()
-      cy.getBySel('listing_term.description')
-        .find('textarea[name="description"]')
-        .clear()
-        .type(newListingTerm.description)
+      cy.getBySel('listing_term.description').find('textarea[name="description"]').clear().type(newListingTerm.description)
       cy.getBySel('listing_term.submit').click()
 
       cy.wait('@mutationListingTermUpdate').then(({ response }) => {
@@ -47,10 +44,7 @@ describe('Update', () => {
       cy.url().should('eq', `${Cypress.config().baseUrl}/listings/terms`)
       cy.wait('@queryGetListingTerms')
 
-      cy.getBySel('datatable')
-        .get('tbody tr')
-        .should('contain', listingTerm.name)
-        .and('contain', newListingTerm.description)
+      cy.getBySel('datatable').get('tbody tr').should('contain', listingTerm.name).and('contain', newListingTerm.description)
     })
   })
 })

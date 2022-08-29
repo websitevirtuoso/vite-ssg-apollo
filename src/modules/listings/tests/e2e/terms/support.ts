@@ -37,12 +37,7 @@ const listingTerms = {
     update: (listingTerm: CyListingTerm) => {
       listingTerms.navigation.show()
 
-      cy.getBySel('datatable')
-        .find('tbody tr')
-        .contains(listingTerm.name)
-        .parents('tr')
-        .find('[data-test="update"]')
-        .click()
+      cy.getBySel('datatable').find('tbody tr').contains(listingTerm.name).parents('tr').find('[data-test="update"]').click()
       cy.url().should('eq', `${Cypress.config().baseUrl}/listings/terms/${listingTerm.id}/update`)
       cy.wait('@queryGetListingTerms')
     },
