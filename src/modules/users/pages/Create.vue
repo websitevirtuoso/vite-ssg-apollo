@@ -6,11 +6,11 @@
           <v-card :title="t('messages.create_', { title: 'user' })">
             <v-container fluid>
               <v-row>
-                <v-col cols="12" md="6" offset="6">
+                <v-col cols="12" md="6" md-offset="6">
                   <Field v-slot="{ field, errors, value }" name="status">
                     <v-select
                       v-bind="field"
-                      :items="userStatusesItems"
+                      :items="Object.values(User_Status)"
                       :model-value="value"
                       :label="t('messages.status')"
                       :error-messages="errors"
@@ -289,10 +289,10 @@ import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
 import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
 import useGoogleMap from '@/modules/regions/composables/useGoogleMap'
 import { UserInput } from '@/modules/users/types'
-import { userStatuses, userStatusesItems } from '../enums'
+import { MutationUserCreateArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 const { city, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity } = useGoogleMap()
-const initialValues = { phone: [''], status: userStatuses.active }
+const initialValues = { phone: [''], status: User_Status.Active }
 
 const router = useRouter()
 const { t } = useI18n()
@@ -339,7 +339,7 @@ onDone(() => {
 })
 
 const createUser = (
-  { first_name, last_name, email, status, password, phone, notify, address, postal_code, role_id, city_id }: UserInput,
+  { first_name, last_name, email, status, password, phone, notify, address, postal_code, role_id, city_id }: MutationUserCreateArgs,
   form: SubmissionContext
 ) => {
   mutate({ first_name, last_name, email, status, password, phone, notify, address, postal_code, role_id, city_id })

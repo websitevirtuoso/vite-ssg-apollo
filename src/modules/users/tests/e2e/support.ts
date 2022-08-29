@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { City, State } from '@/modules/regions/types'
 import { Role } from '@/modules/auth/utils/types'
-import { userStatusesItems } from '../../enums'
 import { UserInput } from '@/modules/users/types'
 import { CyState } from '@/modules/regions/tests/e2e/states/support'
+import { User_Status } from '../../../../plugins/apollo/schemaTypesGenerated'
 
 interface CyUser extends UserInput {
   id: string | undefined
@@ -30,7 +30,8 @@ const users = {
     return users.getRole().then((role: Role) => {
       // @ts-expect-error unknown type
       return users.getCity().then((city: City) => {
-        const randomStatus = userStatusesItems[Math.floor(Math.random() * userStatusesItems.length)]
+        const userStatuses = Object.values(User_Status)
+        const randomStatus = userStatuses[Math.floor(Math.random() * userStatuses.length)]
         return {
           first_name: faker.name.firstName(),
           last_name: faker.name.firstName(),

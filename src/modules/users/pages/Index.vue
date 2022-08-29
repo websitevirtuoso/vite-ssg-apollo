@@ -88,15 +88,20 @@ import pagination from '@/composables/usePagination'
 import UserFilter from '../components/UserFilter.vue'
 import { ActionCreate, ActionFilter, ActionUpdate } from '@/components/datatable/index'
 import { filter } from '@/composables/useFilter'
-import { userStatusColors } from '../enums'
 import VChipBooleanStatus from '../components/VChipBooleanStatus.vue'
 import UpdatePassword from '@/modules/users/components/UpdatePassword.vue'
 import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
+import { QueryUsersArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 const { t } = useI18n()
 const { can } = useAbility()
 const router = useRouter()
 const filtersShow = ref(false)
+
+const userStatusColors = [
+  { status: User_Status.Active, color: 'green' },
+  { status: User_Status.Blocked, color: 'red' },
+]
 
 const headers = [
   { text: '#', value: 'id' },
@@ -119,6 +124,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(GetUsers, { pagination, filter })
+const { result } = useQuery(GetUsers, { pagination, filter } as QueryUsersArgs, { debounce: 700 })
 const users = computed(() => result.value?.users ?? { data: [] })
 </script>

@@ -65,7 +65,7 @@ describe('Update', () => {
     })
   })
 
-  it.only('should update', () => {
+  it('should update', () => {
     // @ts-expect-error user unknown type
     cy.create('App\\Models\\User').then((originUser: CyUser) => {
       users.navigation.update(originUser)

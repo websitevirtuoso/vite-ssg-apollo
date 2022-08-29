@@ -10,7 +10,7 @@
                   <Field v-slot="{ field, errors, value }" name="status">
                     <v-select
                       v-bind="field"
-                      :items="userStatusesItems"
+                      :items="Object.values(User_Status)"
                       :model-value="value"
                       :label="t('messages.status')"
                       :error-messages="errors"
@@ -281,7 +281,7 @@ import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
 import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
 import useGoogleMap from '@/modules/regions/composables/useGoogleMap'
 import { UserInput } from '@/modules/users/types'
-import { userStatusesItems } from '../enums'
+import { MutationUserUpdateArgs, QueryUsersArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import GetUsers from '../graphql/queries/getUsers.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import { Role } from '@/modules/auth/utils/types'
@@ -309,12 +309,12 @@ const countries = ref(null)
 const states = ref(null)
 const cities = ref(null)
 
-const { onResult } = useQuery(GetUsers, { filter: { id: [route.params.id] } })
+const { onResult } = useQuery(GetUsers, { filter: { id: [route.params.id] } } as QueryUsersArgs)
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(UserUpdate)
 
 onResult(async (queryResult) => {
-  redirectNotFoundIfEmpty(queryResult.data.users.data[0])
-  ;({
+  redirectNotFoundIfEmpty(queryResult.data.users.data[0]);
+  ({
     id: initialValues.id,
     first_name: initialValues.first_name,
     last_name: initialValues.last_name,
@@ -368,7 +368,7 @@ onDone(() => {
 })
 
 const updateUser = (
-  { first_name, last_name, email, status, phone, notify, address, postal_code, role_id, city_id }: UserInput,
+  { first_name, last_name, email, status, phone, notify, address, postal_code, role_id, city_id }: MutationUserUpdateArgs,
   form: SubmissionContext
 ) => {
   mutate({
@@ -383,7 +383,7 @@ const updateUser = (
     postal_code,
     role_id,
     city_id,
-  })
+  } as MutationUserUpdateArgs)
 
   onError((error) => {
     gqlHandleError(error, form)

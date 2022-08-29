@@ -15,7 +15,7 @@
         <v-col cols="12" md="3">
           <v-select
             v-model="rawFilter.status"
-            :items="userStatusesItems"
+            :items="Object.values(User_Status)"
             :label="t('messages.status')"
             density="comfortable"
             clearable
@@ -130,7 +130,7 @@
 // libs
 import { useI18n } from 'vue-i18n'
 // custom
-import { userStatusesItems } from '../enums'
+import { User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import { rawFilter } from '@/composables/useFilter'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import RolesQuery from '@/modules/roles/components/RenderlessRolesQuery.vue'
