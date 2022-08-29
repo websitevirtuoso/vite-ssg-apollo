@@ -114,7 +114,6 @@ const closeOnMap = () => {
   Object.assign(selectedCity, {})
 }
 
-// todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(GetCities, { pagination, filter }, { clientId: 'public' })
+const { result } = useQuery(GetCities, { pagination, filter }, { clientId: 'public', debounce: 700 })
 const cities = computed(() => result.value?.cities ?? { data: [] })
 </script>

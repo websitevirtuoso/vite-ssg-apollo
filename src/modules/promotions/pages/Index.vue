@@ -110,6 +110,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(GetPromotions, { pagination, filter })
+const { result } = useQuery(GetPromotions, { pagination, filter }, { debounce: 700 })
 const promotions = computed(() => result.value?.promotions ?? { data: [] })
 </script>

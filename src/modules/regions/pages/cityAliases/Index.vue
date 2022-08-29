@@ -85,7 +85,6 @@ const prev = () => {
   pagination.page--
 }
 
-// todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(GetCityAliases, { pagination, filter }, { clientId: 'public', debounce: 3000 })
+const { result } = useQuery(GetCityAliases, { pagination, filter }, { clientId: 'public', debounce: 700 })
 const city_aliases = computed(() => result.value?.city_aliases ?? { data: [] })
 </script>
