@@ -4,7 +4,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://127.0.0.1:1500',
     chromeWebSecurity: false,
-    defaultCommandTimeout: 6000, // default value 4000
+    defaultCommandTimeout: 10000, // default value 4000
     specPattern: './src/modules/**/*.spec.ts',
     env: {
       apiUrl: 'http://127.0.0.1:4092',
