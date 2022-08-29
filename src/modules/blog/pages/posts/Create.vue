@@ -28,7 +28,7 @@
                   <Field v-slot="{ field, errors }" name="status">
                     <v-select
                       v-bind="field"
-                      :items="postStatuses"
+                      :items="Object.values(Post_Status)"
                       :label="t('messages.status')"
                       :error-messages="errors"
                       data-test="post.status"
@@ -106,7 +106,6 @@ import { useMutation } from '@vue/apollo-composable'
 import { Field, Form, SubmissionContext } from 'vee-validate'
 
 // custom
-import { postStatuses } from '../../constants/enums'
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../../helpers/validationSchemaPost'
 import PostUpsert from '../../graphql/mutations/postUpsert.gql'
@@ -114,6 +113,7 @@ import CategorySelect from '../../components/Categories.vue'
 import Wysiwyg from '@/components/fields/Wysiwyg.vue'
 import { useNotification } from '@/modules/notifications/useNotification'
 import { PostInput } from '@/modules/blog/types'
+import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 const router = useRouter()
 const { t } = useI18n()

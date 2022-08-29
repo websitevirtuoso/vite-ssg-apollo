@@ -20,7 +20,7 @@
         <v-col cols="12" md="3">
           <v-select
             v-model="rawFilter.status"
-            :items="postStatuses"
+            :items="Object.values(Post_Status)"
             :label="t('messages.status')"
             dense
             clearable
@@ -36,7 +36,7 @@
 import { useI18n } from 'vue-i18n'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import { rawFilter } from '@/composables/useFilter'
-import { postStatuses } from '../constants/enums'
+import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 const { t } = useI18n()
 </script>

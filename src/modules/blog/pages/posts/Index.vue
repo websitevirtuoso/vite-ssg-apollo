@@ -101,6 +101,6 @@ const prev = () => {
   pagination.page--
 }
 
-const { result } = useQuery(GetPosts, { pagination, filter }, { clientId: 'public' })
+const { result } = useQuery(GetPosts, { pagination, filter }, { clientId: 'public', debounce: 700 })
 const posts = computed(() => result.value?.posts ?? { data: [] })
 </script>

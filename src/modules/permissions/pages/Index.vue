@@ -30,7 +30,7 @@
           <v-table data-test="datatable">
             <thead>
               <tr>
-                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+                <th v-for="header in headers" :key="header.text" class="text-left">{{ header.text }}</th>
               </tr>
             </thead>
             <tbody>
@@ -67,10 +67,11 @@ import { computed, ref } from 'vue'
 import pagination from '@/composables/usePagination'
 import dayjs from 'dayjs'
 import { ActionFilter, FilterByText } from '@/components/datatable/index'
+import { PermissionFilter } from '@/plugins/apollo/schemaTypesGenerated'
 
 const { t } = useI18n()
 const filtersShow = ref(false)
-const filter = ref({})
+const filter = ref({}) as PermissionFilter
 
 const headers = [
   { text: '#', value: 'id' },
@@ -89,7 +90,6 @@ const prev = () => {
   pagination.page--
 }
 
-// todo filters very reactive need to add debounce for filters input
-const { result } = useQuery(GetPermissions, { pagination, filter })
+const { result } = useQuery(GetPermissions, { pagination, filter }, { debounce: 700 })
 const permissions = computed(() => result.value?.permissions ?? { data: [] })
 </script>

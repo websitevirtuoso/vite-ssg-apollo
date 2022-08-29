@@ -38,7 +38,7 @@
                     <v-select
                       v-bind="field"
                       :model-value="value"
-                      :items="postStatuses"
+                      :items="Object.values(Post_Status)"
                       :label="t('messages.status')"
                       :error-messages="errors"
                       data-test="post.status"
@@ -130,7 +130,7 @@ import { Field, Form, SubmissionContext } from 'vee-validate'
 import { useQuery, useMutation } from '@vue/apollo-composable'
 
 // custom
-import { postStatuses } from '../../constants/enums'
+import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import Wysiwyg from '@/components/fields/Wysiwyg.vue'
 import { gqlHandleError } from '@/helpers/handleErrors'
 import CategorySelect from '../../components/Categories.vue'

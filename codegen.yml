@@ -1,0 +1,14 @@
+overwrite: true
+schema: '${VITE_GRAPHQL_HTTP}/public'
+generates:
+  ./src/plugins/apollo/schemaTypesGenerated.ts:
+    schema:
+      - ${VITE_GRAPHQL_HTTP}:
+          headers:
+            Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjQwOTAvYXBpL3B1YmxpYyIsImlhdCI6MTY2MTc0ODA1OCwiZXhwIjoxNjYyOTU3NjU4LCJuYmYiOjE2NjE3NDgwNTgsImp0aSI6IkNnajl5eHNsdnh0TVNKdG0iLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.EEfHLmQgYGMn5XqLY2SKA7wxq-xCEn2rjD6S0IaXvG8"
+    plugins:
+      - typescript
+    hooks:
+      afterOneFileWrite:
+        - prettier --config ./.prettierrc ./src/plugins/schemaTypesGenerated.ts --write
+        - eslint --fix ./src/plugins/schemaTypesGenerated.ts

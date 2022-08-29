@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { Category, PostInput } from '../../../types'
-import { postStatuses } from '../../../constants/enums'
+import { Post_Status } from '../../../../../plugins/apollo/schemaTypesGenerated'
 
 interface CyPost extends PostInput {
   id: string | undefined
@@ -17,6 +17,7 @@ const posts = {
     cy.php("DB::table('categories')->delete(); DB::table('posts')->delete();")
   },
   generatePosts: () => {
+    const postStatuses = Object.values(Post_Status)
     const randomStatus = postStatuses[Math.floor(Math.random() * postStatuses.length)]
     return {
       title: faker.lorem.word(10),
