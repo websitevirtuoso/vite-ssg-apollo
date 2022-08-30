@@ -1,0 +1,20 @@
+#import "../fragments/listing.fragment.gql"
+
+query GetListings($pagination: Pagination, $sort: Sortable, $filter: ListingFilter, $mediaOnlyPrimary: Boolean!) {
+  listings(pagination: $pagination, sort: $sort, filter: $filter) {
+    data {
+      ...ListingFragment
+      media(filter: { is_primary: $mediaOnlyPrimary }) {
+        path
+      }
+      user {
+        id
+        first_name
+        last_name
+      }
+    }
+    total
+    hasPages
+    lastPage
+  }
+}

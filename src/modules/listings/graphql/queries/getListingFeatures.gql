@@ -1,0 +1,13 @@
+query GetListingFeatures {
+  listing_features {
+    amenities {
+      desc
+    }
+    utilities {
+      desc
+    }
+    accessibility {
+      desc
+    }
+  }
+}
