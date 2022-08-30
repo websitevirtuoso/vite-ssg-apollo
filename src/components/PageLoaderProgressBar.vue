@@ -1,11 +1,5 @@
 <template>
-  <v-progress-linear
-    :active="loading"
-    :indeterminate="loading"
-    absolute
-    bottom
-    color="primary"
-  />
+  <v-progress-linear :active="loading" :indeterminate="loading" absolute bottom color="primary" />
 </template>
 
 <script setup lang="ts">
