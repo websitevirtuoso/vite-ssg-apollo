@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container v-if="Object.keys(listing).length !== 0" fluid>
     <v-row>
       <v-col cols="12">
         <v-toolbar color="white elevation-4" density="compact" class="no-overflow">
@@ -10,8 +10,10 @@
             <!-- todo need to add confirmation before removing-->
             <action-delete v-if="can('delete', 'listing')" variant="flat" @click="deleteListing" />
             <action-update
-              v-if="can('update', 'listing')" :text="t('action.update')"
-              @click="router.push({ name: 'listing-update', params: { id: listing.id } })" />
+              v-if="can('update', 'listing')"
+              :text="t('action.update')"
+              @click="router.push({ name: 'listing-update', params: { id: listing.id } })"
+            />
             <action-create v-if="can('create', 'listing')" variant="flat" :to="{ name: 'listing-create' }" />
           </div>
         </v-toolbar>
@@ -35,13 +37,7 @@
           </v-card-title>
           <v-card-subtitle> {{ listing.city.state.country.name }}, {{ listing.city.state.name }}, {{ listing.city.name }} </v-card-subtitle>
           <v-card-text>
-            <v-chip
-              v-for="(r, i) in roomFields"
-              :key="i"
-              class="ma-1"
-              :class="r.class"
-              text-color="white"
-            >
+            <v-chip v-for="(r, i) in roomFields" :key="i" class="ma-1" :class="r.class" text-color="white">
               <v-avatar left>
                 <v-icon color="white">{{ r.icon }}</v-icon>
               </v-avatar>
@@ -74,7 +70,7 @@
           <v-card-title>Data feed details</v-card-title>
           <v-divider />
           <v-card-text v-if="listing.initiator" class="pa-0">
-            <data-feed-table :initiator="listing.initiator"/>
+            <data-feed-table :initiator="listing.initiator" />
           </v-card-text>
           <v-card-text v-else class="py-2">
             <v-tooltip :text="t('messages.no_auto_generated')" location="top">
@@ -105,7 +101,7 @@ import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import GetListing from '../../graphql/queries/getListing.gql'
 import DataFeedTable from '../../components/listingView/DetaFeedTable.vue'
 import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
-import { statusesWithColors } from '@/modules/listings/helpers/listing'
+import { getStatusColor } from '@/modules/listings/helpers/listing'
 import PetOptions from '@/modules/listings/components/listingView/PetOptions.vue'
 import ActionUpdate from '@/modules/listings/components/listingView/ActionUpdate.vue'
 import ListingFeatures from '@/modules/listings/components/listingView/ListingFeatures.vue'
@@ -133,22 +129,14 @@ const roomFields = computed(() => {
     {
       value: listing.bedrooms === 0 ? 'messages.studio' : listing.bedrooms,
       icon: 'mdi-bed-king-outline',
-      text: listing.bedrooms !== 0 ? t('messages.bedrooms') : null,
-      class: 'bg-indigo'
+      text: listing.bedrooms !== 0 ? t('messages.bedroom', 2) : null,
+      class: 'bg-indigo',
     },
-    { value: listing.bathrooms, icon: 'mdi-shower', text: t('messages.bathrooms'), class: 'bg-indigo' },
+    { value: listing.bathrooms, icon: 'mdi-shower', text: t('messages.bathroom', 2), class: 'bg-indigo' },
     { value: listing.square_feet, icon: 'mdi-ruler-square', text: t('messages.square_feet'), class: 'bg-indigo' },
-    { value: listing.type.name, icon: 'mdi-home-city', class: 'float-right bg-grey-darken-3' }
+    { value: listing.type.name, icon: 'mdi-home-city', class: 'float-right bg-grey-darken-3' },
   ]
 })
-
-const getStatusColor = (status: string) => {
-  const matched = statusesWithColors.find(item => item.status === status)
-  if(!matched) {
-    throw new Error('Color for listing not found')
-  }
-  return matched.bgClass
-}
 
 const deleteListing = () => {
   console.log('deleteListing')

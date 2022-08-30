@@ -1,25 +1,25 @@
 <template>
   <v-table>
     <tbody>
-    <tr v-for="(pr, i) in listingOptions" :key="i">
-      <td>
-        <small class="text-uppercase text-muted font-weight-bold" style="color: rgba(0, 0, 0, 0.54)">
-          {{ pr.text }}
-        </small>
-      </td>
-      <td v-if="pr.value && pr.time === true">
-        {{ dayjs(pr.value).format('YYYY-MM-DD HH:mm:ss') }}
-      </td>
-      <td v-else-if="pr.value">{{ pr.value }}</td>
-      <td v-else>{{ t('messages.na') }}</td>
-    </tr>
+      <tr v-for="(pr, i) in listingOptions" :key="i">
+        <td>
+          <small class="text-uppercase text-muted font-weight-bold" style="color: rgba(0, 0, 0, 0.54)">
+            {{ pr.text }}
+          </small>
+        </td>
+        <td v-if="pr.value && pr.time === true">
+          {{ dayjs(pr.value).format('YYYY-MM-DD HH:mm:ss') }}
+        </td>
+        <td v-else-if="pr.value">{{ pr.value }}</td>
+        <td v-else>{{ t('messages.na') }}</td>
+      </tr>
     </tbody>
   </v-table>
 </template>
 
 <script lang="ts" setup>
 import dayjs from 'dayjs'
-import { computed } from "vue"
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
@@ -27,7 +27,7 @@ const { t } = useI18n()
 const props = defineProps({
   listing: {
     type: Object,
-    required: true
+    required: true,
   },
 })
 

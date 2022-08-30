@@ -29,11 +29,11 @@ const absolutePath = (relativePath: string) => {
 defineProps({
   media: {
     type: Array,
-    required: true
+    required: true,
   },
   height: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 })
 </script>

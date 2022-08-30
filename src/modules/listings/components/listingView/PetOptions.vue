@@ -48,7 +48,7 @@ const { t } = useI18n()
 defineProps({
   pets: {
     type: Array,
-    required: true
+    required: true,
   },
 })
 </script>

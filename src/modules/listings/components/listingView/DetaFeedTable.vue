@@ -26,7 +26,7 @@ const { t } = useI18n()
 defineProps({
   initiator: {
     type: Object as () => ListingInitiator,
-    required: true
+    required: true,
   },
 })
 </script>

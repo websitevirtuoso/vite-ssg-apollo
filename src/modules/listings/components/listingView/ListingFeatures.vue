@@ -57,17 +57,17 @@ defineProps({
   amenities: {
     type: Array,
     required: true,
-    default: () => []
+    default: () => [],
   },
   utilities: {
     type: Array,
     required: true,
-    default: () => []
+    default: () => [],
   },
   accessibility: {
     type: Array,
     required: true,
-    default: () => []
+    default: () => [],
   },
 })
 </script>
