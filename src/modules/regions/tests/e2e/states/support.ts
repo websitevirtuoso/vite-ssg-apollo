@@ -29,7 +29,7 @@ const states = {
   },
   getState: () => {
     // @ts-expect-error variable undefined
-    return cy.php('App\\Models\\State::with(\'country\')->first()').then((state: State) => {
+    return cy.php("App\\Models\\State::with('country')->first()").then((state: State) => {
       return {
         id: state.id,
         name: state.name,
