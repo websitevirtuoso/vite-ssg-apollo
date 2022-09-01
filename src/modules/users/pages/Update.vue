@@ -280,7 +280,6 @@ import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuer
 import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
 import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
 import useGoogleMap from '@/modules/regions/composables/useGoogleMap'
-import { UserInput } from '@/modules/users/types'
 import { MutationUserUpdateArgs, QueryUsersArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import GetUsers from '../graphql/queries/getUsers.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
