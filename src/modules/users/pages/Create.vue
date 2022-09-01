@@ -165,8 +165,8 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
-          <v-card>
-            <v-container fluid :title="t('messages.location')">
+          <v-card :title="t('messages.location')">
+            <v-container fluid>
               <v-row>
                 <v-col cols="12">
                   <g-map-autocomplete data-test="gmap-autocomplete" @place_changed="onSetPlace" />
@@ -288,7 +288,6 @@ import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuer
 import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
 import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
 import useGoogleMap from '@/modules/regions/composables/useGoogleMap'
-import { UserInput } from '@/modules/users/types'
 import { MutationUserCreateArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 const { city, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity } = useGoogleMap()
