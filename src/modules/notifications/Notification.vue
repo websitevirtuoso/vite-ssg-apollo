@@ -41,13 +41,13 @@ export default defineComponent({
     },
     info(msg: string, opt?: Options) {
       this.message = msg
-      this.color = 'error'
+      this.color = 'info'
       this.changeOptions(opt)
       this.showNotification()
     },
     error(msg: string, opt?: Options) {
       this.message = msg
-      this.color = 'info'
+      this.color = 'error'
       this.changeOptions(opt)
       this.showNotification()
     },
