@@ -26,6 +26,7 @@
               item-title="name"
               item-value="id"
               :loading="loading"
+              clearable
               data-test="filter.state.country"
             />
           </countries-query>
