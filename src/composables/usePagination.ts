@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
 
 export default reactive({
-  take: 10,
+  take: parseInt(import.meta.env.VITE_DATATABLE_ITEMS),
   page: 1,
 })
