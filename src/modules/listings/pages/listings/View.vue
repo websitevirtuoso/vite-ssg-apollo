@@ -7,8 +7,9 @@
           <v-spacer />
 
           <div class="table-toolbar">
-            <!-- todo need to add confirmation before removing-->
-            <action-delete v-if="can('delete', 'listing')" variant="flat" @click="deleteListing" />
+            <action-delete
+              v-if="can('delete', 'listing')" :mutation="ListingDelete" :ids="[listing.id]"
+              @on-done.once="listingDeleteOnDone" variant="flat" />
             <action-update
               v-if="can('update', 'listing')"
               :text="t('action.update')"
@@ -99,6 +100,7 @@ import MediaSlider from '../../components/listingView/MediaSlider.vue'
 import { ActionDelete, ActionCreate } from '@/components/datatable/index'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import GetListing from '../../graphql/queries/getListing.gql'
+import ListingDelete from '../../graphql/mutations/listingDelete.gql'
 import DataFeedTable from '../../components/listingView/DetaFeedTable.vue'
 import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
 import { getStatusColor } from '@/modules/listings/helpers/listing'
@@ -106,10 +108,12 @@ import PetOptions from '@/modules/listings/components/listingView/PetOptions.vue
 import ActionUpdate from '@/modules/listings/components/listingView/ActionUpdate.vue'
 import ListingFeatures from '@/modules/listings/components/listingView/ListingFeatures.vue'
 import ListingOptions from '@/modules/listings/components/listingView/ListingOptions.vue'
+import { useNotification } from "@/modules/notifications/useNotification"
 
 const { t } = useI18n()
 const { can } = useAbility()
 const router = useRouter()
+const notification = useNotification()
 const route = useRoute()
 const listing = reactive({}) as Listings
 const features = reactive({})
@@ -138,8 +142,9 @@ const roomFields = computed(() => {
   ]
 })
 
-const deleteListing = () => {
-  console.log('deleteListing')
+const listingDeleteOnDone = () => {
+  notification.error(t('action.delete_success'))
+  router.push({ name: 'listings' })
 }
 </script>
 
