@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vuetify from '@vuetify/vite-plugin'
+import vuetify from 'vite-plugin-vuetify'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 // import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path'
@@ -34,7 +34,9 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@apollo/client/core'],
+    // fast-deep-equal doesnt have default export
+    // https://github.com/vitejs/vite/issues/2679
+    include: ['@apollo/client/core', 'fast-deep-equal'],
     exclude: ['@apollo/client'],
   },
 })
