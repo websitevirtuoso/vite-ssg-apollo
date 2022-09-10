@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import { rawFilter } from '@/composables/useFilter'
 import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'

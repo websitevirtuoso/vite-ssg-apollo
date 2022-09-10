@@ -123,12 +123,7 @@
 
 <script setup lang="ts">
 // libs
-import { useI18n } from 'vue-i18n'
-import { reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useQuery, useMutation } from '@vue/apollo-composable'
-
 // custom
 import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import Wysiwyg from '@/components/fields/Wysiwyg.vue'

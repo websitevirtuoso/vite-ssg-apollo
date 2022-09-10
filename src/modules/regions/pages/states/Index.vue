@@ -17,7 +17,7 @@
           <v-table data-test="datatable">
             <thead>
               <tr>
-                <th v-for="header in headers" :key="header.title" class="text-left">{{ header.text }}</th>
+                <th v-for="header in headers" :key="header.text" class="text-left">{{ header.text }}</th>
               </tr>
             </thead>
             <tbody>
@@ -48,10 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { computed, ref } from 'vue'
-import { useAbility } from '@casl/vue'
-import { useQuery } from '@vue/apollo-composable'
 import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'
 import GetStates from '../../graphql/queries/getStates.gql'

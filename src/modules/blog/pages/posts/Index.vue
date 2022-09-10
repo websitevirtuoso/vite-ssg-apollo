@@ -58,15 +58,6 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import dayjs from 'dayjs'
-import { useI18n } from 'vue-i18n'
-import { computed, ref } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
-import { useRouter } from 'vue-router'
-import { useAbility } from '@casl/vue'
-
-// custom
 import GetPosts from '../../graphql/queries/getPosts.gql'
 import pagination from '@/composables/usePagination'
 import { ActionCreate, ActionUpdate, ActionFilter } from '@/components/datatable/index'

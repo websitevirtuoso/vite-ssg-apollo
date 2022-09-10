@@ -271,14 +271,9 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useMutation } from '@vue/apollo-composable'
+//libs
 import { Field, Form, FieldArray, SubmissionContext, ErrorMessage } from 'vee-validate'
-
-// custom
+//custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import { createSchema } from '../helpers/validationSchemaUser'
 import UserCreate from '../graphql/mutations/userCreate.gql'

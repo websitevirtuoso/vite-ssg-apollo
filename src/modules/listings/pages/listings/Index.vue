@@ -69,14 +69,20 @@
               />
             </template>
           </v-tooltip>
-          <v-btn
-            v-if="can('create', 'listing')"
-            icon="mdi-plus-circle"
-            tile
-            :rounded="0"
-            color="primary"
-            @click="router.push({ name: 'listing-create' })"
-          />
+          <v-tooltip :text="t('action.create')" location="top">
+            <template #activator="{ props }">
+              <v-btn
+                v-if="can('create', 'listing')"
+                v-bind="props"
+                icon="mdi-plus-circle"
+                tile
+                :rounded="0"
+                color="primary"
+                data-test="btn.create"
+                @click="router.push({ name: 'listing-create' })"
+              />
+            </template>
+          </v-tooltip>
         </v-toolbar>
       </v-col>
       <v-col>
@@ -97,13 +103,6 @@
 <!-- todo implement v-data-iterator vuetify v3.1.0 -->
 
 <script setup lang="ts">
-// libs
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useAbility } from '@casl/vue'
-import { useRouter } from 'vue-router'
-
-// custom
 import { filter } from '@/composables/useFilter'
 import { useQuery } from '@vue/apollo-composable'
 import ListingFilter from '../../components/ListingFilter.vue'

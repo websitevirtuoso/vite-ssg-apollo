@@ -74,14 +74,7 @@
 
 <script setup lang="ts">
 // libs
-import { reactive, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
 import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useQuery, useMutation } from '@vue/apollo-composable'
-// @ts-expect-error google.map is not a module
-// import google from '@types/google.maps'
-
 // custom
 import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
 import StatesQuery from '../../components/RenderlessStatesQuery.vue'

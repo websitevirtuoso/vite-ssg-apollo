@@ -148,8 +148,6 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import { useI18n } from 'vue-i18n'
 // custom
 import { rawFilter } from '@/composables/useFilter'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'

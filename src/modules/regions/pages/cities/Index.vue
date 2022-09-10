@@ -64,13 +64,6 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import { useI18n } from 'vue-i18n'
-import { computed, ref, reactive } from 'vue'
-import { useAbility } from '@casl/vue'
-import { useRouter } from 'vue-router'
-import { useQuery } from '@vue/apollo-composable'
-
 // custom
 import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'

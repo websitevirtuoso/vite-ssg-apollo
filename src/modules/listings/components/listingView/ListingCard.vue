@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card data-test="listing.card">
     <media-slider :media="listing.media" :height="250" :show-arrows="false" hide-delimiters>
       <template #toolbar>
         <v-toolbar color="transparent" density="compact" class="listing-statuses">
@@ -10,9 +10,7 @@
             </v-icon>
           </v-btn>
           <v-btn dark icon>
-            <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })">
-              mdi-eye
-            </v-icon>
+            <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })"> mdi-eye </v-icon>
           </v-btn>
           <v-chip label :class="getStatusColor(listing.status)" dark small>
             {{ listing.status }}
@@ -23,9 +21,9 @@
     <v-card-title class="subheading font-weight-bold">
       {{ listing.address }}
       <v-spacer />
-<!--      <v-btn icon @click="expand(item, !isExpanded(item))">-->
-<!--        <v-icon>{{ isExpanded(item) ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>-->
-<!--      </v-btn>-->
+      <!--      <v-btn icon @click="expand(item, !isExpanded(item))">-->
+      <!--        <v-icon>{{ isExpanded(item) ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>-->
+      <!--      </v-btn>-->
     </v-card-title>
     <v-divider />
     <v-list dense>
@@ -50,9 +48,7 @@
       <v-list-item>
         <template #default>
           <v-list-item>
-            <v-list-item-title>
-              #{{ listing.user.id }}, {{ listing.user.first_name }} {{ listing.user.last_name }}
-            </v-list-item-title>
+            <v-list-item-title> #{{ listing.user.id }}, {{ listing.user.first_name }} {{ listing.user.last_name }} </v-list-item-title>
             <v-list-item-subtitle>{{ t('messages.user') }}</v-list-item-subtitle>
           </v-list-item>
         </template>
@@ -115,11 +111,6 @@
 </template>
 
 <script lang="ts" setup>
-// libs
-import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useAbility } from '@casl/vue'
-// custom
 import MediaSlider from './MediaSlider.vue'
 import { getStatusColor } from '@/modules/listings/helpers/listing'
 import { Listings } from '@/plugins/apollo/schemaTypesGenerated'

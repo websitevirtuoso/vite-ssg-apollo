@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="showLeftSideBar" :rail="preferences.showMiniSideBar" width="230" data-test="side-bar">
     <template #prepend>
-      <header class="brand v-toolbar pl-4">
+      <header class="brand v-toolbar pl-2">
         <div class="v-toolbar__content" style="height: 64px">
           <img :src="logo" height="36" alt="" />
           <div class="ml-0 pl-5">

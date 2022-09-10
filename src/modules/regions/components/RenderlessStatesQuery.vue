@@ -1,6 +1,4 @@
 <script>
-import { computed, defineComponent } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
 import GetStates from '../graphql/queries/getStates.gql'
 import { excludeEmptyValues } from '@/composables/useFilter'
 

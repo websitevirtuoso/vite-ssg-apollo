@@ -41,7 +41,6 @@
 
 <script lang="ts" setup>
 import { Listing_Pets } from '@/plugins/apollo/schemaTypesGenerated'
-import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 

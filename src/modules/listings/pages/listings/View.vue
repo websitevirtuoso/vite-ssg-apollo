@@ -8,8 +8,12 @@
 
           <div class="table-toolbar">
             <action-delete
-              v-if="can('delete', 'listing')" :mutation="ListingDelete" :ids="[listing.id]"
-              @on-done.once="listingDeleteOnDone" variant="flat" />
+              v-if="can('delete', 'listing')"
+              :mutation="ListingDelete"
+              :ids="[listing.id]"
+              variant="flat"
+              @on-done.once="listingDeleteOnDone"
+            />
             <action-update
               v-if="can('update', 'listing')"
               :text="t('action.update')"
@@ -88,14 +92,6 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import { reactive, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useAbility } from '@casl/vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useQuery } from '@vue/apollo-composable'
-
-// custom
 import MediaSlider from '../../components/listingView/MediaSlider.vue'
 import { ActionDelete, ActionCreate } from '@/components/datatable/index'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
@@ -108,7 +104,7 @@ import PetOptions from '@/modules/listings/components/listingView/PetOptions.vue
 import ActionUpdate from '@/modules/listings/components/listingView/ActionUpdate.vue'
 import ListingFeatures from '@/modules/listings/components/listingView/ListingFeatures.vue'
 import ListingOptions from '@/modules/listings/components/listingView/ListingOptions.vue'
-import { useNotification } from "@/modules/notifications/useNotification"
+import { useNotification } from '@/modules/notifications/useNotification'
 
 const { t } = useI18n()
 const { can } = useAbility()

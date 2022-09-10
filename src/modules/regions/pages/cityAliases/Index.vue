@@ -52,16 +52,11 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { computed, ref } from 'vue'
-import { useAbility } from '@casl/vue'
-import { useQuery } from '@vue/apollo-composable'
 import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'
 import GetCityAliases from '../../graphql/queries/getCityAliases.gql'
 import { ActionFilter, ActionCreate, ActionUpdate } from '@/components/datatable/index'
 import CityAliasFilter from '@/modules/regions/components/CityAliasFilter.vue'
-import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { can } = useAbility()

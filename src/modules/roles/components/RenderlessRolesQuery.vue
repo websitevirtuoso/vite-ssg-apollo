@@ -1,6 +1,4 @@
 <script>
-import { computed, defineComponent } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
 import GetRoles from '../graphql/queries/getRoles.gql'
 
 export default defineComponent({

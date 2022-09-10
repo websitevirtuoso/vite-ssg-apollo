@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuery.vue'
 import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'

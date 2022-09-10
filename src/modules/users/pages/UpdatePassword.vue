@@ -52,12 +52,7 @@
 
 <script setup lang="ts">
 // libs
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
-import { useMutation, useQuery } from '@vue/apollo-composable'
 import { Field, Form, SubmissionContext } from 'vee-validate'
-
 // custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '@/modules/auth/helpers/validationSchemaUpdatePassword'

@@ -42,12 +42,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
-import { gqlHandleError } from '@/helpers/handleErrors'
+//libs
 import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useQuery, useMutation } from '@vue/apollo-composable'
+//custom
+import { gqlHandleError } from '@/helpers/handleErrors'
 import GetCategories from '../../graphql/queries/getCategories.gql'
 import useVSchema from '@/modules/blog/helpers/validationSchemaCategory'
 import { useNotification } from '@/modules/notifications/useNotification'

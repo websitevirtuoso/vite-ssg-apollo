@@ -112,11 +112,6 @@
 
 <script setup lang="ts">
 // libs
-import { ref } from 'vue'
-import dayjs from 'dayjs'
-import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
-import { useMutation } from '@vue/apollo-composable'
 import { Field, Form, SubmissionContext } from 'vee-validate'
 // custom
 import Wysiwyg from '@/components/fields/Wysiwyg.vue'

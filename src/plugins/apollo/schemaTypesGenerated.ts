@@ -252,23 +252,24 @@ export type ListingFilter = {
   available_at?: InputMaybe<DateTimeRange>
   bathrooms?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>
   bedrooms?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
-  city_id?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  city_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  country_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   /** Date creating */
   created_at?: InputMaybe<DateTimeRange>
   expire_at?: InputMaybe<DateTimeRange>
   id?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   media?: InputMaybe<Scalars['Boolean']>
-  pets?: InputMaybe<Scalars['Boolean']>
+  pets?: InputMaybe<Array<InputMaybe<Listing_Pets>>>
   postal_code?: InputMaybe<Scalars['String']>
   price?: InputMaybe<NumberRange>
   square_feet?: InputMaybe<NumberRange>
-  state_id?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  state_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   status?: InputMaybe<Array<InputMaybe<Listing_Status>>>
-  term_id?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  type_id?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  term_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  type_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   /** Date updating */
   updated_at?: InputMaybe<DateTimeRange>
-  user_id?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  user_ids?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
 }
 
 export type ListingInitiator = {
@@ -430,8 +431,10 @@ export type Mutation = {
   cityDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   cityUpsert?: Maybe<Cities>
   forgotPassword?: Maybe<ForgotPassword>
+  listingDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   listingTermUpdate?: Maybe<ListingTerms>
   listingTypeUpdate?: Maybe<ListingTypes>
+  listingUpsert?: Maybe<Listings>
   logIn?: Maybe<Auth>
   /** Method to logout, token must be sent in header */
   logOut?: Maybe<Scalars['String']>
@@ -485,6 +488,10 @@ export type MutationForgotPasswordArgs = {
   route_update_password: Scalars['String']
 }
 
+export type MutationListingDeleteArgs = {
+  id: Array<InputMaybe<Scalars['ID']>>
+}
+
 export type MutationListingTermUpdateArgs = {
   description: Scalars['String']
   id: Scalars['ID']
@@ -495,6 +502,29 @@ export type MutationListingTypeUpdateArgs = {
   description: Scalars['String']
   id: Scalars['ID']
   name: Scalars['String']
+}
+
+export type MutationListingUpsertArgs = {
+  address: Scalars['String']
+  available_at?: InputMaybe<Scalars['Date']>
+  bathrooms: Scalars['Float']
+  bedrooms: Scalars['Int']
+  city_id: Scalars['ID']
+  deposit?: InputMaybe<Scalars['Int']>
+  description: Scalars['String']
+  expire_at: Scalars['Date']
+  features: Scalars['Json']
+  id?: InputMaybe<Scalars['ID']>
+  lat: Scalars['Float']
+  lng: Scalars['Float']
+  pets: Array<InputMaybe<Listing_Pets>>
+  postal_code: Scalars['String']
+  price: Scalars['Int']
+  square_feet: Scalars['Int']
+  status: Listing_Status
+  term_id?: InputMaybe<Scalars['ID']>
+  type_id: Scalars['ID']
+  user_id: Scalars['ID']
 }
 
 export type MutationLogInArgs = {

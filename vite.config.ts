@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
-// import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path'
 // https://github.com/rollup/plugins/tree/master/packages/graphql
 import graphql from '@rollup/plugin-graphql'
@@ -20,10 +20,37 @@ export default defineConfig({
       include: resolve(__dirname, './src/locales/**'),
     }),
     // https://github.com/antfu/unplugin-auto-import
-    // todo would be great to implement in future
-    // AutoImport({
-    //   imports: ['vue', 'vue-router', 'vue-i18n'],
-    //   dts: './src/types/auto-imports.d.ts',
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+        'vue-i18n',
+        // custom
+        {
+          '@casl/vue': [
+            // named imports
+            'useAbility', // import { useAbility } from '@casl/vue',
+          ],
+          '@vue/apollo-composable': [
+            // named imports
+            'useQuery',
+            'useMutation',
+            'useApolloClient', // import { useQuery, useMutation, useApolloClient } from '@vue/apollo-composable',
+          ],
+          dayjs: [
+            // default imports
+            ['default', 'dayjs'], // import { default as dayjs } from 'dayjs',
+          ],
+        },
+      ],
+      vueTemplate: true,
+      dts: './src/types/auto-imports.d.ts',
+    }),
+    // todo implemen if possible
+    // https://github.com/antfu/unplugin-vue-components
+    // Components({
+    //   dirs: ['src'],
+    //   resolvers: [],
     // }),
     graphql(),
   ],

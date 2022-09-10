@@ -79,19 +79,16 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
-import { gqlHandleError } from '@/helpers/handleErrors'
+//libs
 import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useQuery, useMutation } from '@vue/apollo-composable'
+//custom
+import { gqlHandleError } from '@/helpers/handleErrors'
 import GetRoles from '../graphql/queries/getRoles.gql'
 import useVSchema from '../helpers/validationSchemaRole'
 import { useNotification } from '@/modules/notifications/useNotification'
 import RoleUpsert from '../graphql/mutations/roleUpsert.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import { RoleInput } from '@/modules/roles/types'
-import dayjs from 'dayjs'
 
 const { t } = useI18n()
 const route = useRoute()

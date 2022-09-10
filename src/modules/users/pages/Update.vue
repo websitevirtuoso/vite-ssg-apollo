@@ -264,12 +264,7 @@
 
 <script setup lang="ts">
 // libs
-import { ref, watch, reactive, nextTick } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useMutation, useQuery } from '@vue/apollo-composable'
 import { Field, Form, FieldArray, SubmissionContext, ErrorMessage } from 'vee-validate'
-
 // custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import { updateSchema } from '../helpers/validationSchemaUser'
@@ -312,8 +307,8 @@ const { onResult } = useQuery(GetUsers, { filter: { id: [route.params.id] } } as
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(UserUpdate)
 
 onResult(async (queryResult) => {
-  redirectNotFoundIfEmpty(queryResult.data.users.data[0]);
-  ({
+  redirectNotFoundIfEmpty(queryResult.data.users.data[0])
+  ;({
     id: initialValues.id,
     first_name: initialValues.first_name,
     last_name: initialValues.last_name,

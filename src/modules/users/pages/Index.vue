@@ -74,14 +74,6 @@
 </template>
 
 <script setup lang="ts">
-// libs
-import dayjs from 'dayjs'
-import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useAbility } from '@casl/vue'
-import { useRouter } from 'vue-router'
-import { useQuery } from '@vue/apollo-composable'
-
 // custom
 import GetUsers from '../graphql/queries/getUsers.gql'
 import pagination from '@/composables/usePagination'

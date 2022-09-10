@@ -46,15 +46,9 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useAbility } from '@casl/vue'
-import { useQuery } from '@vue/apollo-composable'
 import pagination from '@/composables/usePagination'
 import { ActionCreate, ActionUpdate } from '@/components/datatable/index'
 import GetCategories from '../../graphql/queries/getCategories.gql'
-import { useRouter } from 'vue-router'
 
 const { can } = useAbility()
 const router = useRouter()

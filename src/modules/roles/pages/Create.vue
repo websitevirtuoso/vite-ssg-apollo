@@ -54,12 +54,11 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { useMutation } from '@vue/apollo-composable'
+//libs
+import { Field, Form, SubmissionContext } from 'vee-validate'
+//custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../helpers/validationSchemaRole'
-import { Field, Form, SubmissionContext } from 'vee-validate'
 import RoleUpsert from '../graphql/mutations/roleUpsert.gql'
 import { useNotification } from '@/modules/notifications/useNotification'
 import { RoleInput } from '@/modules/roles/types'

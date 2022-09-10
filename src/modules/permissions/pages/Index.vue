@@ -60,12 +60,8 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { useQuery } from '@vue/apollo-composable'
 import GetPermissions from '../graphql/queries/getPermissions.gql'
-import { computed, ref } from 'vue'
 import pagination from '@/composables/usePagination'
-import dayjs from 'dayjs'
 import { ActionFilter, FilterByText } from '@/components/datatable/index'
 import { PermissionFilter } from '@/plugins/apollo/schemaTypesGenerated'
 

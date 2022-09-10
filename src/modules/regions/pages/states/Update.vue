@@ -67,13 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useRoute, useRouter } from 'vue-router'
+//libs
+import { Field, Form, SubmissionContext } from 'vee-validate'
+//custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
-import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useQuery, useMutation } from '@vue/apollo-composable'
 import GetStates from '../../graphql/queries/getStates.gql'
 import useVSchema from '../../helpers/validationSchemaState'
 import { useNotification } from '@/modules/notifications/useNotification'

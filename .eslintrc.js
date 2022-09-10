@@ -24,6 +24,7 @@ module.exports = {
   rules: {
     'object-curly-spacing': ['error', 'always'],
     semi: ['error', 'never'],
+    'no-undef': 'off',
     quotes: [2, 'single', 'avoid-escape'],
     // have to disable this rule because it is simplify naming props with API variables
     'vue/prop-name-casing': 'off',

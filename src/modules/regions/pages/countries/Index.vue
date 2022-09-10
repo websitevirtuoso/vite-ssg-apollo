@@ -35,10 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { useQuery } from '@vue/apollo-composable'
 import GetCountries from '../../graphql/queries/getCountries.gql'
-import { computed } from 'vue'
 import pagination from '@/composables/usePagination'
 
 const { t } = useI18n()

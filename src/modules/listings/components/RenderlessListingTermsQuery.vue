@@ -1,6 +1,4 @@
 <script>
-import { computed, defineComponent } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
 import GetListingTerms from '../graphql/queries/getListingTerms.gql'
 
 export default defineComponent({

@@ -37,7 +37,6 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuery.vue'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import { rawFilter } from '@/composables/useFilter'

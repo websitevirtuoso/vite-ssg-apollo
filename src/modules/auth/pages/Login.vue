@@ -58,10 +58,6 @@
 <script setup lang="ts">
 // libs
 import { Field, Form, SubmissionContext } from 'vee-validate'
-import { useI18n } from 'vue-i18n'
-import { useMutation, useApolloClient } from '@vue/apollo-composable'
-import { useRouter } from 'vue-router'
-
 // custom
 import Login from '../graphql/mutations/login.gql'
 import logo from '@/assets/img/logo.png'
