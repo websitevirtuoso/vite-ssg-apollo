@@ -29,7 +29,7 @@
             <template #toolbar>
               <v-toolbar color="transparent" density="compact" class="listing-statuses">
                 <v-spacer />
-                <v-chip label :class="getStatusColor(listing.status)" dark small>
+                <v-chip label :class="getStatusColor(listing.status)" small>
                   {{ listing.status }}
                 </v-chip>
               </v-toolbar>
@@ -84,8 +84,12 @@
               </template>
             </v-tooltip>
           </v-card-text>
-          <!-- todo add user profile information -->
         </v-card>
+        <v-row no-gutters class="mt-10">
+          <v-col cols="12" md="6" offset-md="3">
+            <user-profile :user="listing.user" />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -104,6 +108,7 @@ import PetOptions from '@/modules/listings/components/listingView/PetOptions.vue
 import ActionUpdate from '@/modules/listings/components/listingView/ActionUpdate.vue'
 import ListingFeatures from '@/modules/listings/components/listingView/ListingFeatures.vue'
 import ListingOptions from '@/modules/listings/components/listingView/ListingOptions.vue'
+import UserProfile from '@/modules/users/components/UserProfle.vue'
 import { useNotification } from '@/modules/notifications/useNotification'
 
 const { t } = useI18n()

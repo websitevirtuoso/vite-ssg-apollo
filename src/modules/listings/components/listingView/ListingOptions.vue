@@ -3,7 +3,7 @@
     <tbody>
       <tr v-for="(pr, i) in listingOptions" :key="i">
         <td>
-          <small class="text-uppercase text-muted font-weight-bold" style="color: rgba(0, 0, 0, 0.54)">
+          <small class="text-uppercase text-muted font-weight-bold">
             {{ pr.text }}
           </small>
         </td>

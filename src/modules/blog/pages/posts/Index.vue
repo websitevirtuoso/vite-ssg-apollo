@@ -29,7 +29,7 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.slug }}</td>
                 <td>
-                  <v-chip :color="getStatusColor(post.status)" dark small>
+                  <v-chip :color="getStatusColor(post.status)" small>
                     {{ post.status }}
                   </v-chip>
                 </td>

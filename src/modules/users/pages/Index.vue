@@ -30,7 +30,7 @@
                   <v-chip-boolean-status :status="user.notify" />
                 </td>
                 <td>
-                  <v-chip :color="userStatusColors.find((item) => item.status === user.status).color" dark small>
+                  <v-chip :color="getStatusColor(user.status)" dark small>
                     {{ user.status }}
                   </v-chip>
                 </td>
@@ -83,17 +83,13 @@ import { filter } from '@/composables/useFilter'
 import VChipBooleanStatus from '../components/VChipBooleanStatus.vue'
 import UpdatePassword from '@/modules/users/components/UpdatePassword.vue'
 import AnimatedRouterView from '@/components/AnimatedRouterView.vue'
-import { QueryUsersArgs, User_Status } from '@/plugins/apollo/schemaTypesGenerated'
+import { QueryUsersArgs } from '@/plugins/apollo/schemaTypesGenerated'
+import { getStatusColor } from '../helpers/user'
 
 const { t } = useI18n()
 const { can } = useAbility()
 const router = useRouter()
 const filtersShow = ref(false)
-
-const userStatusColors = [
-  { status: User_Status.Active, color: 'green' },
-  { status: User_Status.Blocked, color: 'red' },
-]
 
 const headers = [
   { text: '#', value: 'id' },

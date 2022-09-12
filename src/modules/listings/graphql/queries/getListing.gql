@@ -39,6 +39,7 @@ query GetListing($id: [ID]!) {
         last_name
         email
         address
+        phone
         postal_code
         notify
         status
@@ -53,6 +54,7 @@ query GetListing($id: [ID]!) {
             country {
               id
               code
+              name
             }
           }
         }

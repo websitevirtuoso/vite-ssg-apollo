@@ -6,7 +6,6 @@ const baseSchema = () => {
     first_name: string().required().label(i18n.global.t('messages.first_name')),
     last_name: string().required().label(i18n.global.t('messages.last_name')),
     email: string().required().email().label(i18n.global.t('messages.email')),
-    // password: string().required().label(i18n.global.t('messages.password')),
     status: string().required().label(i18n.global.t('messages.status')),
     phone: array()
       .of(
@@ -19,11 +18,9 @@ const baseSchema = () => {
       .label(i18n.global.t('messages.phone', 2)),
     notify: boolean().required().label(i18n.global.t('messages.notify')),
     role_id: array(number()).required().min(1).label(i18n.global.t('messages.role')),
-
     country_id: string().required().label(i18n.global.t('messages.country')),
     state_id: string().required().label(i18n.global.t('messages.state')),
     city_id: string().required().label(i18n.global.t('messages.city')),
-
     address: string().optional().label(i18n.global.t('messages.address')),
     postal_code: string().optional().label(i18n.global.t('messages.postal_code')),
   }

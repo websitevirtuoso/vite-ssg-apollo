@@ -4,27 +4,30 @@
       <template #toolbar>
         <v-toolbar color="transparent" density="compact" class="listing-statuses">
           <v-spacer />
-          <v-btn v-if="can('update', 'listing')" dark icon>
-            <v-icon color="blue darken-4" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })">
+          <v-btn v-if="can('update', 'listing')" icon>
+            <v-icon color="primary" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })">
               mdi-pencil
             </v-icon>
           </v-btn>
-          <v-btn dark icon>
+          <v-btn icon>
             <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })"> mdi-eye </v-icon>
           </v-btn>
-          <v-chip label :class="getStatusColor(listing.status)" dark small>
+          <v-chip label :class="getStatusColor(listing.status)" small>
             {{ listing.status }}
           </v-chip>
         </v-toolbar>
       </template>
     </media-slider>
-    <v-card-title class="subheading font-weight-bold">
-      {{ listing.address }}
+    <v-card-actions>
+      <div class="v-card-title">{{ listing.address }}</div>
+
       <v-spacer />
-      <!--      <v-btn icon @click="expand(item, !isExpanded(item))">-->
-      <!--        <v-icon>{{ isExpanded(item) ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>-->
-      <!--      </v-btn>-->
-    </v-card-title>
+      <v-btn
+        size="small"
+        :icon="expand ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        @click="expand = !expand"
+      />
+    </v-card-actions>
     <v-divider />
     <v-list dense>
       <v-list-item>
@@ -79,34 +82,38 @@
         </template>
       </v-list-item>
     </v-list>
-    <!--              <v-expand-transition>-->
-    <!--                <div v-if="isExpanded(item)">-->
-    <!--                  <v-divider />-->
-    <!--                  <v-list dense>-->
-    <!--                    <v-list-item selectable>-->
-    <!--                      <v-list-item-icon>-->
-    <!--                        <v-icon color="indigo">-->
-    <!--                          mdi-timer-->
-    <!--                        </v-icon>-->
-    <!--                      </v-list-item-icon>-->
-
-    <!--                      <v-list-item-content>-->
-    <!--                        <v-list-item-title>{{ item.updated_at | moment('YYYY-MM-DD HH:mm') }}</v-list-item-title>-->
-    <!--                        <v-list-item-subtitle>{{ $t('messages.updated_at') }}</v-list-item-subtitle>-->
-    <!--                      </v-list-item-content>-->
-    <!--                    </v-list-item>-->
-
-    <!--                    <v-list-item selectable>-->
-    <!--                      <v-list-item-icon />-->
-
-    <!--                      <v-list-item-content>-->
-    <!--                        <v-list-item-title>{{ item.created_at | moment('YYYY-MM-DD HH:mm') }}</v-list-item-title>-->
-    <!--                        <v-list-item-subtitle>{{ $t('messages.created_at') }}</v-list-item-subtitle>-->
-    <!--                      </v-list-item-content>-->
-    <!--                    </v-list-item>-->
-    <!--                  </v-list>-->
-    <!--                </div>-->
-    <!--              </v-expand-transition>-->
+    <v-expand-transition>
+      <div v-show="expand">
+        <v-divider />
+        <v-list dense>
+          <v-list-item>
+            <template #default>
+              <v-list-item>
+                <v-list-item-title>{{ dayjs(listing.updated_at).format('YYYY-MM-DD HH:mm') }}</v-list-item-title>
+                <v-list-item-subtitle>{{ t('messages.updated_at') }}</v-list-item-subtitle>
+              </v-list-item>
+            </template>
+            <template #prepend>
+              <v-list-item>
+                <v-icon color="indigo">mdi-timer</v-icon>
+              </v-list-item>
+            </template>
+          </v-list-item>
+          <v-list-item>
+            <template #default>
+              <v-list-item>
+                <v-list-item-title>{{ dayjs(listing.created_at).format('YYYY-MM-DD HH:mm') }}</v-list-item-title>
+                <v-list-item-subtitle>{{ t('messages.created_at') }}</v-list-item-subtitle>
+              </v-list-item>
+            </template>
+            <template #prepend>
+              <div class="full-width-as-icon">
+              </div>
+            </template>
+          </v-list-item>
+        </v-list>
+      </div>
+    </v-expand-transition>
   </v-card>
 </template>
 
@@ -118,6 +125,7 @@ import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
 const { t } = useI18n()
 const { can } = useAbility()
 const router = useRouter()
+const expand = ref(false)
 
 defineProps({
   listing: {
@@ -126,3 +134,9 @@ defineProps({
   },
 })
 </script>
+
+<style lang="scss">
+.full-width-as-icon {
+  width: 56px;
+}
+</style>

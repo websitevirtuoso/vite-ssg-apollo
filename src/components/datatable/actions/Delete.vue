@@ -26,12 +26,9 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { ref, PropType } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useMutation } from '@vue/apollo-composable'
+import { PropType } from 'vue'
 import { gqlHandleError } from '@/helpers/handleErrors'
 
-const { t } = useI18n()
 const show = ref(false)
 
 const props = defineProps({
