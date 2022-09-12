@@ -11,10 +11,13 @@ query GetUsers($pagination: Pagination, $sort: Sortable, $filter: UserFilter) {
       }
       city {
         id
+        name
         state {
           id
+          name
           country {
             id
+            name
           }
         }
       }

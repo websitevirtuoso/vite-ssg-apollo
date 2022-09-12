@@ -1,0 +1,44 @@
+.v-card {
+  overflow: inherit !important;
+}
+
+.table-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -24px;
+
+  button,
+  a {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+.company {
+  .v-badge__badge {
+    height: 1.5rem;
+    border-radius: 20px;
+  }
+  .v-icon {
+    font-size: 1.1rem;
+  }
+  .company-banner {
+    background: linear-gradient(#4568dc, #b06ab3);
+  }
+}
+
+.phone-field {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.validation__error {
+  color: rgb(var(--v-theme-error));
+  opacity: 1;
+}
+
+.no-overflow {
+  overflow: inherit;
+}

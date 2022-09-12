@@ -4,6 +4,8 @@ import vuetify from 'vite-plugin-vuetify'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path'
+import stylelint from 'vite-plugin-stylelint'
+import eslint from '@modyqyw/vite-plugin-eslint'
 // https://github.com/rollup/plugins/tree/master/packages/graphql
 import graphql from '@rollup/plugin-graphql'
 
@@ -19,6 +21,8 @@ export default defineConfig({
       // you need to set i18n resource including paths !
       include: resolve(__dirname, './src/locales/**'),
     }),
+    eslint(),
+    stylelint(),
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [

@@ -15,7 +15,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 // @ts-expect-error for declaration this module
 import breadcrumbs from 'vue-3-breadcrumbs'
-import '@/styles/styles.sass'
+import '@/styles/styles.scss'
 
 // load modules
 import './loaded-modules'
