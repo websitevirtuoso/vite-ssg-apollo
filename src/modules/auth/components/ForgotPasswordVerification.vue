@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :model-value="show" :persistent="true" max-width="490">
+  <v-dialog :model-value="show" persistent max-width="490">
     <v-card>
       <v-card-title class="text-h5">Reset Password</v-card-title>
       <v-card-text class="mx-3">

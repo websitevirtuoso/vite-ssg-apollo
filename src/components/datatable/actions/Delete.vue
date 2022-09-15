@@ -4,7 +4,7 @@
       <v-icon icon=" mdi-delete" color="white" />
     </v-btn>
   </v-scale-transition>
-  <v-dialog v-model="show" :persistent="true" max-width="490">
+  <v-dialog v-model="show" persistent max-width="490">
     <v-card>
       <v-card-title class="text-h6">Delete</v-card-title>
       <v-divider />

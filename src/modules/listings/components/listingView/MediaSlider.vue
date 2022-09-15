@@ -3,7 +3,7 @@
     <v-carousel-item v-for="(img, index) in media" :key="index">
       <v-sheet height="100%" tile color="grey-darken-3">
         <v-row class="fill-height" align="center" justify="center">
-          <v-img :height="height" :src="absolutePath(img.path)" :lazy-src="absolutePath(img.path)" contain>
+          <v-img :height="height" :src="getAbsolutePath(img.path)" :lazy-src="getAbsolutePath(img.path)" contain>
             <v-card-title class="mr-2">
               <slot name="toolbar" />
             </v-card-title>
@@ -20,11 +20,8 @@
 </template>
 
 <script lang="ts" setup>
+import { getAbsolutePath } from '@/modules/listings/helpers/listing'
 import fallbackMedia from '@/assets/img/no-image.svg'
-
-const absolutePath = (relativePath: string) => {
-  return import.meta.env.VITE_GRAPHQL_SERVER + 'storage' + relativePath
-}
 
 defineProps({
   media: {

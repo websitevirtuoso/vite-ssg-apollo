@@ -5,9 +5,7 @@
         <v-toolbar color="transparent" density="compact" class="listing-statuses">
           <v-spacer />
           <v-btn v-if="can('update', 'listing')" icon>
-            <v-icon color="primary" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })">
-              mdi-pencil
-            </v-icon>
+            <v-icon color="primary" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })"> mdi-pencil </v-icon>
           </v-btn>
           <v-btn icon>
             <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })"> mdi-eye </v-icon>
@@ -22,11 +20,7 @@
       <div class="v-card-title">{{ listing.address }}</div>
 
       <v-spacer />
-      <v-btn
-        size="small"
-        :icon="expand ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="expand = !expand"
-      />
+      <v-btn size="small" :icon="expand ? 'mdi-chevron-up' : 'mdi-chevron-down'" @click="expand = !expand" />
     </v-card-actions>
     <v-divider />
     <v-list dense>
@@ -107,8 +101,7 @@
               </v-list-item>
             </template>
             <template #prepend>
-              <div class="full-width-as-icon">
-              </div>
+              <div class="full-width-as-icon"></div>
             </template>
           </v-list-item>
         </v-list>

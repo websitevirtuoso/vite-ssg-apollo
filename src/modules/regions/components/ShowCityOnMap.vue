@@ -1,6 +1,5 @@
 <template>
-  <!-- todo need to fix problem with width of gmap inside this modal  -->
-  <v-dialog :model-value="show">
+  <v-dialog :model-value="show" @click:outside="$emit('close')">
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">{{ name }}</v-card-title>
 
@@ -9,7 +8,7 @@
           :center="{ lat, lng }"
           :zoom="9"
           :options="{ zoomControl: true, clickableIcons: false, disableDefaultUI: true }"
-          style="width: 500px; height: 45vh"
+          style="width: 100%; height: 45vh"
         >
           <g-map-marker :position="{ lat, lng }" />
         </g-map-map>

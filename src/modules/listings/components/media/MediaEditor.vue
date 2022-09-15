@@ -1,7 +1,6 @@
 <template>
   <v-dialog :model-value="show" scrollable persistent max-width="600">
-    <v-card style="width: 600px">
-      <!-- todo tmp fix, error in vuetify -->
+    <v-card>
       <v-toolbar density="compact">
         <v-toolbar-title> Photo Editor </v-toolbar-title>
         <v-spacer />

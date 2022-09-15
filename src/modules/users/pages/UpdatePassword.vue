@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" :persistent="true" width="500">
+    <v-dialog v-model="dialog" persistent width="500">
       <v-card :title="t('messages.update_user_password')">
         <v-card-title class="subheading font-weight-bold text-center"> {{ user.first_name }} {{ user.last_name }} </v-card-title>
         <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="updatePassword">
