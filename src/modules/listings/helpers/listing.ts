@@ -1,5 +1,6 @@
 import i18n from '@/plugins/i18n'
 import { Listing_Status, Listing_Pets } from '@/plugins/apollo/schemaTypesGenerated'
+import { MediaItem } from '@/modules/listings/types'
 
 export const statusesWithColors = [
   { status: Listing_Status.Active, bgClass: 'bg-green' },
@@ -16,6 +17,22 @@ export const getStatusColor = (status: string) => {
     throw new Error('Color for listing not found')
   }
   return matched.bgClass
+}
+
+/**
+ * Convert blob file into Image
+ * @param image accept blob or file object
+ * */
+export const convertFileSourceToUrl = (image: MediaItem['file']) => {
+  if (!image) {
+    return
+  }
+
+  return URL.createObjectURL(image)
+}
+
+export const getAbsolutePath = (relativePath: string) => {
+  return import.meta.env.VITE_GRAPHQL_SERVER + 'storage' + relativePath
 }
 
 export const bedroomItems = [
