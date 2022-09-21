@@ -61,7 +61,7 @@ describe('Create', () => {
 
         cy.getBySel('datatable')
           .get('tbody tr')
-          .should('contain', promo.code)
+          .should('contain', promo.code.toUpperCase())
           .and('contain', promo.discount)
           .and('contain', promo.use)
           .and('contain', promo.short_description)

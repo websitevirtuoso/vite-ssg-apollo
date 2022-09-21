@@ -13,102 +13,26 @@
             <v-card-text>
               <v-container fluid>
                 <v-row>
-                  <v-col cols="cols" md="6">
-                    <Field v-slot="{ errors, value }" v-model="promoCode" name="code">
-                      <v-text-field
-                        :model-value="value"
-                        type="text"
-                        :label="t('messages.code')"
-                        :error-messages="errors"
-                        data-test="promo.code"
-                        @update:model-value="promoCode = $event.toUpperCase()"
-                      />
-                    </Field>
-                  </v-col>
-                  <v-col cols="cols" md="6">
-                    <Field v-slot="{ field, errors, value }" name="discount">
-                      <v-text-field
-                        v-bind="field"
-                        :model-value="value"
-                        type="number"
-                        :label="t('messages.discount')"
-                        :error-messages="errors"
-                        data-test="promo.discount"
-                      />
-                    </Field>
-                  </v-col>
-                  <v-col cols="cols" md="6">
-                    <Field v-slot="{ field, errors, value }" name="use">
-                      <v-text-field
-                        v-bind="field"
-                        :model-value="value"
-                        type="number"
-                        :label="t('messages.use')"
-                        :error-messages="errors"
-                        data-test="promo.use"
-                      />
-                    </Field>
+                  <v-col cols="12" md="6">
+                    <promo-field-code />
                   </v-col>
                   <v-col cols="12" md="6">
-                    <Field v-slot="{ field, errors, value }" name="expire_at">
-                      <div data-test="promo.expire_at.block">
-                        <label for="expire_at" class="form__label">{{ t('messages.expire_at') }}</label
-                        ><br />
-                        <!-- todo need to wait v3.1.0 to implement date picker -->
-                        <input
-                          v-bind="field"
-                          id="expire_at"
-                          type="date"
-                          :value="value"
-                          :min="dayjs().format('YYYY-MM-DD')"
-                          data-test="promo.expire_at"
-                        />
-                        <div v-show="errors.length > 0" class="v-input__details">
-                          <div class="v-messages validation__error">
-                            <div v-for="(error, i) in errors" :key="i" class="v-messages__message">
-                              {{ error }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Field>
+                    <promo-field-discount />
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <promo-field-use />
+                  </v-col>
+                  <v-col cols="12" md="6">
+                    <promo-field-expire />
                   </v-col>
                   <v-col cols="12">
-                    <Field v-slot="{ field, errors, value }" name="short_description">
-                      <v-text-field
-                        v-bind="field"
-                        :model-value="value"
-                        type="text"
-                        hint="Appears on customers receipt"
-                        :label="t('messages.short_description')"
-                        :error-messages="errors"
-                        data-test="promo.short_description"
-                      />
-                    </Field>
+                    <promo-field-short-description />
                   </v-col>
                   <v-col cols="12">
-                    {{ t('messages.user_use_once') }}
-                    <Field v-slot="{ field, value }" name="rules.user_use_once">
-                      <one-time-use
-                        v-bind="field"
-                        :model-value="value"
-                        :positive-text="t('action.yes')"
-                        :negative-text="t('action.no')"
-                        class="ml-4"
-                        data-test="promo.rules.user_use_once"
-                      />
-                    </Field>
+                    <promo-field-rules />
                   </v-col>
                   <v-col cols="12">
-                    <Field v-slot="{ field, errors, value }" name="description">
-                      <wysiwyg
-                        v-bind="field"
-                        :model-value="value"
-                        :label="t('messages.description')"
-                        :error-messages="errors"
-                        data-test="promo.description"
-                      />
-                    </Field>
+                    <promo-field-description />
                   </v-col>
                 </v-row>
               </v-container>
@@ -134,17 +58,23 @@
 
 <script setup lang="ts">
 // libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 // custom
-import Wysiwyg from '@/components/fields/Wysiwyg.vue'
 import { gqlHandleError } from '@/helpers/handleErrors'
 import { PromoInput } from '@/modules/promotions/types'
 import useVSchema from '../helpers/validationSchemaPromo'
 import PromoUpsert from '../graphql/mutations/promoUpsert.gql'
 import GetPromotions from '../graphql/queries/getPromotions.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
-import OneTimeUse from '@/modules/promotions/components/OneTimeUse.vue'
 import { useNotification } from '@/modules/notifications/useNotification'
+// components
+import PromoFieldCode from '@/modules/promotions/components/form/PromoFieldCode.vue'
+import PromoFieldDiscount from '@/modules/promotions/components/form/PromoFieldDiscount.vue'
+import PromoFieldUse from '@/modules/promotions/components/form/PromoFieldUse.vue'
+import PromoFieldExpire from '@/modules/promotions/components/form/PromoFieldExpire.vue'
+import PromoFieldShortDescription from '@/modules/promotions/components/form/PromoFieldShortDescription.vue'
+import PromoFieldDescription from '@/modules/promotions/components/form/PromoFieldDescription.vue'
+import PromoFieldRules from '@/modules/promotions/components/form/PromoFieldRules.vue'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -161,7 +91,6 @@ const initialValues = reactive({
   expire_at: '',
   rules: { user_use_once: 0 },
 })
-const promoCode = ref('')
 
 const { onResult } = useQuery(GetPromotions, { filter: { id: [route.params.id] } })
 const { mutate, loading: loadingPromo, onDone, onError } = useMutation(PromoUpsert)
