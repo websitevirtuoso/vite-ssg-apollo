@@ -5,33 +5,9 @@
         <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="createRole">
           <v-card :title="t('messages.create_', { title: 'role' })">
             <v-card-text>
-              <Field v-slot="{ field, errors }" name="display_name">
-                <v-text-field
-                  v-bind="field"
-                  type="text"
-                  :label="t('messages.name')"
-                  :error-messages="errors"
-                  data-test="role.display_name"
-                />
-              </Field>
-              <Field v-slot="{ field, errors }" name="description">
-                <v-text-field
-                  v-bind="field"
-                  type="text"
-                  :label="t('messages.description')"
-                  :error-messages="errors"
-                  data-test="role.description"
-                />
-              </Field>
-              <Field v-slot="{ field, errors }" name="name">
-                <v-text-field
-                  v-bind="field"
-                  type="text"
-                  :label="t('messages.system_name')"
-                  :error-messages="errors"
-                  data-test="role.name"
-                />
-              </Field>
+              <role-field-display-name />
+              <role-field-description />
+              <role-field-name />
               <!-- @todo need to add component v-treeview  -->
             </v-card-text>
             <v-card-actions class="pb-3">
@@ -55,13 +31,17 @@
 
 <script setup lang="ts">
 //libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 //custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../helpers/validationSchemaRole'
 import RoleUpsert from '../graphql/mutations/roleUpsert.gql'
 import { useNotification } from '@/modules/notifications/useNotification'
 import { RoleInput } from '@/modules/roles/types'
+// components
+import RoleFieldName from '@/modules/roles/components/form/RoleFieldName.vue'
+import RoleFieldDescription from '@/modules/roles/components/form/RoleFieldDescription.vue'
+import RoleFieldDisplayName from '@/modules/roles/components/form/RoleFieldDisplayName.vue'
 
 const router = useRouter()
 const { t } = useI18n()

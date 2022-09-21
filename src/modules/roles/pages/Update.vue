@@ -5,36 +5,9 @@
         <Form v-slot="{ errors: formErrors }" as="v-form" :initial-values="initialValues" :validation-schema="vSchema" @submit="updateRole">
           <v-card :title="t('messages.update_', { title: 'role' })">
             <v-card-text>
-              <Field v-slot="{ field, errors, value }" name="display_name">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.name')"
-                  :error-messages="errors"
-                  data-test="role.display_name"
-                />
-              </Field>
-              <Field v-slot="{ field, errors, value }" name="description">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.description')"
-                  :error-messages="errors"
-                  data-test="role.description"
-                />
-              </Field>
-              <Field v-slot="{ field, errors, value }" name="name">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.system_name')"
-                  :error-messages="errors"
-                  data-test="role.name"
-                />
-              </Field>
+              <role-field-display-name />
+              <role-field-description />
+              <role-field-name />
               <Field v-slot="{ field, errors, value }" name="created_at">
                 <v-text-field
                   v-bind="field"
@@ -79,9 +52,9 @@
 </template>
 
 <script setup lang="ts">
-//libs
+// libs
 import { Field, Form, SubmissionContext } from 'vee-validate'
-//custom
+// custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import GetRoles from '../graphql/queries/getRoles.gql'
 import useVSchema from '../helpers/validationSchemaRole'
@@ -89,6 +62,10 @@ import { useNotification } from '@/modules/notifications/useNotification'
 import RoleUpsert from '../graphql/mutations/roleUpsert.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import { RoleInput } from '@/modules/roles/types'
+// components
+import RoleFieldName from '@/modules/roles/components/form/RoleFieldName.vue'
+import RoleFieldDisplayName from '@/modules/roles/components/form/RoleFieldDisplayName.vue'
+import RoleFieldDescription from '@/modules/roles/components/form/RoleFieldDescription.vue'
 
 const { t } = useI18n()
 const route = useRoute()
