@@ -12,68 +12,18 @@
             <v-window v-model="tab">
               <v-window-item>
                 <v-card-text>
-                  <Field v-slot="{ field, errors }" name="title">
-                    <v-text-field v-bind="field" type="text" :label="t('messages.title')" :error-messages="errors" data-test="post.title" />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="slug">
-                    <v-text-field
-                      v-bind="field"
-                      type="text"
-                      :label="t('messages.slug')"
-                      :hint="t('messages.cant_be_change_later')"
-                      :error-messages="errors"
-                      data-test="post.slug"
-                    />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="status">
-                    <v-select
-                      v-bind="field"
-                      :items="Object.values(Post_Status)"
-                      :label="t('messages.status')"
-                      :error-messages="errors"
-                      data-test="post.status"
-                    />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="category_id">
-                    <category-select v-bind="field" :error-messages="errors" data-test="post.category" :return-object="false" />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="content">
-                    <wysiwyg v-bind="field" :label="t('messages.content')" :error-messages="errors" data-test="post.content" />
-                  </Field>
+                  <post-field-title />
+                  <post-field-slug />
+                  <post-field-status />
+                  <post-field-category />
+                  <post-field-content />
                 </v-card-text>
               </v-window-item>
               <v-window-item>
                 <v-card-text>
-                  <Field v-slot="{ field, errors }" name="meta_title">
-                    <v-text-field
-                      v-bind="field"
-                      type="text"
-                      :label="t('messages.meta_title')"
-                      :error-messages="errors"
-                      data-test="post.meta_title"
-                    />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="meta_keyword">
-                    <v-text-field
-                      v-bind="field"
-                      type="text"
-                      :label="t('messages.meta_keyword')"
-                      :error-messages="errors"
-                      data-test="post.meta_keyword"
-                    />
-                  </Field>
-                  <Field v-slot="{ field, errors }" name="meta_description">
-                    <v-textarea
-                      v-bind="field"
-                      type="text"
-                      :label="t('messages.meta_description')"
-                      :error-messages="errors"
-                      data-test="post.meta_description"
-                      filled
-                      auto-grow
-                      counter
-                    />
-                  </Field>
+                  <post-field-meta-title />
+                  <post-field-meta-keyword />
+                  <post-field-meta-description />
                 </v-card-text>
               </v-window-item>
             </v-window>
@@ -99,16 +49,22 @@
 
 <script setup lang="ts">
 // libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 // custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../../helpers/validationSchemaPost'
 import PostUpsert from '../../graphql/mutations/postUpsert.gql'
-import CategorySelect from '../../components/Categories.vue'
-import Wysiwyg from '@/components/fields/Wysiwyg.vue'
 import { useNotification } from '@/modules/notifications/useNotification'
 import { PostInput } from '@/modules/blog/types'
-import { Post_Status } from '@/plugins/apollo/schemaTypesGenerated'
+// components
+import PostFieldTitle from '@/modules/blog/components/posts/form/PostFieldTitle.vue'
+import PostFieldSlug from '@/modules/blog/components/posts/form/PostFieldSlug.vue'
+import PostFieldStatus from '@/modules/blog/components/posts/form/PostFieldStatus.vue'
+import PostFieldCategory from '@/modules/blog/components/posts/form/PostFieldCategory.vue'
+import PostFieldContent from '@/modules/blog/components/posts/form/PostFieldContent.vue'
+import PostFieldMetaTitle from '@/modules/blog/components/posts/form/PostFieldMetaTitle.vue'
+import PostFieldMetaKeyword from '@/modules/blog/components/posts/form/PostFieldMetaKeyword.vue'
+import PostFieldMetaDescription from '@/modules/blog/components/posts/form/PostFieldMetaDescription.vue'
 
 const router = useRouter()
 const { t } = useI18n()

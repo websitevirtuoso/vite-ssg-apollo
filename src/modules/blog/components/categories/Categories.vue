@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import GetCountries from '../graphql/queries/getCategories.gql'
+import GetCountries from '@/modules/blog/graphql/queries/getCategories.gql'
 
 const { t } = useI18n()
 const { result } = useQuery(GetCountries, { pagination: { take: 999, page: 1 } }, { clientId: 'public' })

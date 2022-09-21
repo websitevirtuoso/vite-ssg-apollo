@@ -5,9 +5,7 @@
         <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="createCategory">
           <v-card :title="t('messages.create_', { title: 'category' })">
             <v-card-text>
-              <Field v-slot="{ field, errors }" name="title">
-                <v-text-field v-bind="field" type="text" :label="t('messages.title')" :error-messages="errors" data-test="category.title" />
-              </Field>
+              <category-field-title />
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
@@ -30,12 +28,13 @@
 
 <script setup lang="ts">
 //libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 //custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import useVSchema from '../../helpers/validationSchemaCategory'
 import CategoryUpsert from '../../graphql/mutations/categoryUpsert.gql'
 import { useNotification } from '@/modules/notifications/useNotification'
+import CategoryFieldTitle from '@/modules/blog/components/categories/form/CategoryFieldTitle.vue'
 
 const router = useRouter()
 const { t } = useI18n()

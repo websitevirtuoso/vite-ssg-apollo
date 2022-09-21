@@ -61,7 +61,7 @@
 import GetPosts from '../../graphql/queries/getPosts.gql'
 import pagination from '@/composables/usePagination'
 import { ActionCreate, ActionUpdate, ActionFilter } from '@/components/datatable/index'
-import PostFilter from '../../components/PostFilter.vue'
+import PostFilter from '../../components/posts/PostFilter.vue'
 import { filter } from '@/composables/useFilter'
 
 const { can } = useAbility()

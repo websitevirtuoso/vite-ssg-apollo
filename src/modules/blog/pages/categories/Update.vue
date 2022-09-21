@@ -11,16 +11,7 @@
         >
           <v-card :title="t('messages.update_', { title: 'category' })">
             <v-card-text>
-              <Field v-slot="{ field, errors, value }" name="title">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.title')"
-                  :error-messages="errors"
-                  data-test="category.title"
-                />
-              </Field>
+              <category-field-title />
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
@@ -43,7 +34,7 @@
 
 <script setup lang="ts">
 //libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 //custom
 import { gqlHandleError } from '@/helpers/handleErrors'
 import GetCategories from '../../graphql/queries/getCategories.gql'
@@ -51,6 +42,7 @@ import useVSchema from '@/modules/blog/helpers/validationSchemaCategory'
 import { useNotification } from '@/modules/notifications/useNotification'
 import CategoryUpsert from '../../graphql/mutations/categoryUpsert.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
+import CategoryFieldTitle from '@/modules/blog/components/categories/form/CategoryFieldTitle.vue'
 
 const { t } = useI18n()
 const route = useRoute()
