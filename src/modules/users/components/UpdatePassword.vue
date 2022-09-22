@@ -3,7 +3,7 @@
     <template #activator="{ props }">
       <v-btn
         v-bind="props"
-        icon="mdi-key"
+        :icon="mdiKey"
         size="small"
         flat
         data-test="update.password"

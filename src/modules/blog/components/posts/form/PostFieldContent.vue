@@ -1,10 +1,5 @@
 <template>
-  <wysiwyg
-    v-model="value"
-    :label="t('messages.content')"
-    :error-messages="errors"
-    data-test="post.content"
-  />
+  <wysiwyg v-model="value" :label="t('messages.content')" :error-messages="errors" data-test="post.content" />
 </template>
 
 <script setup lang="ts">

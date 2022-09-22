@@ -1,7 +1,7 @@
 <template>
   <v-scale-transition>
     <v-btn v-bind="$attrs" icon size="small" flat color="pink" data-test="btn.delete" @click="show = true">
-      <v-icon icon=" mdi-delete" color="white" />
+      <v-icon :icon="mdiDelete" color="white" />
     </v-btn>
   </v-scale-transition>
   <v-dialog v-model="show" persistent max-width="490">

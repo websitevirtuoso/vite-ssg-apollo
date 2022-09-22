@@ -1,11 +1,5 @@
 <template>
-  <v-text-field
-    v-model="value"
-    type="text"
-    :label="t('messages.name')"
-    :error-messages="errors"
-    data-test="role.display_name"
-  />
+  <v-text-field v-model="value" type="text" :label="t('messages.name')" :error-messages="errors" data-test="role.display_name" />
 </template>
 
 <script setup lang="ts">

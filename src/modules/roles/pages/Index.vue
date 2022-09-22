@@ -29,10 +29,10 @@
           <v-card-actions>
             <v-spacer />
             <v-btn size="small" color="primary" @click="prev">
-              <v-icon>mdi-chevron-left</v-icon>
+              <v-icon>{{ mdiChevronLeft }}</v-icon>
             </v-btn>
             <v-btn size="small" color="primary" @click="next">
-              <v-icon>mdi-chevron-right</v-icon>
+              <v-icon>{{ mdiChevronRight }}</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>

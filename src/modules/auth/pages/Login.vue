@@ -13,7 +13,7 @@
             type="email"
             required
             :error-messages="errors"
-            append-inner-icon="mdi-account"
+            :append-inner-icon="mdiAccount"
             autocomplete="username email"
             data-test="login.email"
           />
@@ -21,7 +21,7 @@
         <Field v-slot="{ field, errors }" name="password">
           <v-text-field
             v-bind="field"
-            append-inner-icon="mdi-lock"
+            :append-inner-icon="mdiLock"
             :label="t('auth.password')"
             type="password"
             :error-messages="errors"

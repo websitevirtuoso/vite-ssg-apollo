@@ -30,7 +30,7 @@
                 <td>
                   <v-chip :color="promo.rules.user_use_once ? 'red' : 'green'" text-color="white" small>
                     <v-avatar left>
-                      <v-icon>{{ promo.rules.user_use_once ? 'mdi-cancel' : 'mdi-checkbox-marked-circle' }}</v-icon>
+                      <v-icon>{{ promo.rules.user_use_once ? mdiCancel : mdiCheckboxMarkedCircle }}</v-icon>
                     </v-avatar>
                     User use once - {{ promo.rules.user_use_once ? t('action.yes') : t('action.no') }}
                   </v-chip>
@@ -57,10 +57,10 @@
           <v-card-actions>
             <v-spacer />
             <v-btn size="small" color="primary" @click="prev">
-              <v-icon>mdi-chevron-left</v-icon>
+              <v-icon>{{ mdiChevronLeft }}</v-icon>
             </v-btn>
             <v-btn size="small" color="primary" @click="next">
-              <v-icon>mdi-chevron-right</v-icon>
+              <v-icon>{{ mdiChevronRight }}</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>

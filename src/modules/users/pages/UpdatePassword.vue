@@ -14,7 +14,7 @@
                 data-test="update_password.password"
                 class="mt-5"
                 :type="showPassword ? 'text' : 'password'"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :append-icon="showPassword ? mdiEye : mdiEyeOff"
                 @click:append="showPassword = !showPassword"
               />
             </Field>

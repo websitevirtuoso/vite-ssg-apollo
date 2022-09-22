@@ -1,7 +1,7 @@
 <template>
   <v-tooltip :text="text" location="top">
     <template #activator="{ props }">
-      <v-btn v-bind="props" icon="mdi-pencil" size="small" flat data-test="update" :text="text" @click="$emit('click')" />
+      <v-btn v-bind="props" :icon="mdiPencil" size="small" flat data-test="update" :text="text" @click="$emit('click')" />
     </template>
   </v-tooltip>
 </template>

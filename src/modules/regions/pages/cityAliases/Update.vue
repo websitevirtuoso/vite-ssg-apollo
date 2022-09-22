@@ -32,7 +32,7 @@
                     :model-value="value"
                     item-title="name"
                     item-value="id"
-                    prepend-icon="mdi-earth"
+                    :prepend-icon="mdiEarth"
                     data-test="alias.country"
                     @update:model-value="countryChange"
                   />
@@ -47,7 +47,7 @@
                     :loading="loading"
                     :error-messages="errors"
                     :model-value="value"
-                    prepend-icon="mdi-compass"
+                    :prepend-icon="mdiCompass"
                     item-title="name"
                     item-value="id"
                     data-test="alias.state"
@@ -68,7 +68,7 @@
                     :error-messages="errors"
                     item-title="name"
                     item-value="id"
-                    prepend-icon="mdi-magnify"
+                    :prepend-icon="mdiMagnify"
                     data-test="alias.city"
                   />
                 </cities-query>

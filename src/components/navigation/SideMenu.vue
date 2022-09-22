@@ -4,7 +4,13 @@
     <v-list-group v-if="item.children" :prepend-icon="item.icon" active-color="active-group-item" color="primary" :data-test="item.name">
       <!-- title group with arrow -->
       <template #activator="{ props }">
-        <v-list-item v-bind="props" :title="item.name" :prepend-icon="item.icon" />
+        <v-list-item
+          v-bind="props"
+          :title="item.name"
+          :append-icon="expand ? mdiChevronUp : mdiChevronDown"
+          :prepend-icon="item.icon"
+          @click="expand = !expand"
+        />
       </template>
 
       <!-- sub items -->
@@ -23,6 +29,7 @@
 
 <script setup lang="ts">
 import SideMenuItem from './SideMenuItem.vue'
+const expand = ref(false)
 
 defineProps({
   items: {

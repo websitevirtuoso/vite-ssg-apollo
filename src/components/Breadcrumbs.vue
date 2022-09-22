@@ -6,7 +6,7 @@
         :class="{ 'v-breadcrumbs-item--disabled': crumb.current }"
         :to="crumb.link"
       >
-        <v-icon v-if="crumb.link === '/'" class="pr-1">mdi-home</v-icon>
+        <v-icon v-if="crumb.link === '/'" class="pr-1">{{ mdiHome }}</v-icon>
         {{ crumb.label }}
       </router-link>
     </template>

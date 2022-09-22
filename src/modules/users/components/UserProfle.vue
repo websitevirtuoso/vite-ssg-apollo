@@ -2,7 +2,7 @@
   <v-card tile style="margin-top: 15%">
     <v-card-actions>
       <v-btn v-if="can('update', 'user')" icon>
-        <v-icon color="primary" @click="router.push({ name: 'user-update', params: { id: user.id } })"> mdi-pencil </v-icon>
+        <v-icon color="primary" @click="router.push({ name: 'user-update', params: { id: user.id } })">{{ mdiPencil }}</v-icon>
       </v-btn>
       <v-spacer />
       <v-chip label :color="getStatusColor(user.status)" small>
@@ -30,7 +30,7 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-counter</v-icon>
+            <v-icon color="indigo">{{ mdiCounter }}</v-icon>
           </v-list-item>
         </template>
       </v-list-item>
@@ -44,7 +44,7 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-email</v-icon>
+            <v-icon color="indigo">{{ mdiEmail }}</v-icon>
           </v-list-item>
         </template>
       </v-list-item>
@@ -58,7 +58,7 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-map-marker</v-icon>
+            <v-icon color="indigo">{{ mdiMapMarker }}</v-icon>
           </v-list-item>
         </template>
       </v-list-item>

@@ -14,7 +14,7 @@
             type="email"
             required
             :error-messages="errors"
-            append-inner-icon="mdi-email"
+            :append-inner-icon="mdiEmail"
             autocomplete="username email"
             data-test="forget_password.email"
             class="mt-5"

@@ -2,26 +2,23 @@
   <v-app-bar :order="preferences.fullSizeBar">
     <v-app-bar-nav-icon data-test="sidenav-toggle" @click="preferences.toggleLeftSideBar()" />
     <v-btn
-      :icon="`mdi-chevron-${preferences.showMiniSideBar ? 'right' : 'left'}`"
+      :icon="preferences.showMiniSideBar ? mdiChevronRight : mdiChevronLeft"
       class="hidden-md-and-down"
       @click="preferences.toggleMiniSideBar()"
     />
-    <v-btn icon="mdi-arrow-expand-vertical" class="hidden-md-and-down" @click="preferences.toggleSizeBar()" />
+    <v-btn :icon="mdiArrowExpandVertical" class="hidden-md-and-down" @click="preferences.toggleSizeBar()" />
     <v-spacer />
     <v-tooltip :text="t('auth.logout')" location="bottom">
       <template #activator="{ props }">
-        <v-btn icon="mdi-exit-to-app" v-bind="props" data-test="logout" @click="logout" />
+        <v-btn :icon="mdiExitToApp" v-bind="props" data-test="logout" @click="logout" />
       </template>
     </v-tooltip>
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 import { usePreferences } from '@/stores/preferences'
 import { onLogoutApollo } from '@/modules/auth/utils/auth'
-import { useApolloClient, useMutation } from '@vue/apollo-composable'
 import { gqlHandleError } from '@/helpers/handleErrors'
 import LogOut from '@/modules/auth/graphql/mutations/logOut.gql'
 

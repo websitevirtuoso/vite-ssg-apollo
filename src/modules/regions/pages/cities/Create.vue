@@ -27,7 +27,7 @@
                     item-value="id"
                     :loading="loading"
                     :error-messages="errors"
-                    prepend-icon="mdi-earth"
+                    :prepend-icon="mdiEarth"
                     data-test="city.country"
                     @update:model-value="onCountryChange"
                   />
@@ -41,7 +41,7 @@
                     :label="t('messages.state')"
                     :loading="loading"
                     :model-value="value"
-                    prepend-icon="mdi-compass"
+                    :prepend-icon="mdiCompass"
                     item-title="name"
                     item-value="id"
                     data-test="city.state"
