@@ -143,5 +143,62 @@ export default () => {
     }
   }
 
-  return { city, onDraggedPin, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity }
+  type setFormValueFunction = (value: string | number) => void
+  const setFormWatchers = (setLat: setFormValueFunction, setLng: setFormValueFunction) => {
+    watch(
+      () => city.lat,
+      () => {
+        setLat(city.lat)
+      },
+      { immediate: true, deep: true }
+    )
+    watch(
+      () => city.lng,
+      () => {
+        setLng(city.lng)
+      },
+      { immediate: true, deep: true }
+    )
+  }
+
+  // This function can be used as top level function
+  /**
+   *
+   * @param place
+   * @param countriesTempRef can be undefined
+   * @param statesTempRef can be undefined
+   * @param citiesTempRef can be undefined
+   */
+  const onSetPlace = (place: google.maps.places.PlaceResult, countriesTempRef?: Ref, statesTempRef?: Ref, citiesTempRef?: Ref) => {
+    const address = onGetPlace(place)
+    city.postal_code = address.postal_code
+    city.street_address = `${address.street_number} ${address.street_name}`
+    city.lat = address.lat
+    city.lng = address.lng
+    city.country_name = address.country_name
+    city.state_name = address.state_name
+    city.city_name = address.city_name
+
+    if (city.country_name && countriesTempRef !== undefined) {
+      setCountry(countriesTempRef, city.country_name)
+    }
+
+    if (city.state_name && statesTempRef !== undefined) {
+      setState(statesTempRef, city.state_name)
+    }
+
+    // need to wait when state will be set
+    if (citiesTempRef !== undefined) {
+      watch(
+        () => city.state_id,
+        () => {
+          if (city.city_name) {
+            setCity(citiesTempRef, city.city_name)
+          }
+        }
+      )
+    }
+  }
+
+  return { city, onDraggedPin, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity, setFormWatchers, onSetPlace }
 }
