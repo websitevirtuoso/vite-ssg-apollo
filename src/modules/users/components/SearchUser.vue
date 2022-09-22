@@ -4,12 +4,14 @@
       v-bind="$attrs"
       :items="items"
       :loading="loading"
+      :model-value="modelUser?.id"
       :label="t('messages.user')"
       :item-title="filterByField"
       item-value="id"
       variant="outlined"
       :return-object="true"
       hide-details
+      clearable
       density="compact"
       class="select-group"
       @update:search="onSearch"
@@ -29,7 +31,7 @@
   </users-query>
 
   <v-expand-transition>
-    <div v-if="Object.keys(user).length !== 0">
+    <div v-if="user">
       <div class="text-h5 mt-5 mt-3">You selected next user</div>
       <v-table density="compact">
         <tbody>
@@ -59,8 +61,28 @@ export default {
 import UsersQuery from './RenderlessUsersQuery.vue'
 import { Users } from '@/plugins/apollo/schemaTypesGenerated'
 
+const props = defineProps({
+  modelUser: {
+    type: Object as () => Users,
+    required: false,
+  },
+})
+
 const { t } = useI18n()
-const user = reactive({}) as Users
+const user = ref<Users>()
+
+// to set existing user set watch
+onMounted(() => {
+  watch(
+    () => props.modelUser,
+    () => {
+      if (props.modelUser !== undefined) {
+        onSelectedUser(props.modelUser)
+      }
+    }
+  )
+})
+
 const search = ref('')
 const filterByField = ref('id')
 const filterByFields = ['id', 'first_name', 'last_name', 'email', 'phone']
@@ -74,33 +96,34 @@ const filterUsersBy = computed(() => {
   }
   return { [filterByField.value]: search.value }
 })
+
 const userFields = computed(() => {
   if (!user) return []
 
   return [
     {
       text: t('messages.id'),
-      value: user.id,
+      value: user.value?.id,
     },
     {
       text: t('messages.name'),
-      value: `${user.first_name} ${user.last_name}`,
+      value: `${user.value?.first_name} ${user.value?.last_name}`,
     },
     {
       text: t('messages.email'),
-      value: user.email,
+      value: user.value?.email,
     },
     {
       text: t('messages.status'),
-      value: user.status,
+      value: user.value?.status,
     },
     {
       text: t('messages.postal_code'),
-      value: user.postal_code,
+      value: user.value?.postal_code,
     },
     {
       text: t('messages.location'),
-      value: `${user.city?.state.country.name}, ${user.city?.state.name}, ${user?.city?.name}`,
+      value: `${user.value?.city?.state.country.name}, ${user.value?.city?.state.name}, ${user.value?.city?.name}`,
     },
   ]
 })
@@ -109,8 +132,9 @@ const onSearch = (value: string) => {
   search.value = value
 }
 
-const onSelectedUser = (selectedUser: Users) => {
-  Object.assign(user, selectedUser)
+const onSelectedUser = (selectedUser: Users | null) => {
+  // if used option "clearable" need to reset selected object
+  user.value = selectedUser === null ? undefined : selectedUser
 }
 </script>
 
