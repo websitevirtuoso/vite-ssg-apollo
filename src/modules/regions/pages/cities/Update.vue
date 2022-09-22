@@ -104,7 +104,7 @@ onResult((queryResult) => {
   redirectNotFoundIfEmpty(queryResult.data.cities.data[0])
   city.state_id = queryResult.data.cities.data[0].state.id
   city.country_id = queryResult.data.cities.data[0].state.country.id
-  ;({ id: initialValues.id, name: city.name, lat: city.lat, lat: city.lat, lng: city.lng } = queryResult.data.cities.data[0])
+  ;({ id: initialValues.id, name: city.name, lat: city.lat, lng: city.lng } = queryResult.data.cities.data[0])
 })
 
 const onSetPlace = (place: google.maps.places.PlaceResult) => {
