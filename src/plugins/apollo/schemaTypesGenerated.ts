@@ -1098,7 +1098,7 @@ export type ForgotPassword = {
   status: ResponseStatus
 }
 
-export enum Listing_Media {
+export enum Listing_Media_Status {
   Modified = 'MODIFIED',
   NotModified = 'NOT_MODIFIED',
 }
