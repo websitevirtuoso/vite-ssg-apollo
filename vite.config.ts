@@ -41,6 +41,10 @@ export default defineConfig({
             'useMutation',
             'useApolloClient', // import { useQuery, useMutation, useApolloClient } from '@vue/apollo-composable',
           ],
+          'vee-validate': [
+            // named imports
+            'useField', // import { useField } from 'vee-validate',
+          ],
           dayjs: [
             // default imports
             ['default', 'dayjs'], // import { default as dayjs } from 'dayjs',
@@ -50,12 +54,7 @@ export default defineConfig({
       vueTemplate: true,
       dts: './src/types/auto-imports.d.ts',
     }),
-    // todo implemen if possible
     // https://github.com/antfu/unplugin-vue-components
-    // Components({
-    //   dirs: ['src'],
-    //   resolvers: [],
-    // }),
     graphql(),
   ],
   define: { 'process.env': {} },

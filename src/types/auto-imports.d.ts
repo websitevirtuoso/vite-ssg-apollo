@@ -50,6 +50,7 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useField: typeof import('vee-validate')['useField']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useMutation: typeof import('@vue/apollo-composable')['useMutation']
   const useQuery: typeof import('@vue/apollo-composable')['useQuery']
@@ -114,6 +115,7 @@ declare module '@vue/runtime-core' {
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useField: UnwrapRef<typeof import('vee-validate')['useField']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useMutation: UnwrapRef<typeof import('@vue/apollo-composable')['useMutation']>
     readonly useQuery: UnwrapRef<typeof import('@vue/apollo-composable')['useQuery']>
