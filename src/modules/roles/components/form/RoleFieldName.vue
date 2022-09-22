@@ -1,6 +1,6 @@
 <template>
   <v-text-field
-    v-model="name"
+    v-model="value"
     type="text"
     :label="t('messages.system_name')"
     :error-messages="errors"
