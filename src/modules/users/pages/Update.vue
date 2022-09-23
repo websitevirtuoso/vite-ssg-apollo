@@ -26,16 +26,6 @@
                 </v-col>
                 <v-col cols="12" md="6">
                   <user-field-notify />
-                  <!--                  <Field v-slot="{ errors, value, handleChange }" name="notify">-->
-                  <!--                    <v-switch-->
-                  <!--                      :model-value="value"-->
-                  <!--                      :error-messages="errors"-->
-                  <!--                      color="primary"-->
-                  <!--                      :label="t('messages.notify')"-->
-                  <!--                      data-test="user.notify"-->
-                  <!--                      @update:model-value="handleChange"-->
-                  <!--                    />-->
-                  <!--                  </Field>-->
                 </v-col>
               </v-row>
             </v-container>
