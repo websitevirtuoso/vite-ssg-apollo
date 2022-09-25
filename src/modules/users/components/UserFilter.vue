@@ -131,8 +131,8 @@ import { User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import { rawFilter } from '@/composables/useFilter'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import RolesQuery from '@/modules/roles/components/RenderlessRolesQuery.vue'
-import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
-import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
+import StatesQuery from '@/modules/regions/components/states/RenderlessStatesQuery.vue'
+import CitiesQuery from '@/modules/regions/components/cities/RenderlessCitiesQuery.vue'
 import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuery.vue'
 
 rawFilter.country_ids = []

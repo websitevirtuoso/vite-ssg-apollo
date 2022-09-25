@@ -2,29 +2,12 @@
   <v-container>
     <v-row justify="space-around">
       <v-col cols="12" md="8">
-        <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="createState">
+        <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema()" @submit="createState">
           <v-card :title="t('messages.create_', { title: 'state' })">
             <v-card-text>
-              <Field v-slot="{ field, errors }" name="name">
-                <v-text-field v-bind="field" type="text" :label="t('messages.name')" :error-messages="errors" data-test="state.name" />
-              </Field>
-              <Field v-slot="{ field, errors }" name="code">
-                <v-text-field v-bind="field" type="text" :label="t('messages.code')" :error-messages="errors" data-test="state.code" />
-              </Field>
-              <Field v-slot="{ field, errors }" name="country_id">
-                <countries-query v-slot="{ items, loading }">
-                  <v-select
-                    v-bind="field"
-                    :items="items"
-                    :label="t('messages.country')"
-                    :error-messages="errors"
-                    item-title="name"
-                    item-value="id"
-                    :loading="loading"
-                    data-test="state.country"
-                  />
-                </countries-query>
-              </Field>
+              <state-field-name />
+              <state-field-code />
+              <state-field-country />
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
@@ -47,18 +30,20 @@
 
 <script setup lang="ts">
 //libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 //custom
 import { gqlHandleError } from '@/helpers/handleErrors'
-import useVSchema from '../../helpers/validationSchemaState'
+import vSchema from '../../helpers/validationSchemaState'
 import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
-import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
 import { useNotification } from '@/modules/notifications/useNotification'
 import { StateInput } from '@/modules/regions/types'
+// components
+import StateFieldName from '@/modules/regions/components/states/form/StateFieldName.vue'
+import StateFieldCode from '@/modules/regions/components/states/form/StateFieldCode.vue'
+import StateFieldCountry from '@/modules/regions/components/states/form/StateFieldCountry.vue'
 
 const router = useRouter()
 const { t } = useI18n()
-const vSchema = useVSchema(t)
 const notification = useNotification()
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(StateUpsert)
 

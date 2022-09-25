@@ -1,11 +1,11 @@
+import i18n from '@/plugins/i18n'
 import { object, string } from 'yup'
-import { tDefinition } from '@/types/i18n'
 
-export default (t: tDefinition) => {
+export default () => {
   return object({
-    name: string().required().label(t('messages.name')),
-    country_id: string().required().label(t('messages.country')),
-    state_id: string().required().label(t('messages.state')),
-    city_id: string().required().label(t('messages.city')),
+    name: string().required().label(i18n.global.t('messages.name')),
+    country_id: string().required().label(i18n.global.t('messages.country')),
+    state_id: string().required().label(i18n.global.t('messages.state')),
+    city_id: string().required().label(i18n.global.t('messages.city')),
   })
 }

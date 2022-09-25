@@ -6,46 +6,14 @@
           v-slot="{ errors: formErrors }"
           as="v-form"
           :initial-values="initialValues"
-          :validation-schema="vSchema"
+          :validation-schema="vSchema()"
           @submit="updateState"
         >
           <v-card :title="t('messages.update_', { title: 'state' })">
             <v-card-text>
-              <Field v-slot="{ field, errors, value }" name="name">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.name')"
-                  :error-messages="errors"
-                  data-test="state.name"
-                />
-              </Field>
-              <Field v-slot="{ field, errors, value }" name="code">
-                <v-text-field
-                  v-bind="field"
-                  :model-value="value"
-                  type="text"
-                  :label="t('messages.code')"
-                  :error-messages="errors"
-                  data-test="state.code"
-                />
-              </Field>
-              <Field v-slot="{ field, errors, value }" name="country_id">
-                <countries-query v-slot="{ items, loading }">
-                  <v-select
-                    v-bind="field"
-                    :model-value="value"
-                    :items="items"
-                    :label="t('messages.country')"
-                    :error-messages="errors"
-                    item-title="name"
-                    item-value="id"
-                    :loading="loading"
-                    data-test="state.country"
-                  />
-                </countries-query>
-              </Field>
+              <state-field-name />
+              <state-field-code />
+              <state-field-country />
             </v-card-text>
             <v-card-actions class="pb-3">
               <v-spacer />
@@ -68,21 +36,23 @@
 
 <script setup lang="ts">
 //libs
-import { Field, Form, SubmissionContext } from 'vee-validate'
+import { Form, SubmissionContext } from 'vee-validate'
 //custom
 import { gqlHandleError } from '@/helpers/handleErrors'
-import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
 import GetStates from '../../graphql/queries/getStates.gql'
-import useVSchema from '../../helpers/validationSchemaState'
+import vSchema from '../../helpers/validationSchemaState'
 import { useNotification } from '@/modules/notifications/useNotification'
 import StateUpsert from '../../graphql/mutations/stateUpsert.gql'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import { StateInput } from '@/modules/regions/types'
+// components
+import StateFieldName from '@/modules/regions/components/states/form/StateFieldName.vue'
+import StateFieldCode from '@/modules/regions/components/states/form/StateFieldCode.vue'
+import StateFieldCountry from '@/modules/regions/components/states/form/StateFieldCountry.vue'
 
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
-const vSchema = useVSchema(t)
 const notification = useNotification()
 const initialValues = reactive({ id: '', code: '', name: '', country_id: '' })
 

@@ -69,8 +69,8 @@ import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'
 import GetCities from '../../graphql/queries/getCities.gql'
 import { ActionFilter, ActionCreate, ActionView, ActionUpdate } from '@/components/datatable/index'
-import CityFilter from '@/modules/regions/components/CityFilter.vue'
-import ShowCityOnMap from '@/modules/regions/components/ShowCityOnMap.vue'
+import CityFilter from '@/modules/regions/components/cities/CityFilter.vue'
+import ShowCityOnMap from '@/modules/regions/components/cities/ShowCityOnMap.vue'
 import { City } from '@/modules/regions/types'
 
 const { t } = useI18n()

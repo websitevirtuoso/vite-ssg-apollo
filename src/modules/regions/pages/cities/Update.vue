@@ -77,7 +77,7 @@
 import { Field, Form, SubmissionContext } from 'vee-validate'
 // custom
 import CountriesQuery from '../../components/RenderlessCountriesQuery.vue'
-import StatesQuery from '../../components/RenderlessStatesQuery.vue'
+import StatesQuery from '@/modules/regions/components/states/RenderlessStatesQuery.vue'
 import CityUpsert from '../../graphql/mutations/cityUpsert.gql'
 import useVSchema from '../../helpers/validationSchemaCity'
 import GetCities from '../../graphql/queries/getCities.gql'

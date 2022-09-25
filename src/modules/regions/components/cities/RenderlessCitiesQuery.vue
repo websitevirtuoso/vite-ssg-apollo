@@ -1,5 +1,5 @@
 <script>
-import GetCities from '../graphql/queries/getCities.gql'
+import GetCities from '@/modules/regions/graphql/queries/getCities.gql'
 import { excludeEmptyValues } from '@/composables/useFilter'
 
 export default defineComponent({

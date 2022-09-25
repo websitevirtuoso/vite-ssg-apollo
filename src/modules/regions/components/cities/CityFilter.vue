@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuery.vue'
-import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
+import StatesQuery from '@/modules/regions/components/states/RenderlessStatesQuery.vue'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
 import { rawFilter } from '@/composables/useFilter'
 

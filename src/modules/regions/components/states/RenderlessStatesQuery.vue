@@ -1,5 +1,5 @@
 <script>
-import GetStates from '../graphql/queries/getStates.gql'
+import GetStates from '@/modules/regions/graphql/queries/getStates.gql'
 import { excludeEmptyValues } from '@/composables/useFilter'
 
 export default defineComponent({
