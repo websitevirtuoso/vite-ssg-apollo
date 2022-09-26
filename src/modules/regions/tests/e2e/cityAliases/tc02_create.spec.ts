@@ -20,21 +20,21 @@ describe('Create', () => {
     cy.getBySel('alias.submit').should('be.disabled')
 
     cy.getBySel('alias.name').errorValidation('Name is a required field')
-    cy.getBySel('alias.country').errorValidation('Country is a required field')
-    cy.getBySel('alias.state').should('not.exist')
-    cy.getBySel('alias.city').should('not.exist')
+    cy.getBySel('region.country').errorValidation('Country is a required field')
+    cy.getBySel('region.state').should('not.exist')
+    cy.getBySel('region.city').should('not.exist')
 
     // @ts-expect-error city unknown type
     aliases.getCity().then((city: City) => {
-      cy.getBySel('alias.country').vSelect(city.state.country.name)
+      cy.getBySel('region.country').vSelect(city.state.country.name)
       cy.wait('@queryGetStates')
-      cy.getBySel('alias.state').should('exist')
-      cy.getBySel('alias.state').errorValidation('State is a required field')
+      cy.getBySel('region.state').should('exist')
+      cy.getBySel('region.state').errorValidation('State is a required field')
 
-      cy.getBySel('alias.state').vSelect(city.state.name)
+      cy.getBySel('region.state').vSelect(city.state.name)
       cy.wait('@queryGetCities')
-      cy.getBySel('alias.city').should('exist')
-      cy.getBySel('alias.city').errorValidation('City is a required field')
+      cy.getBySel('region.city').should('exist')
+      cy.getBySel('region.city').errorValidation('City is a required field')
     })
   })
 
@@ -43,13 +43,13 @@ describe('Create', () => {
     // @ts-expect-error city unknown type
     aliases.getCity().then((city: City) => {
       cy.getBySel('alias.name').type(cityAlias.name)
-      cy.getBySel('alias.country').vSelect(city.state.country.name)
+      cy.getBySel('region.country').vSelect(city.state.country.name)
       cy.wait('@queryGetStates')
-      cy.getBySel('alias.state').vSelect(city.state.name)
+      cy.getBySel('region.state').vSelect(city.state.name)
       cy.wait('@queryGetCities')
 
       // v-autocomplete
-      cy.getBySel('alias.city').type(city.name).vSelect(city.name)
+      cy.getBySel('region.city').type(city.name).vSelect(city.name)
       cy.getBySel('alias.submit').click()
 
       cy.wait('@mutationCityAliasUpsert').then(({ response }) => {

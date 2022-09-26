@@ -15,6 +15,8 @@ describe('Update', () => {
     // @ts-expect-error post unknown type
     cities.getCity().then((city: City) => {
       cities.navigation.update(city)
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(500) // bad practise but I need to wait rende
       cy.getBySel('city.name').find('input').clear()
       cy.getBySel('city.submit').should('be.disabled')
 
@@ -31,9 +33,9 @@ describe('Update', () => {
       // @ts-expect-error state unknown type
       cities.getState().then((state: State) => {
         cy.getBySel('city.name').find('input').clear().type(newCity.name)
-        cy.getBySel('city.country').vSelect(state.country.name)
+        cy.getBySel('region.country').vSelect(state.country.name)
         cy.wait('@queryGetStates')
-        cy.getBySel('city.state').vSelect(state.name)
+        cy.getBySel('region.state').vSelect(state.name)
         cy.getBySel('city.submit').click()
 
         cy.wait('@mutationCityUpsert').then(({ response }) => {
@@ -49,6 +51,7 @@ describe('Update', () => {
 
         cy.toggleElement('btn.filter', true)
         // filter by name
+        cy.getBySel('filter.city.id').find('input').clear()
         cy.getBySel('filter.city.name')
           .find('input')
           .clear()

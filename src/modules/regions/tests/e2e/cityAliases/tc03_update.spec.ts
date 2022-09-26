@@ -17,14 +17,14 @@ describe('Update', () => {
       aliases.navigation.update(cityAlias)
 
       cy.getBySel('alias.name').should('be.visible')
-      cy.getBySel('alias.country').should('be.visible')
-      cy.getBySel('alias.state').should('be.visible')
-      cy.getBySel('alias.city').should('be.visible')
+      cy.getBySel('region.country').should('be.visible')
+      cy.getBySel('region.state').should('be.visible')
+      cy.getBySel('region.city').should('be.visible')
 
       cy.wait('@queryGetStates')
       cy.wait('@queryGetCities')
       // get country vselect text
-      cy.getBySel('alias.country')
+      cy.getBySel('region.country')
         .find('.v-select__selection-text')
         .then(($el) => {
           const selectedCountry = $el[0].textContent
@@ -32,15 +32,16 @@ describe('Update', () => {
           // to make sure that gql query works we need to get another country to refetch items
           // @ts-expect-error city unknown type
           aliases.getCity(selectedCountry).then((city: City) => {
-            cy.getBySel('alias.country').vSelect(city.state.country.name)
+            cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')
-            cy.getBySel('alias.state').should('exist')
-            cy.getBySel('alias.state').errorValidation('State is a required field')
+            cy.getBySel('alias.submit').click()
+            cy.getBySel('region.state').should('exist')
+            cy.getBySel('region.state').errorValidation('State is a required field')
 
-            cy.getBySel('alias.state').vSelect(city.state.name)
+            cy.getBySel('region.state').vSelect(city.state.name)
             cy.wait('@queryGetCities')
-            cy.getBySel('alias.city').should('exist')
-            cy.getBySel('alias.city').errorValidation('City is a required field')
+            cy.getBySel('region.city').should('exist')
+            cy.getBySel('region.city').errorValidation('City is a required field')
           })
         })
     })
@@ -55,7 +56,7 @@ describe('Update', () => {
       cy.wait('@queryGetCities')
       const newCityAlias = aliases.generateCityAlias()
 
-      cy.getBySel('alias.country')
+      cy.getBySel('region.country')
         .find('.v-select__selection-text')
         .then(($el) => {
           const selectedCountry = $el[0].textContent
@@ -64,11 +65,11 @@ describe('Update', () => {
           // @ts-expect-error city unknown type
           aliases.getCity(selectedCountry).then((city: City) => {
             cy.getBySel('alias.name').find('input').clear().type(newCityAlias.name)
-            cy.getBySel('alias.country').vSelect(city.state.country.name)
+            cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')
-            cy.getBySel('alias.state').vSelect(city.state.name)
+            cy.getBySel('region.state').vSelect(city.state.name)
             cy.wait('@queryGetCities')
-            cy.getBySel('alias.city').type(city.name).vSelect(city.name)
+            cy.getBySel('region.city').type(city.name).vSelect(city.name)
             cy.getBySel('alias.submit').click()
 
             cy.wait('@mutationCityAliasUpsert').then(({ response }) => {

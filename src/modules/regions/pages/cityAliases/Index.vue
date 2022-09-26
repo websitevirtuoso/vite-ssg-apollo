@@ -56,7 +56,7 @@ import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'
 import GetCityAliases from '../../graphql/queries/getCityAliases.gql'
 import { ActionFilter, ActionCreate, ActionUpdate } from '@/components/datatable/index'
-import CityAliasFilter from '@/modules/regions/components/CityAliasFilter.vue'
+import CityAliasFilter from '@/modules/regions/components/citiesAlias/CityAliasFilter.vue'
 
 const { t } = useI18n()
 const { can } = useAbility()

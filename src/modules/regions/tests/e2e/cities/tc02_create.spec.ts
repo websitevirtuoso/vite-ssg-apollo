@@ -17,15 +17,15 @@ describe('Create', () => {
     cy.getBySel('city.submit').should('be.disabled')
 
     cy.getBySel('city.name').errorValidation('Name is a required field')
-    cy.getBySel('city.country').errorValidation('Country is a required field')
-    cy.getBySel('city.state').should('not.exist')
+    cy.getBySel('region.country').errorValidation('Country is a required field')
+    cy.getBySel('region.state').should('not.exist')
 
     // @ts-expect-error state unknown type
     cities.getState().then((state: State) => {
-      cy.getBySel('city.country').vSelect(state.country.name)
+      cy.getBySel('region.country').vSelect(state.country.name)
       cy.wait('@queryGetStates')
-      cy.getBySel('city.state').should('exist')
-      cy.getBySel('city.state').errorValidation('State is a required field')
+      cy.getBySel('region.state').should('exist')
+      cy.getBySel('region.state').errorValidation('State is a required field')
     })
   })
 
@@ -36,9 +36,9 @@ describe('Create', () => {
 
       cy.getBySel('gmap-autocomplete').type('Vancouver').get('div.pac-container .pac-item').should('be.visible').first().click()
       cy.getBySel('city.name').find('input').clear().type(newCity.name)
-      cy.getBySel('city.country').vSelect(state.country.name)
+      cy.getBySel('region.country').vSelect(state.country.name)
       cy.wait('@queryGetStates')
-      cy.getBySel('city.state').vSelect(state.name)
+      cy.getBySel('region.state').vSelect(state.name)
       cy.getBySel('city.submit').click()
 
       cy.wait('@mutationCityUpsert').then(({ response }) => {

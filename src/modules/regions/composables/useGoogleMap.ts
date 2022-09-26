@@ -2,6 +2,7 @@
 import google from '@types/google.maps'
 import { nextTick, reactive, Ref } from 'vue'
 import { Country, State, City } from '@/modules/regions/types'
+import { useField } from 'vee-validate'
 
 interface google_addresses {
   country_name: string
@@ -13,8 +14,15 @@ interface google_addresses {
 }
 
 export const onGetPlace = (place: google.maps.places.PlaceResult) => {
-  const lat = place.geometry.location.lat()
-  const lng = place.geometry.location.lng()
+  let lat = ''
+  let lng = ''
+  if (typeof place.geometry.location.lat === 'number') {
+    lat = place.geometry.location.lat
+    lng = place.geometry.location.lng
+  } else {
+    lat = place.geometry.location.lat()
+    lng = place.geometry.location.lng()
+  }
   const searchOption = [
     { search_field: 'country', var_name: 'country_name' },
     { search_field: 'administrative_area_level_1', var_name: 'state_name' },
@@ -37,7 +45,27 @@ export const onGetPlace = (place: google.maps.places.PlaceResult) => {
   return Object.assign({ lat, lng }, ...address)
 }
 
+const decodeLatLong = (position: GeolocationPosition): google.maps.places.PlaceResult => {
+  return fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?key=${import.meta.env.VITE_GOOGLE_API_KEY}&result_type=street_address&latlng=${
+      position.coords.latitude
+    },${position.coords.longitude}`
+  )
+    .then((response) => response.json())
+    .catch((error) => {
+      throw new Error(error)
+    })
+}
+
 export default () => {
+  const { setValue: setFormCountry } = useField('country_id')
+  const { setValue: setFormState, value: valueStateID } = useField('state_id')
+  const { setValue: setFormCity } = useField('city_id')
+  const { setValue: setFormPostalCode } = useField('postal_code')
+  const { setValue: setFormAddress } = useField('address')
+  const { setValue: setFormLat } = useField('lat')
+  const { setValue: setFormLng } = useField('lng')
+
   const city = reactive({
     id: '',
     name: '',
@@ -47,40 +75,37 @@ export default () => {
     city_name: '',
     street_address: '',
     cityNameSearch: '',
-    country_id: '',
-    state_id: '',
-    city_id: '',
     lat: 49.9,
     lng: -119.4833,
   }) // default coords is kelowna
 
   const onDraggedPin = (event: google.maps.MapMouseEvent) => {
-    city.lat = event.lat()
-    city.lng = event.lng()
+    setFormLat(event.lat())
+    setFormLng(event.lng())
   }
 
   const onStateChange = () => {
-    city.id = ''
+    setFormCity(null)
     city.cityNameSearch = ''
   }
 
   // reset state value when country changed
   const onCountryChange = () => {
-    city.state_id = ''
-    onStateChange
+    setFormState(null)
+    onStateChange()
   }
 
   // get countries items via ref and find this country from out list in db
   const setCountry = (countries: Ref<null>, countryName: string) => {
     try {
       // @ts-expect-error property country doesn't exist on type countries
-      const countriesItems = countries.value?.countries as Country[]
+      const countriesItems = countries.value?.country.countries as Country[]
       const matchedCountry = countriesItems.find((countryItem: Country) => countryItem.name === countryName)
       if (matchedCountry) {
-        city.country_id = matchedCountry.id
+        setFormCountry(matchedCountry.id)
       }
     } catch (e) {
-      // I want application to not crush, but don't care about the message
+      //
     }
   }
 
@@ -90,10 +115,10 @@ export default () => {
 
     const setStateID = () => {
       // @ts-expect-error property country doesn't exist on type countries
-      const statesItems = states.value?.states as State[]
+      const statesItems = states.value?.state.states as State[]
       const matchedState = statesItems.find((stateItem: State) => stateItem.name === stateName)
       if (matchedState) {
-        city.state_id = matchedState.id
+        setFormState(matchedState.id)
       }
     }
 
@@ -103,7 +128,7 @@ export default () => {
 
       // this case when user change country
       // @ts-expect-error property country doesn't exist on type states
-      states.value.onResult(({ data }) => {
+      states.value.state.onResult(({ data }) => {
         // need to check that states available because function reactive
         if (data?.states) {
           setStateID()
@@ -120,10 +145,10 @@ export default () => {
 
     const setCityID = () => {
       // @ts-expect-error property cities doesn't exist on type cities
-      const citiesItems = cities.value?.cities as City[]
+      const citiesItems = cities.value?.city.cities as City[]
       const matchedCity = citiesItems.find((cityItem: City) => cityItem.name === cityName)
       if (matchedCity) {
-        city.city_id = matchedCity.id
+        setFormCity(matchedCity.id)
       }
     }
 
@@ -132,7 +157,7 @@ export default () => {
 
       // this case when user change state
       // @ts-expect-error property city doesn't exist on type cities
-      cities.value.onResult(({ data }) => {
+      cities.value.city.onResult(({ data }) => {
         // need to check that cities available because function reactive
         if (data?.cities) {
           setCityID()
@@ -143,27 +168,9 @@ export default () => {
     }
   }
 
-  type setFormValueFunction = (value: string | number) => void
-  const setFormWatchers = (setLat: setFormValueFunction, setLng: setFormValueFunction) => {
-    watch(
-      () => city.lat,
-      () => {
-        setLat(city.lat)
-      },
-      { immediate: true, deep: true }
-    )
-    watch(
-      () => city.lng,
-      () => {
-        setLng(city.lng)
-      },
-      { immediate: true, deep: true }
-    )
-  }
-
   // This function can be used as top level function
   /**
-   *
+   * Top level abstraction function.
    * @param place
    * @param countriesTempRef can be undefined
    * @param statesTempRef can be undefined
@@ -171,10 +178,10 @@ export default () => {
    */
   const onSetPlace = (place: google.maps.places.PlaceResult, countriesTempRef?: Ref, statesTempRef?: Ref, citiesTempRef?: Ref) => {
     const address = onGetPlace(place)
-    city.postal_code = address.postal_code
-    city.street_address = `${address.street_number} ${address.street_name}`
-    city.lat = address.lat
-    city.lng = address.lng
+    setFormPostalCode(address.postal_code)
+    setFormAddress(`${address.street_number} ${address.street_name}`)
+    setFormLat(address.lat)
+    setFormLng(address.lng)
     city.country_name = address.country_name
     city.state_name = address.state_name
     city.city_name = address.city_name
@@ -184,21 +191,54 @@ export default () => {
     }
 
     if (city.state_name && statesTempRef !== undefined) {
-      setState(statesTempRef, city.state_name)
+      setState(statesTempRef, city.state_name).then()
     }
 
     // need to wait when state will be set
     if (citiesTempRef !== undefined) {
       watch(
-        () => city.state_id,
+        () => valueStateID.value,
         () => {
           if (city.city_name) {
-            setCity(citiesTempRef, city.city_name)
+            setCity(citiesTempRef, city.city_name).then()
           }
         }
       )
     }
   }
 
-  return { city, onDraggedPin, onCountryChange, onStateChange, onGetPlace, setCountry, setState, setCity, setFormWatchers, onSetPlace }
+  const setBrowserLocation = (countriesTempRef?: Ref, statesTempRef?: Ref, citiesTempRef?: Ref) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          decodeLatLong(position).then((place: google.maps.places.PlaceResult) => {
+            if (place.status === 'OK') {
+              onSetPlace(place.results[0], countriesTempRef, statesTempRef, citiesTempRef)
+            }
+          })
+        },
+        () => {
+          /**/
+        },
+        {
+          maximumAge: 0,
+          enableHighAccuracy: true,
+          timeout: 10000,
+        }
+      )
+    }
+  }
+
+  return {
+    city,
+    onDraggedPin,
+    onCountryChange,
+    onStateChange,
+    onGetPlace,
+    setCountry,
+    setState,
+    setCity,
+    onSetPlace,
+    setBrowserLocation,
+  }
 }

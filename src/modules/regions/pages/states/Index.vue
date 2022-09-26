@@ -52,7 +52,7 @@ import { filter } from '@/composables/useFilter'
 import pagination from '@/composables/usePagination'
 import GetStates from '../../graphql/queries/getStates.gql'
 import { ActionFilter, ActionCreate, ActionUpdate } from '@/components/datatable/index'
-import StateFilter from '@/modules/regions/components/StateFilter.vue'
+import StateFilter from '@/modules/regions/components/states/StateFilter.vue'
 import { useRouter } from 'vue-router'
 
 const { t } = useI18n()

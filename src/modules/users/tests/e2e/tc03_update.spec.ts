@@ -16,8 +16,8 @@ describe('Update', () => {
     cy.create('App\\Models\\User').then((user: CyUser) => {
       users.navigation.update(user)
 
-      cy.getBySel('user.state').should('be.visible')
-      cy.getBySel('user.city').should('be.visible')
+      cy.getBySel('region.state').should('be.visible')
+      cy.getBySel('region.city').should('be.visible')
       cy.getBySel('user.password').should('not.exist')
 
       // clear all fields
@@ -27,7 +27,7 @@ describe('Update', () => {
       cy.getBySel('user.email').find('input').clear()
 
       // get country vselect text
-      cy.getBySel('user.country')
+      cy.getBySel('region.country')
         .find('.v-select__selection-text')
         .then(($el) => {
           const selectedCountry = $el[0].textContent
@@ -35,14 +35,14 @@ describe('Update', () => {
           // to make sure that gql query works we need to get another country to refetch items
           // @ts-expect-error city unknown type
           users.getCity(selectedCountry).then((city: City) => {
-            cy.getBySel('user.country').vSelect(city.state.country.name)
+            cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')
-            cy.getBySel('user.state').should('exist')
-            cy.getBySel('user.state').errorValidation('State is a required field')
+            cy.getBySel('region.state').should('exist')
+            cy.getBySel('region.state').errorValidation('State is a required field')
 
-            cy.getBySel('user.state').vSelect(city.state.name)
+            cy.getBySel('region.state').vSelect(city.state.name)
             cy.wait('@queryGetCities')
-            cy.getBySel('user.city').should('exist')
+            cy.getBySel('region.city').should('exist')
             // todo I think bug in vuetify. when update field has value integer. need check this later
             // cy.getBySel('user.city').errorValidation('City is a required field')
           })
@@ -84,16 +84,16 @@ describe('Update', () => {
         cy.getBySel('user.role').vSelect(newUser.role.display_name)
         cy.getBySel('user.status').vSelect(newUser.status)
 
-        cy.getBySel('user.address').find('input').clear().type(newUser.address)
-        cy.getBySel('user.postal_code').find('input').clear().type(newUser.postal_code)
+        cy.getBySel('region.address').find('input').clear().type(newUser.address)
+        cy.getBySel('region.postal_code').find('input').clear().type(newUser.postal_code)
 
-        cy.getBySel('user.country').vSelect(newUser.city.state.country.name)
+        cy.getBySel('region.country').vSelect(newUser.city.state.country.name)
         cy.wait('@queryGetStates')
-        cy.getBySel('user.state').vSelect(newUser.city.state.name)
+        cy.getBySel('region.state').vSelect(newUser.city.state.name)
         cy.wait('@queryGetCities')
 
         // v-autocomplete
-        cy.getBySel('user.city').find('input').clear().type(newUser.city.name).vSelect(newUser.city.name)
+        cy.getBySel('region.city').find('input').clear().type(newUser.city.name).vSelect(newUser.city.name)
         cy.getBySel('user.submit').click()
 
         cy.wait('@mutationUserUpdate').then(({ response }) => {

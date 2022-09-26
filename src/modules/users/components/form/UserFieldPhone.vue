@@ -2,10 +2,11 @@
   <!-- todo need to work on validation problem -->
   <template v-for="(_, idx) in fields" :key="idx">
     <div class="phone-field">
-      <Field v-slot="{ field, errors }" :name="`phone[${idx}]`">
+      <Field v-slot="{ field, errors, value }" :name="`phone[${idx}]`">
         <v-text-field
           v-bind="field"
           type="number"
+          :model-value="value"
           :prepend-icon="mdiPhone"
           :label="t('messages.phone')"
           :error-messages="errors"
@@ -14,7 +15,7 @@
         <v-btn v-if="idx > 0" :icon="mdiMinusCircle" size="x-small" tile :rounded="0" color="red" class="text-white" @click="remove(idx)" />
       </Field>
     </div>
-    <v-error-message :name="`phone['${idx}']`" />
+    <v-error-message :name="`phone[${idx}]`" />
   </template>
 
   <v-btn
