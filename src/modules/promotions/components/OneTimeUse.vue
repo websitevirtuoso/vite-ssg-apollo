@@ -1,5 +1,5 @@
 <template>
-  <v-btn-toggle v-bind="$attrs" mandatory dense dark>
+  <v-btn-toggle v-bind="$attrs" mandatory>
     <v-btn small :value="0" color="green lighten-4" active-class="green darken-3 elevation-2">
       <v-icon right>{{ mdiCheckBold }}</v-icon>
       {{ negativeText }}

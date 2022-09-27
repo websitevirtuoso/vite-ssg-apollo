@@ -6,7 +6,7 @@
       :loading="loading"
       :label="t('messages.role')"
       :error-messages="errors"
-      :prepend-icon="mdiAccountGroup"
+      :prepend-inner-icon="mdiAccountGroup"
       item-title="display_name"
       item-value="id"
       :return-object="false"

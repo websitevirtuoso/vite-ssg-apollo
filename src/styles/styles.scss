@@ -34,6 +34,13 @@
   align-items: center;
 }
 
+.required label::after {
+  padding-inline-start: 3px;
+  font-weight: bold;
+  color: #b71b1b;
+  content: '*';
+}
+
 .validation__error {
   color: rgb(var(--v-theme-error));
   opacity: 1;

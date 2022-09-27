@@ -1,0 +1,21 @@
+mutation ContactForm(
+  $first_name: String!
+  $last_name: String!
+  $email: String!
+  $phone: String
+  $address: String
+  $subject: String!
+  $message: String!
+) {
+  contactForm(
+    first_name: $first_name
+    last_name: $last_name
+    email: $email
+    phone: $phone
+    address: $address
+    subject: $subject
+    message: $message
+  ) {
+    status
+  }
+}

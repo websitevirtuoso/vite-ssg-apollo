@@ -4,7 +4,7 @@
     :items="Object.values(User_Status)"
     :label="t('messages.status')"
     :error-messages="errors"
-    :prepend-icon="mdiChevronDoubleDown"
+    :prepend-inner-icon="mdiChevronDoubleDown"
     data-test="user.status"
   />
 </template>

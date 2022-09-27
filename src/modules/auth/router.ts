@@ -32,6 +32,11 @@ const childrenRoutes: Array<RouteRecordRaw> = [
     path: '/update-password/:token/email/:email/',
     component: () => import('./pages/UpdatePassword.vue'),
   },
+  {
+    name: 'contact-us',
+    path: '/contact-us',
+    component: () => import('./pages/ContactUs.vue'),
+  },
 ]
 
 export default (router: Router) => {

@@ -2,7 +2,7 @@
   <v-text-field
     v-model="value"
     type="email"
-    :prepend-icon="mdiAccount"
+    :prepend-inner-icon="mdiAccount"
     :label="t('messages.email')"
     :error-messages="errors"
     data-test="user.email"

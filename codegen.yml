@@ -10,5 +10,5 @@ generates:
       - typescript
     hooks:
       afterOneFileWrite:
-        - prettier --config ./.prettierrc ./src/plugins/schemaTypesGenerated.ts --write
-        - eslint --fix ./src/plugins/schemaTypesGenerated.ts
+        - prettier --config ./.prettierrc ./src/plugins/apollo/schemaTypesGenerated.ts --write
+        - eslint --fix ./src/plugins/apollo/schemaTypesGenerated.ts

@@ -78,6 +78,7 @@
     "url": "Url",
     "feed": "Feed",
     "description": "Description",
+    "message": "Message",
     "email": "Email",
     "password": "Password",
     "discount": "Discount",
@@ -130,6 +131,7 @@
     "without_media": "Without Media",
     "empty_table": "Sorry, nothing to display here :(",
     "website_url": "Website URL",
+    "subject": "Subject",
 
     "home": "Home",
     "post": "Post | Posts",

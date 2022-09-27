@@ -430,6 +430,7 @@ export type Mutation = {
   cityAliasUpsert?: Maybe<CityAliases>
   cityDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   cityUpsert?: Maybe<Cities>
+  contactForm?: Maybe<Contact>
   forgotPassword?: Maybe<ForgotPassword>
   listingDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   listingTermUpdate?: Maybe<ListingTerms>
@@ -482,6 +483,16 @@ export type MutationCityUpsertArgs = {
   lng: Scalars['Float']
   name: Scalars['String']
   state_id: Scalars['ID']
+}
+
+export type MutationContactFormArgs = {
+  address?: InputMaybe<Scalars['String']>
+  email: Scalars['String']
+  first_name: Scalars['String']
+  last_name?: InputMaybe<Scalars['String']>
+  message: Scalars['String']
+  phone?: InputMaybe<Scalars['String']>
+  subject: Scalars['String']
 }
 
 export type MutationForgotPasswordArgs = {
@@ -1104,6 +1115,11 @@ export enum Company_Status {
   Active = 'ACTIVE',
   Blocked = 'BLOCKED',
   Inactive = 'INACTIVE',
+}
+
+export type Contact = {
+  __typename?: 'contact'
+  status: ResponseStatus
 }
 
 export type ForgotPassword = {

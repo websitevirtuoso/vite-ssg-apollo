@@ -7,7 +7,7 @@
           v-bind="field"
           type="number"
           :model-value="value"
-          :prepend-icon="mdiPhone"
+          :prepend-inner-icon="mdiPhone"
           :label="t('messages.phone')"
           :error-messages="errors"
           :data-test="`user.phone[${idx}]`"

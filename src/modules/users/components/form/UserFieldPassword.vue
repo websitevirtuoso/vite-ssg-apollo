@@ -2,7 +2,7 @@
   <v-text-field
     v-model="value"
     type="password"
-    :prepend-icon="mdiLock"
+    :prepend-inner-icon="mdiLock"
     :label="t('messages.password')"
     :error-messages="errors"
     autocomplete="new-password"
