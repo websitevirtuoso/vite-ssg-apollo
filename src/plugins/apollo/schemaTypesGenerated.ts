@@ -444,6 +444,7 @@ export type Mutation = {
   promoUpsert?: Maybe<Promotions>
   roleDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   roleUpsert?: Maybe<Roles>
+  signUp?: Maybe<SignUp>
   stateDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
   stateUpsert?: Maybe<States>
   updateForgottenPassword?: Maybe<UpdateForgottenPassword>
@@ -574,6 +575,19 @@ export type MutationRoleUpsertArgs = {
   id?: InputMaybe<Scalars['ID']>
   name: Scalars['String']
   permission_id?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+}
+
+export type MutationSignUpArgs = {
+  address?: InputMaybe<Scalars['String']>
+  city_id: Scalars['ID']
+  email: Scalars['String']
+  first_name: Scalars['String']
+  last_name: Scalars['String']
+  notify: Scalars['Boolean']
+  password: Scalars['String']
+  phone: Array<InputMaybe<Scalars['String']>>
+  postal_code?: InputMaybe<Scalars['String']>
+  route_login: Scalars['String']
 }
 
 export type MutationStateDeleteArgs = {
@@ -1127,6 +1141,12 @@ export enum Listing_Status {
 export enum Post_Status {
   Active = 'ACTIVE',
   Disabled = 'DISABLED',
+}
+
+export type SignUp = {
+  __typename?: 'signUp'
+  message?: Maybe<Scalars['String']>
+  status: ResponseStatus
 }
 
 export type UpdateForgottenPassword = {

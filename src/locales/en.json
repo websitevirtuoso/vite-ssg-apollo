@@ -43,7 +43,8 @@
     "service_unavailable_message": "The server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay.",
     "internal_error": "Internal server error.",
     "internal_error_message": "The server encountered something unexpected that didn't allow it to complete the request.",
-    "invalid_form": "Please fill out all required fields."
+    "invalid_form": "Please fill out all required fields.",
+    "privacy_terms": "Term of use"
   },
   "messages": {
     "dashboard": "Dashboard",
@@ -151,6 +152,8 @@
   },
   "auth": {
     "login": "Login",
+    "register": "Register Account",
+    "privacy": "Register Account",
     "email": "E-Mail Address",
     "password": "Password",
     "forgot_password": "Forgot password?",

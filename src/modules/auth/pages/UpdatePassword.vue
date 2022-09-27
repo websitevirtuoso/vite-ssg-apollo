@@ -1,7 +1,7 @@
 <template>
   <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="updatePassword">
     <v-card class="pa-3">
-      <v-toolbar color="primary" dark flat dense>
+      <v-toolbar color="primary" flat dense>
         <v-toolbar-title>Update password</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
@@ -54,6 +54,18 @@
         </v-container>
       </v-card-actions>
     </v-card>
+    <v-row class="mt-1">
+      <v-col cols="6">
+        <router-link :to="{ name: 'register' }">
+          {{ t('auth.register') }}
+        </router-link>
+      </v-col>
+      <v-col cols="6" class="text-right">
+        <router-link :to="{ name: 'login' }">
+          {{ t('auth.login') }}
+        </router-link>
+      </v-col>
+    </v-row>
   </Form>
 </template>
 

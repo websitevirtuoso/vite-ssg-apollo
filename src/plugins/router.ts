@@ -35,7 +35,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['login', 'forgot-password', 'update-password', 'error', 'access-denied', 'page-not-found']
+  const publicPages = [
+    'login',
+    'forgot-password',
+    'update-password',
+    'error',
+    'access-denied',
+    'page-not-found',
+    'verification',
+    'register',
+  ]
 
   let authRequired = true
   if (typeof to.name === 'string') {

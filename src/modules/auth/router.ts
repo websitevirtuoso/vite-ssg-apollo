@@ -13,6 +13,16 @@ const childrenRoutes: Array<RouteRecordRaw> = [
     component: () => import('./pages/Login.vue'),
   },
   {
+    name: 'register',
+    path: '/register',
+    component: () => import('./pages/Registration.vue'),
+  },
+  {
+    name: 'verification',
+    path: '/verification',
+    component: () => import('./pages/Verification.vue'),
+  },
+  {
     name: 'forgot-password',
     path: '/forgot-password',
     component: () => import('./pages/ForgotPassword.vue'),

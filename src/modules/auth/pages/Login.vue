@@ -45,13 +45,22 @@
                 {{ t('auth.login') }}
               </v-btn>
             </v-col>
-            <v-col cols="12">
-              <v-btn :to="{ name: 'forgot-password' }" class="mt-3">{{ t('auth.forgot_password') }}</v-btn>
-            </v-col>
           </v-row>
         </v-container>
       </v-card-actions>
     </v-card>
+    <v-row class="mt-1">
+      <v-col cols="6">
+        <router-link :to="{ name: 'forgot-password' }" class="text-indigo-accent-4">
+          {{ t('auth.forgot_password') }}
+        </router-link>
+      </v-col>
+      <v-col cols="6" class="text-right">
+        <router-link :to="{ name: 'register' }" class="text-indigo-accent-4">
+          {{ t('auth.register') }}
+        </router-link>
+      </v-col>
+    </v-row>
   </Form>
 </template>
 

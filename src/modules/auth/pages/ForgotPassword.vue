@@ -1,7 +1,7 @@
 <template>
   <Form v-slot="{ errors: formErrors }" as="v-form" :validation-schema="vSchema" @submit="forgotPassword">
     <v-card class="pa-3">
-      <v-toolbar color="primary" dark flat dense>
+      <v-toolbar color="primary" flat>
         <v-toolbar-title>Forgot password</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
@@ -36,13 +36,22 @@
                 {{ t('auth.forgot_password') }}
               </v-btn>
             </v-col>
-            <v-col cols="12">
-              <v-btn :to="{ name: 'login' }" class="mt-3">{{ t('auth.login') }}</v-btn>
-            </v-col>
           </v-row>
         </v-container>
       </v-card-actions>
     </v-card>
+    <v-row class="mt-1">
+      <v-col cols="6">
+        <router-link :to="{ name: 'register' }">
+          {{ t('auth.register') }}
+        </router-link>
+      </v-col>
+      <v-col cols="6" class="text-right">
+        <router-link :to="{ name: 'login' }">
+          {{ t('auth.login') }}
+        </router-link>
+      </v-col>
+    </v-row>
     <forgot-password-verification :show="showVerification" />
   </Form>
 </template>

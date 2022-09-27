@@ -1,5 +1,5 @@
 <template>
-  <v-checkbox v-model="value" :error-messages="errors" color="success" data-test="register.policy">
+  <v-checkbox v-model="value" :error-messages="errors" color="success" data-test="user.policy">
     <template #label>
       <div>
         Do you accept the

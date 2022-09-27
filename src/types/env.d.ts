@@ -1,6 +1,7 @@
 /// <reference types="vite" />
 
 interface ImportMetaEnv {
+  readonly VITE_BASE_URL: string
   readonly VITE_GRAPHQL_HTTP: string
   readonly VITE_GRAPHQL_SERVER: string
   readonly VITE_APP_NAME: string

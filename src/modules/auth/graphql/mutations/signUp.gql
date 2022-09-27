@@ -1,0 +1,24 @@
+mutation SignUp(
+  $first_name: String!
+  $last_name: String!
+  $email: String!
+  $phone: [String]!
+  $notify: Boolean!
+  $password: String!
+  $city_id: ID!
+  $route_login: String!
+) {
+  signUp(
+    first_name: $first_name
+    last_name: $last_name
+    email: $email
+    phone: $phone
+    notify: $notify
+    password: $password
+    city_id: $city_id
+    route_login: $route_login
+  ) {
+    status
+    message
+  }
+}
