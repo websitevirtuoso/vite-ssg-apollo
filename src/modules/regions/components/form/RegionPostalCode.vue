@@ -2,6 +2,7 @@
   <v-text-field
     v-model="value"
     type="text"
+    :prepend-inner-icon="mdiEmailNewsletter"
     :label="t('messages.postal_code')"
     :error-messages="errors"
     data-test="region.postal_code"

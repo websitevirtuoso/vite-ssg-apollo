@@ -5,7 +5,7 @@
       :items="items"
       :label="t('messages.state')"
       :loading="loading"
-      :prepend-icon="mdiCompass"
+      :prepend-inner-icon="mdiCompass"
       item-title="name"
       item-value="id"
       data-test="region.state"

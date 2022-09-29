@@ -17,7 +17,7 @@
       :return-object="false"
       item-title="name"
       item-value="id"
-      :prepend-icon="mdiMagnify"
+      :prepend-inner-icon="mdiMagnify"
       data-test="region.city"
     />
   </cities-query>

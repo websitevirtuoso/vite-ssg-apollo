@@ -8,7 +8,7 @@
       item-value="id"
       :loading="loading"
       :error-messages="errors"
-      :prepend-icon="mdiEarth"
+      :prepend-inner-icon="mdiEarth"
       data-test="region.country"
       @update:model-value="onCountryChange"
     />

@@ -1,9 +1,10 @@
 <template>
   <v-text-field
     v-model="value"
-    type="text"
+    :prepend-inner-icon="mdiHomeCity"
     :label="t('messages.address')"
     :error-messages="errors"
+    type="text"
     data-test="region.address"
   />
 </template>
