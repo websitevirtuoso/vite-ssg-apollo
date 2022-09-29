@@ -1,5 +1,6 @@
 <template>
   <cities-query
+    v-if="valueStateID"
     v-slot="{ items, loading }"
     ref="city"
     :state_ids="[valueStateID]"

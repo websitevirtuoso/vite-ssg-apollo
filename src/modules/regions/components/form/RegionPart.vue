@@ -2,22 +2,22 @@
   <v-container fluid>
     <v-row>
       <slot name="prepend"></slot>
-      <v-col v-if="showAutocomplete" cols="12" class="py-0">
+      <v-col v-if="showAutocomplete" cols="12" class="pb-2">
         <g-map-autocomplete data-test="gmap-autocomplete" @place_changed="onExtSetPlace" />
       </v-col>
-      <v-col v-if="showAddress" cols="12" md="6" class="py-0">
+      <v-col v-if="showAddress" cols="12" md="6" class="py-1">
         <region-address />
       </v-col>
-      <v-col v-if="showPostalCode" cols="12" md="6" class="py-0">
+      <v-col v-if="showPostalCode" cols="12" md="6" class="py-1">
         <region-postal-code />
       </v-col>
-      <v-col v-if="showCountries" cols="12" class="py-0">
+      <v-col v-if="showCountries" cols="12" class="py-1">
         <region-country ref="countries" />
       </v-col>
-      <v-col v-if="showCountries && showStates && valueCountryID" cols="12" class="py-0">
+      <v-col v-if="showCountries && showStates" cols="12" class="py-1">
         <region-state ref="states" />
       </v-col>
-      <v-col v-if="showCountries && showStates && showCities && valueStateID" cols="12" class="py-0">
+      <v-col v-if="showCountries && showStates && showCities" cols="12" class="pt-1">
         <region-city ref="cities" />
       </v-col>
       <v-col v-if="showMap && valueLat" cols="12" class="pa-0">
@@ -83,8 +83,6 @@ const states = ref(null)
 const cities = ref(null)
 const { value: valueLat } = useField('lat')
 const { value: valueLng } = useField('lng')
-const { value: valueCountryID } = useField('country_id')
-const { value: valueStateID } = useField('state_id')
 
 const { onDraggedPin, onSetPlace, setBrowserLocation } = useGoogleMap()
 

@@ -59,12 +59,12 @@ const decodeLatLong = (position: GeolocationPosition): google.maps.places.PlaceR
 
 export default () => {
   const { setValue: setFormCountry } = useField('country_id')
-  const { setValue: setFormState, value: valueStateID } = useField('state_id')
-  const { setValue: setFormCity } = useField('city_id')
-  const { setValue: setFormPostalCode } = useField('postal_code')
-  const { setValue: setFormAddress } = useField('address')
-  const { setValue: setFormLat } = useField('lat')
-  const { setValue: setFormLng } = useField('lng')
+  const { setValue: setFieldState, value: valueStateID } = useField('state_id')
+  const { setValue: setFieldCity } = useField('city_id')
+  const { setValue: setFieldPostalCode } = useField('postal_code')
+  const { setValue: setFieldAddress } = useField('address')
+  const { setValue: setFieldLat } = useField('lat')
+  const { setValue: setFieldLng } = useField('lng')
 
   const city = reactive({
     id: '',
@@ -80,18 +80,18 @@ export default () => {
   }) // default coords is kelowna
 
   const onDraggedPin = (event: google.maps.MapMouseEvent) => {
-    setFormLat(event.lat())
-    setFormLng(event.lng())
+    setFieldLat(event.lat())
+    setFieldLng(event.lng())
   }
 
   const onStateChange = () => {
-    setFormCity(null)
+    setFieldCity(null)
     city.cityNameSearch = ''
   }
 
   // reset state value when country changed
   const onCountryChange = () => {
-    setFormState(null)
+    setFieldState(null)
     onStateChange()
   }
 
@@ -118,7 +118,7 @@ export default () => {
       const statesItems = states.value?.state.states as State[]
       const matchedState = statesItems.find((stateItem: State) => stateItem.name === stateName)
       if (matchedState) {
-        setFormState(matchedState.id)
+        setFieldState(matchedState.id)
       }
     }
 
@@ -148,7 +148,7 @@ export default () => {
       const citiesItems = cities.value?.city.cities as City[]
       const matchedCity = citiesItems.find((cityItem: City) => cityItem.name === cityName)
       if (matchedCity) {
-        setFormCity(matchedCity.id)
+        setFieldCity(matchedCity.id)
       }
     }
 
@@ -178,10 +178,10 @@ export default () => {
    */
   const onSetPlace = (place: google.maps.places.PlaceResult, countriesTempRef?: Ref, statesTempRef?: Ref, citiesTempRef?: Ref) => {
     const address = onGetPlace(place)
-    setFormPostalCode(address.postal_code)
-    setFormAddress(`${address.street_number} ${address.street_name}`)
-    setFormLat(address.lat)
-    setFormLng(address.lng)
+    setFieldPostalCode(address.postal_code)
+    setFieldAddress(`${address.street_number} ${address.street_name}`)
+    setFieldLat(address.lat)
+    setFieldLng(address.lng)
     city.country_name = address.country_name
     city.state_name = address.state_name
     city.city_name = address.city_name

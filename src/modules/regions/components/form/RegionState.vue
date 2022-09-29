@@ -1,6 +1,7 @@
 <template>
   <states-query v-slot="{ items, loading }" ref="state" :country_ids="[valueCountryID]">
     <v-select
+      v-if="valueCountryID"
       v-model="value"
       :items="items"
       :label="t('messages.state')"
