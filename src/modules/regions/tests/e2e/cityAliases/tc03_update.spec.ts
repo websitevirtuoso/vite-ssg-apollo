@@ -1,5 +1,6 @@
 import { intercepts, aliases, CyCityAlias } from './support'
 import { City } from '../../../types'
+import { getCity } from '@/composables/useCypressHelper'
 
 describe('Update', () => {
   before(() => {
@@ -31,10 +32,9 @@ describe('Update', () => {
 
           // to make sure that gql query works we need to get another country to refetch items
           // @ts-expect-error city unknown type
-          aliases.getCity(selectedCountry).then((city: City) => {
+          getCity(selectedCountry).then((city: City) => {
             cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')
-            cy.getBySel('alias.submit').click()
             cy.getBySel('region.state').should('exist')
             cy.getBySel('region.state').errorValidation('State is a required field')
 
@@ -63,7 +63,7 @@ describe('Update', () => {
 
           // to make sure that gql query works we need to get another country to refetch items
           // @ts-expect-error city unknown type
-          aliases.getCity(selectedCountry).then((city: City) => {
+          getCity(selectedCountry).then((city: City) => {
             cy.getBySel('alias.name').find('input').clear().type(newCityAlias.name)
             cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')

@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress'
+import vitePreprocessor from 'cypress-vite'
 
 export default defineConfig({
   e2e: {
@@ -16,5 +17,9 @@ export default defineConfig({
     // downloadsFolder: 'cypress/e2e/downloads',
     // screenshotsFolder: 'cypress/e2e/screenshots',
     // videosFolder: 'cypress/e2e/videos',
+
+    setupNodeEvents(on) {
+      on('file:preprocessor', vitePreprocessor())
+    },
   },
 })

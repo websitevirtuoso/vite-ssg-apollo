@@ -1,4 +1,4 @@
-import { AUTH_TOKEN, AUTH_TOKEN_EXPIRE } from '../../src/modules/auth/utils/auth'
+import { AUTH_TOKEN, AUTH_TOKEN_EXPIRE } from '@/modules/auth/utils/auth'
 
 Cypress.Commands.add('getBySel', (selector: string): Cypress.Chainable => {
   return cy.get(`[data-test="${selector}"]`)

@@ -27,18 +27,6 @@ const states = {
       } as CyState
     })
   },
-  getState: () => {
-    // @ts-expect-error variable undefined
-    return cy.php("App\\Models\\State::with('country')->first()").then((state: State) => {
-      return {
-        id: state.id,
-        name: state.name,
-        code: state.code,
-        country_id: state.country.id,
-        country: state.country.name,
-      } as CyState
-    })
-  },
   navigation: {
     create: (direct = true) => {
       // visit the url directly
@@ -75,10 +63,14 @@ const states = {
         .type(state.name)
         .then(() => {
           cy.wait('@queryGetStates')
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(1000)
 
           cy.getBySel('datatable').find('tbody tr').contains(state.name).parents('tr').find('[data-test="update"]').click()
-          cy.url().should('eq', `${Cypress.config().baseUrl}/states/${state.id}/update`)
           cy.wait('@queryGetStates')
+          cy.url().should('eq', `${Cypress.config().baseUrl}/states/${state.id}/update`)
+          // eslint-disable-next-line cypress/no-unnecessary-waiting
+          cy.wait(1000)
         })
     },
   },

@@ -1,5 +1,6 @@
 import { intercepts, cities } from './support'
 import { City, State } from '../../../types'
+import { getState, getCity } from '@/composables/useCypressHelper'
 
 describe('Update', () => {
   before(() => {
@@ -13,10 +14,10 @@ describe('Update', () => {
 
   it('should display required fields', () => {
     // @ts-expect-error post unknown type
-    cities.getCity().then((city: City) => {
+    getCity().then((city: City) => {
       cities.navigation.update(city)
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(500) // bad practise but I need to wait rende
+      cy.wait(1000) // bad practise but I need to wait rende
       cy.getBySel('city.name').find('input').clear()
       cy.getBySel('city.submit').should('be.disabled')
 
@@ -26,12 +27,12 @@ describe('Update', () => {
 
   it('should update', () => {
     // @ts-expect-error city unknown type
-    cities.getCity().then((city: City) => {
+    getCity().then((city: City) => {
       cities.navigation.update(city)
 
       const newCity = cities.generateCity()
       // @ts-expect-error state unknown type
-      cities.getState().then((state: State) => {
+      getState().then((state: State) => {
         cy.getBySel('city.name').find('input').clear().type(newCity.name)
         cy.getBySel('region.country').vSelect(state.country.name)
         cy.wait('@queryGetStates')
@@ -51,7 +52,8 @@ describe('Update', () => {
 
         cy.toggleElement('btn.filter', true)
         // filter by name
-        cy.getBySel('filter.city.id').find('input').clear()
+        // clear field with ids
+        cy.getBySel('filter.city.id').click().find('.v-icon[aria-label="Clear IDs"]').click()
         cy.getBySel('filter.city.name')
           .find('input')
           .clear()

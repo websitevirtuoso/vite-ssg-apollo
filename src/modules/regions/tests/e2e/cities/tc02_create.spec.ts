@@ -1,5 +1,6 @@
 import { intercepts, cities } from './support'
 import { State } from '../../../types'
+import { getState } from '@/composables/useCypressHelper'
 
 describe('Create', () => {
   before(() => {
@@ -21,7 +22,7 @@ describe('Create', () => {
     cy.getBySel('region.state').should('not.exist')
 
     // @ts-expect-error state unknown type
-    cities.getState().then((state: State) => {
+    getState().then((state: State) => {
       cy.getBySel('region.country').vSelect(state.country.name)
       cy.wait('@queryGetStates')
       cy.getBySel('region.state').should('exist')
@@ -31,7 +32,7 @@ describe('Create', () => {
 
   it('should create', () => {
     // @ts-expect-error state unknown type
-    cities.getState().then((state: State) => {
+    getState().then((state: State) => {
       const newCity = cities.generateCity()
 
       cy.getBySel('gmap-autocomplete').type('Vancouver').get('div.pac-container .pac-item').should('be.visible').first().click()

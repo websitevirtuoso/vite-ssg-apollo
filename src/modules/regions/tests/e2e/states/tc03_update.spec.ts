@@ -1,4 +1,5 @@
 import { CyState, intercepts, states } from './support'
+import { getState } from '@/composables/useCypressHelper'
 
 describe('Update', () => {
   before(() => {
@@ -12,7 +13,7 @@ describe('Update', () => {
 
   it('should display fields required', () => {
     // @ts-expect-error cyState unknown error
-    states.getState().then((state: CyState) => {
+    getState().then((state: CyState) => {
       states.navigation.update(state)
 
       cy.getBySel('state.name').find('input').clear()
@@ -28,7 +29,7 @@ describe('Update', () => {
 
   it('should update', () => {
     // @ts-expect-error cyState unknown error
-    states.getState().then((state: CyState) => {
+    getState().then((state: CyState) => {
       states.navigation.update(state)
 
       // @ts-expect-error cyState unknown error

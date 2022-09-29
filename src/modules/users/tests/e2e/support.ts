@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker'
-import { City, State } from '@/modules/regions/types'
+import { City } from '@/modules/regions/types'
 import { Role } from '@/modules/auth/utils/types'
 import { UserInput } from '@/modules/users/types'
-import { CyState } from '@/modules/regions/tests/e2e/states/support'
-import { User_Status } from '../../../../plugins/apollo/schemaTypesGenerated'
+import { User_Status } from '@/plugins/apollo/schemaTypesGenerated'
+import { getCity, getRole } from '@/composables/useCypressHelper'
 
 interface CyUser extends UserInput {
   id: string | undefined
@@ -27,9 +27,9 @@ const intercepts = () => {
 const users = {
   generateUser: (): CyUser => {
     // @ts-expect-error unknown type
-    return users.getRole().then((role: Role) => {
+    return getRole().then((role: Role) => {
       // @ts-expect-error unknown type
-      return users.getCity().then((city: City) => {
+      return getCity().then((city: City) => {
         const userStatuses = Object.values(User_Status)
         const randomStatus = userStatuses[Math.floor(Math.random() * userStatuses.length)]
         return {
@@ -48,52 +48,6 @@ const users = {
           city: city,
         }
       })
-    })
-  },
-  // todo duplicated code hope that cypress will be able to use import to reuse this part of code
-  getCity: (selectWhereCityNot?: string) => {
-    let whereCountryNot = ''
-    if (selectWhereCityNot) {
-      whereCountryNot = `->whereHas('state.country', function ($query) { $query->where('name','!=','${selectWhereCityNot}'); })`
-    }
-    return (
-      cy
-        .php(`App\\Models\\City::with(['state', 'state.country'])->inRandomOrder()${whereCountryNot}->first()`)
-        // @ts-expect-error variable undefined
-        .then((city: City) => {
-          return {
-            id: city.id,
-            name: city.name,
-            state: {
-              id: city.state.id,
-              name: city.state.name,
-              country: {
-                id: city.state.country.id,
-                name: city.state.country.name,
-              },
-            },
-          } as City
-        })
-    )
-  },
-  getRole: () => {
-    return (
-      cy
-        .php('App\\Models\\Role::inRandomOrder()->first()')
-        // @ts-expect-error variable undefined
-        .then((role: Role) => role)
-    )
-  },
-  getUser: () => {
-    // @ts-expect-error variable undefined
-    return cy.php('App\\Models\\User::first()').then((state: State) => {
-      return {
-        id: state.id,
-        name: state.name,
-        code: state.code,
-        country_id: state.country.id,
-        country: state.country.name,
-      } as CyState
     })
   },
   navigation: {

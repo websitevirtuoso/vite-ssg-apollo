@@ -22,31 +22,6 @@ const aliases = {
       name: faker.lorem.word(10),
     }
   },
-  getCity: (selectWhereCityNot?: string) => {
-    let whereCountryNot = ''
-    if (selectWhereCityNot) {
-      whereCountryNot = `->whereHas('state.country', function ($query) { $query->where('name','!=','${selectWhereCityNot}'); })`
-    }
-    return (
-      cy
-        .php(`App\\Models\\City::with(['state', 'state.country'])->inRandomOrder()${whereCountryNot}->first()`)
-        // @ts-expect-error variable undefined
-        .then((city: City) => {
-          return {
-            id: city.id,
-            name: city.name,
-            state: {
-              id: city.state.id,
-              name: city.state.name,
-              country: {
-                id: city.state.country.id,
-                name: city.state.country.name,
-              },
-            },
-          } as City
-        })
-    )
-  },
   navigation: {
     create: (direct = true) => {
       // visit the url directly

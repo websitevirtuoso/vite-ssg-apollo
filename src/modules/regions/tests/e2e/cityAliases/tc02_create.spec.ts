@@ -1,5 +1,6 @@
 import { intercepts, aliases } from './support'
 import { City } from '../../../types'
+import { getCity } from '@/composables/useCypressHelper'
 
 describe('Create', () => {
   before(() => {
@@ -25,7 +26,7 @@ describe('Create', () => {
     cy.getBySel('region.city').should('not.exist')
 
     // @ts-expect-error city unknown type
-    aliases.getCity().then((city: City) => {
+    getCity().then((city: City) => {
       cy.getBySel('region.country').vSelect(city.state.country.name)
       cy.wait('@queryGetStates')
       cy.getBySel('region.state').should('exist')
@@ -41,7 +42,7 @@ describe('Create', () => {
   it('should create', () => {
     const cityAlias = aliases.generateCityAlias()
     // @ts-expect-error city unknown type
-    aliases.getCity().then((city: City) => {
+    getCity().then((city: City) => {
       cy.getBySel('alias.name').type(cityAlias.name)
       cy.getBySel('region.country').vSelect(city.state.country.name)
       cy.wait('@queryGetStates')

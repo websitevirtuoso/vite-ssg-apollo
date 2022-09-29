@@ -1,5 +1,6 @@
 import { intercepts, users, CyUser } from './support'
 import { City } from '@/modules/regions/types'
+import { getCity } from '@/composables/useCypressHelper'
 
 describe('Update', () => {
   before(() => {
@@ -34,7 +35,7 @@ describe('Update', () => {
 
           // to make sure that gql query works we need to get another country to refetch items
           // @ts-expect-error city unknown type
-          users.getCity(selectedCountry).then((city: City) => {
+          getCity(selectedCountry).then((city: City) => {
             cy.getBySel('region.country').vSelect(city.state.country.name)
             cy.wait('@queryGetStates')
             cy.getBySel('region.state').should('exist')
@@ -43,8 +44,7 @@ describe('Update', () => {
             cy.getBySel('region.state').vSelect(city.state.name)
             cy.wait('@queryGetCities')
             cy.getBySel('region.city').should('exist')
-            // todo I think bug in vuetify. when update field has value integer. need check this later
-            // cy.getBySel('user.city').errorValidation('City is a required field')
+            cy.getBySel('region.city').errorValidation('City is a required field')
           })
         })
 

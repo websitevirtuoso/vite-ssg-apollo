@@ -1,5 +1,6 @@
 import { intercepts, users, CyUser } from './support'
 import { City } from '@/modules/regions/types'
+import { getCity } from '@/composables/useCypressHelper'
 
 describe('Create', () => {
   before(() => {
@@ -22,7 +23,7 @@ describe('Create', () => {
     cy.getBySel('region.city').should('not.exist')
 
     // @ts-expect-error unknown type
-    users.getCity().then((city: City) => {
+    getCity().then((city: City) => {
       cy.getBySel('region.country').vSelect(city.state.country.name)
       cy.wait('@queryGetStates')
       cy.getBySel('region.state').should('exist')
