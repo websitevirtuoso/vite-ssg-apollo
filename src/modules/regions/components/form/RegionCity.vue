@@ -8,18 +8,19 @@
     :limit="2000"
   >
     <v-autocomplete
-      v-model="value"
       v-model:search="intCity.cityNameSearch"
+      :model-value="value"
       :label="t('messages.city')"
       :items="items"
       :loading="loading"
       :placeholder="t('action.search_live')"
       :error-messages="errors"
-      :return-object="false"
+      :return-object="true"
       item-title="name"
       item-value="id"
       :prepend-inner-icon="mdiMagnify"
       data-test="region.city"
+      @update:model-value="onCityChange"
     />
   </cities-query>
 </template>
@@ -30,7 +31,7 @@ import CitiesQuery from '@/modules/regions/components/cities/RenderlessCitiesQue
 
 const city = ref(null)
 const { t } = useI18n()
-const { city: intCity } = useGoogleMap()
+const { city: intCity, onCityChange } = useGoogleMap()
 const { value: valueStateID } = useField('state_id')
 const { value, errors } = useField('city_id')
 

@@ -24,9 +24,11 @@
         <g-map-map :center="{ lat: valueLat, lng: valueLng }" :zoom="14" style="width: 100%; height: 400px">
           <g-map-marker :position="{ lat: valueLat, lng: valueLng }" :draggable="true" @dragend="onDraggedPin($event.latLng)" />
         </g-map-map>
+      </v-col>
+      <div v-if="showMap">
         <v-error-message name="lat" />
         <v-error-message name="lng" />
-      </v-col>
+      </div>
     </v-row>
   </v-container>
 </template>

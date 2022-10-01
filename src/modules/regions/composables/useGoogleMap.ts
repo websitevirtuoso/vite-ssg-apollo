@@ -94,6 +94,12 @@ export default () => {
     setFieldState(null)
     onStateChange()
   }
+  // reset state value when country changed
+  const onCityChange = (city: City) => {
+    setFieldCity(city.id)
+    setFieldLat(city.lat)
+    setFieldLng(city.lng)
+  }
 
   // get countries items via ref and find this country from out list in db
   const setCountry = (countries: Ref<null>, countryName: string) => {
@@ -200,7 +206,7 @@ export default () => {
         () => valueStateID.value,
         () => {
           if (city.city_name) {
-            setCity(citiesTempRef, city.city_name).then()
+            setCity(citiesTempRef, city.city_name)
           }
         }
       )
@@ -234,6 +240,7 @@ export default () => {
     onDraggedPin,
     onCountryChange,
     onStateChange,
+    onCityChange,
     onGetPlace,
     setCountry,
     setState,
