@@ -74,7 +74,7 @@ const moduleListingRoutes = [
         label: 'Create',
         parent: 'listing',
       },
-      permission: 'listing.create',
+      permission: 'listing.upsert',
     },
   },
   {
@@ -86,7 +86,7 @@ const moduleListingRoutes = [
         label: 'Update',
         parent: 'listing',
       },
-      permission: 'listing.update',
+      permission: 'listing.upsert',
     },
   },
   {

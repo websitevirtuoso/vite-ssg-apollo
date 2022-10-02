@@ -1,9 +1,10 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache, from, HttpLink } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { logErrorMessages } from '@vue/apollo-util'
 import { setContext } from '@apollo/client/link/context'
 import { AUTH_TOKEN } from '@/modules/auth/utils/auth'
 import router from '@/plugins/router'
+import { createUploadLink } from 'apollo-upload-client'
 
 // Http endpoint
 const httpEndpoint = import.meta.env.VITE_GRAPHQL_HTTP
@@ -11,18 +12,40 @@ const httpPublicEndpoint = httpEndpoint + '/public'
 
 // for cypress need to extend gql request to identify each request
 // https://github.com/cypress-io/cypress-documentation/issues/122#issuecomment-634693934
-const gqlCypressAddOperationNames = (input: RequestInfo | URL, options: RequestInit) => {
+const gqlCypressAddOperationNamesHttpLink = (input: RequestInfo | URL, options: RequestInit) => {
   // @ts-expect-error we know that options.body defined
   return fetch(`${input}?operation=${JSON.parse(options.body).operationName}`, options)
 }
 
-const prepareHttpLinkOptions = (uri: string) => {
-  return import.meta.env.MODE !== 'production' ? { uri, fetch: gqlCypressAddOperationNames } : { uri }
+const gqlCypressAddOperationNamesUploadHttpLink = (input: RequestInfo | URL, options: RequestInit) => {
+  let operationName = ''
+  if (options.body instanceof FormData) {
+    const formDataObj = Object.fromEntries(options.body.entries())
+    // @ts-expect-error we know that operations defined
+    operationName = JSON.parse(formDataObj.operations).operationName
+  }
+  return fetch(`${input}?operation=${operationName}`, options)
 }
 
-const httpLink = createHttpLink(prepareHttpLinkOptions(httpEndpoint))
+const changeFetchIfLocalHttpLink = (uri: string) => {
+  return import.meta.env.MODE !== 'production' ? { uri, fetch: gqlCypressAddOperationNamesHttpLink } : { uri }
+}
 
-const httpPublicLink = createHttpLink(prepareHttpLinkOptions(httpPublicEndpoint))
+const changeFetchIfLocalUploadHttpLink = (uri: string) => {
+  return import.meta.env.MODE !== 'production' ? { uri, fetch: gqlCypressAddOperationNamesUploadHttpLink } : { uri }
+}
+
+// apollo 3 doesn't have ability to upload files since v3. We need to add this ability manually
+// https://dev.to/marvinrabe/file-upload-with-vue-apollo-client-and-graphql-5emb
+// if we need batch request check this link
+const httpLink = ApolloLink.split(
+  (operation) => operation.getContext().hasUpload,
+  createUploadLink(changeFetchIfLocalUploadHttpLink(httpEndpoint)),
+  createHttpLink(changeFetchIfLocalHttpLink(httpEndpoint))
+)
+
+// const httpLink = createUploadLink(prepareHttpLinkOptions(httpEndpoint))
+const httpPublicLink = createHttpLink(changeFetchIfLocalHttpLink(httpPublicEndpoint))
 
 // Handle errors globally
 // https://v4.apollo.vuejs.org/guide-composable/error-handling.html#network-errors
@@ -63,13 +86,13 @@ const defaultOptions = {
 // Create the apollo client for "API schema"
 // @ts-expect-error options correct
 export const apolloDefaultClient = new ApolloClient({
-  ...{ link: errorLink.concat(authMiddleware.concat(httpLink)) }, // merge options with link
+  ...{ link: from([authMiddleware, errorLink, httpLink]) }, // merge options with link
   ...defaultOptions,
 })
 
 // Create the apollo client for "PUBLIC schema"
 // @ts-expect-error options correct
 export const apolloPublicClient = new ApolloClient({
-  ...{ link: errorLink.concat(httpPublicLink) },
+  ...{ link: from([errorLink, httpPublicLink]) },
   ...defaultOptions,
 })

@@ -6,7 +6,7 @@
           <span class="text-h5" v-html="items[0].title" />
           <!-- todo check css class -->
         </v-card-title>
-        <v-card-text style="height: 85vh;">
+        <v-card-text style="height: 85vh">
           <div v-html="items[0].content" />
         </v-card-text>
         <v-divider />

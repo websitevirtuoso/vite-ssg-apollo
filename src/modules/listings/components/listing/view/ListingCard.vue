@@ -4,11 +4,13 @@
       <template #toolbar>
         <v-toolbar color="transparent" density="compact" class="listing-statuses">
           <v-spacer />
-          <v-btn v-if="can('update', 'listing')" icon>
-            <v-icon color="primary" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })"> mdi-pencil </v-icon>
+          <v-btn v-if="can('upsert', 'listing')" icon>
+            <v-icon color="primary" data-test="update" @click="$router.push({ name: 'listing-update', params: { id: listing.id } })">{{
+              mdiPencil
+            }}</v-icon>
           </v-btn>
           <v-btn icon>
-            <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })"> mdi-eye </v-icon>
+            <v-icon color="blue darken-4" @click="router.push({ name: 'listing-view', params: { id: listing.id } })">{{ mdiEye }}</v-icon>
           </v-btn>
           <v-chip label :class="getStatusColor(listing.status)" small>
             {{ listing.status }}
@@ -17,10 +19,10 @@
       </template>
     </media-slider>
     <v-card-actions>
-      <div class="v-card-title">{{ listing.address }}</div>
+      <div class="v-card-title" style="flex: auto">{{ listing.address }}</div>
 
       <v-spacer />
-      <v-btn size="small" :icon="expand ? 'mdi-chevron-up' : 'mdi-chevron-down'" @click="expand = !expand" />
+      <v-btn size="small" :icon="expand ? mdiChevronUp : mdiChevronDown" @click="expand = !expand" />
     </v-card-actions>
     <v-divider />
     <v-list dense>
@@ -33,12 +35,12 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-counter</v-icon>
+            <v-icon color="indigo">{{ mdiCounter }}</v-icon>
           </v-list-item>
         </template>
 
         <template #append>
-          <v-icon @click="router.push({ name: 'listing-update', params: { id: listing.id } })"> mdi-pencil </v-icon>
+          <v-icon data-test="update" @click="router.push({ name: 'listing-update', params: { id: listing.id } })"> {{ mdiPencil }} </v-icon>
         </template>
       </v-list-item>
 
@@ -51,12 +53,12 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-account</v-icon>
+            <v-icon color="indigo">{{ mdiAccount }}</v-icon>
           </v-list-item>
         </template>
 
         <template #append>
-          <v-icon @click="router.push({ name: 'user-update', params: { id: listing.user.id } })"> mdi-eye </v-icon>
+          <v-icon @click="router.push({ name: 'user-update', params: { id: listing.user.id } })">{{ mdiEye }}</v-icon>
         </template>
       </v-list-item>
 
@@ -71,7 +73,7 @@
         </template>
         <template #prepend>
           <v-list-item>
-            <v-icon color="indigo">mdi-map-marker</v-icon>
+            <v-icon color="indigo">{{ mdiMapMarker }}</v-icon>
           </v-list-item>
         </template>
       </v-list-item>
@@ -89,7 +91,7 @@
             </template>
             <template #prepend>
               <v-list-item>
-                <v-icon color="indigo">mdi-timer</v-icon>
+                <v-icon color="indigo">{{ mdiTimer }}</v-icon>
               </v-list-item>
             </template>
           </v-list-item>
@@ -112,8 +114,8 @@
 
 <script lang="ts" setup>
 import MediaSlider from './MediaSlider.vue'
-import { getStatusColor } from '@/modules/listings/helpers/listing'
 import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
+import { getStatusColor } from '@/modules/listings/helpers/listing'
 
 const { t } = useI18n()
 const { can } = useAbility()

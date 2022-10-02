@@ -6,19 +6,19 @@
         <v-spacer />
         <v-tooltip text="delete image" location="bottom">
           <template #activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-delete" tile :rounded="0" color="red darken-2" @click="removeInModal" />
+            <v-btn v-bind="props" :icon="mdiDelete" tile :rounded="0" color="red darken-2" @click="removeInModal" />
           </template>
         </v-tooltip>
         <v-divider vertical />
         <v-tooltip text="save changes" location="bottom">
           <template #activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-check" tile :rounded="0" color="primary" @click="applyChanges" />
+            <v-btn v-bind="props" :icon="mdiCheck" tile :rounded="0" color="primary" @click="applyChanges" />
           </template>
         </v-tooltip>
         <v-divider vertical />
         <v-tooltip text="close without saving" location="bottom">
           <template #activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-close" tile :rounded="0" color="primary" @click="closeEdit" />
+            <v-btn v-bind="props" :icon="mdiClose" tile :rounded="0" color="primary" @click="closeEdit" />
           </template>
         </v-tooltip>
       </v-toolbar>
@@ -104,7 +104,8 @@ const applyChanges = () => {
       imageSmoothingQuality: 'high',
     })
     .toBlob((blob) => {
-      emit('update:item', { id: props.item.id, file: blob, status: Listing_Media_Status.Modified })
+      emit('update:item', { ...props.item, file: blob, status: Listing_Media_Status.Modified })
+      // emit('update:item', { id: props.item.id, originalID: props.item.originalID, file: blob, status: Listing_Media_Status.Modified })
       closeModal()
     })
 }
@@ -126,20 +127,20 @@ const clear = () => {
 }
 
 const cropperFunctions = [
-  { text: 'crop image', icon: 'mdi-crop', onClick: setDragMode },
-  { text: 'crop reset', icon: 'mdi-sync', onClick: clear },
-  { text: 'rotate left', icon: 'mdi-rotate-left', onClick: () => rotate(90) },
-  { text: 'rotate right', icon: 'mdi-rotate-right', onClick: () => rotate(-90) },
-  { text: 'flip horizontal', icon: 'mdi-arrow-left-right', onClick: flipX },
-  { text: 'flip vertical', icon: 'mdi-arrow-up-down', onClick: flipY },
+  { text: 'crop image', icon: mdiCrop, onClick: setDragMode },
+  { text: 'crop reset', icon: mdiSync, onClick: clear },
+  { text: 'rotate left', icon: mdiRotateLeft, onClick: () => rotate(90) },
+  { text: 'rotate right', icon: mdiRotateRight, onClick: () => rotate(-90) },
+  { text: 'flip horizontal', icon: mdiArrowLeftRight, onClick: flipX },
+  { text: 'flip vertical', icon: mdiArrowUpDown, onClick: flipY },
 ]
 </script>
 
 <style>
 @import 'cropperjs/dist/cropper.css';
 #canvas {
-  max-width: 100%;
   min-width: 100%;
+  max-width: 100%;
 }
 /*fix bg in cropper container*/
 .cropper-bg {

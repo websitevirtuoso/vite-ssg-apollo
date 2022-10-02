@@ -5,9 +5,9 @@ index c5ab04f..c7d757b 100644
 @@ -1,5 +1,5 @@
  <template>
 -  <input ref="input" v-bind="$attrs" v-on="$attrs" />
-+  <v-text-field ref="input" v-bind="$attrs" v-on="$attrs" type="text" label="Location" data-test="gmap-autocomplete" />
++  <v-text-field ref="input" v-bind="$attrs" v-on="$attrs" type="text" hide-details label="Location" data-test="gmap-autocomplete" />
  </template>
- 
+
  <script>
 @@ -40,7 +40,7 @@ export default {
    mounted() {
@@ -16,14 +16,14 @@ index c5ab04f..c7d757b 100644
 -        downArrowSimulator(this.$refs.input)
 +        downArrowSimulator(this.$refs.input.$el.getElementsByTagName('input')[0])
        }
- 
+
        if (typeof google.maps.places.Autocomplete !== 'function') {
 @@ -55,7 +55,7 @@ export default {
          ...this.options,
        }
- 
+
 -      this.$autocomplete = new google.maps.places.Autocomplete(this.$refs.input, finalOptions)
 +      this.$autocomplete = new google.maps.places.Autocomplete(this.$refs.input.$el.getElementsByTagName('input')[0], finalOptions)
        bindProps(this, this.$autocomplete, mappedProps)
- 
+
        this.$watch('componentRestrictions', (v) => {

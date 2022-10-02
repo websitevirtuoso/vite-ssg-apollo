@@ -18,11 +18,10 @@
         <user-field-phone />
         <user-field-email class="mt-5" />
         <user-field-password />
-        <region-part show-address show-postal-code show-countries show-states show-cities set-browser-location class="px-0 mt-3"/>
+        <region-part show-address show-postal-code show-countries show-states show-cities set-browser-location class="px-0 mt-3" />
 
         <user-field-notify-as-checkbox
           label="By checking the box, I consent to receive emails, including newsletters, alerts, updates, invitations, promotions, other news and notifications"
-          hide-details
         />
         <user-field-privacy />
       </v-card-text>

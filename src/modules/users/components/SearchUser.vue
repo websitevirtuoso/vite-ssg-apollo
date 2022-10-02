@@ -4,26 +4,28 @@
       v-bind="$attrs"
       :items="items"
       :loading="loading"
-      :model-value="modelUser?.id"
+      :model-value="modelValue?.id"
       :label="t('messages.user')"
       :item-title="filterByField"
       item-value="id"
+      :type="fieldType"
       variant="outlined"
       :return-object="true"
-      hide-details
       clearable
       density="compact"
       class="select-group"
+      data-test="listing.user"
       @update:search="onSearch"
       @update:model-value="onSelectedUser"
     >
       <template #prepend>
         <v-select
           v-model="filterByField"
-          :items="filterByFields"
+          :items="filterByFields.map((item) => item.field)"
           :label="t('action.filter')"
           variant="outlined"
           density="compact"
+          data-test="listing.user.fields"
           hide-details
         />
       </template>
@@ -62,7 +64,7 @@ import UsersQuery from './RenderlessUsersQuery.vue'
 import { Users } from '@/plugins/apollo/schemaTypesGenerated'
 
 const props = defineProps({
-  modelUser: {
+  modelValue: {
     type: Object as () => Users,
     required: false,
   },
@@ -74,10 +76,10 @@ const user = ref<Users>()
 // to set existing user set watch
 onMounted(() => {
   watch(
-    () => props.modelUser,
+    () => props.modelValue,
     () => {
-      if (props.modelUser !== undefined) {
-        onSelectedUser(props.modelUser)
+      if (props.modelValue !== undefined) {
+        onSelectedUser(props.modelValue)
       }
     }
   )
@@ -85,7 +87,20 @@ onMounted(() => {
 
 const search = ref('')
 const filterByField = ref('id')
-const filterByFields = ['id', 'first_name', 'last_name', 'email', 'phone']
+const filterByFields = [
+  { field: 'id', type: 'number' },
+  { field: 'first_name', type: 'text' },
+  { field: 'last_name', type: 'text' },
+  { field: 'email', type: 'email' },
+]
+
+const fieldType = computed(() => {
+  const selectedField = filterByFields.find((item) => item.field === filterByField.value)
+  if (!selectedField) {
+    throw new Error('Field undefined')
+  }
+  return selectedField.type
+})
 
 const filterUsersBy = computed(() => {
   if (search.value === '') return {}
@@ -143,6 +158,7 @@ const onSelectedUser = (selectedUser: Users | null) => {
   .v-input__prepend {
     margin-inline-end: 0;
     --v-input-padding-top: 0;
+    margin-right: -1px;
   }
   > .v-input__prepend .v-field__outline .v-field__outline__end {
     border-top-right-radius: 0;

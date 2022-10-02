@@ -18,7 +18,7 @@
             density="compact"
             hide-details
             variant="outlined"
-            prepend-inner-icon="mdi-filter-menu-outline"
+            :prepend-inner-icon="mdiFilterMenuOutline"
             :label="t('action.sort')"
             class="sortBy mr-2"
           />
@@ -28,7 +28,7 @@
                 v-bind="props"
                 tile
                 :rounded="0"
-                :icon="pagination.sortDesc[0] ? 'mdi-sort-descending' : 'mdi-sort-ascending'"
+                :icon="pagination.sortDesc[0] ? mdiSortDescending : mdiSortAscending"
                 color="primary"
                 @click="pagination.sortDesc = [!pagination.sortDesc[0]]"
               />
@@ -38,12 +38,12 @@
 
           <v-menu transition="slide-y-transition" open-on-hover bottom>
             <template #activator="{ props }">
-              <v-btn v-bind="props" color="primary" icon="mdi-information-variant" :rounded="0" tile />
+              <v-btn v-bind="props" color="primary" :icon="mdiInformationVariant" :rounded="0" tile />
             </template>
             <div class="bg-white pb-2 elevation-3 rounded listing-statuses">
               <div v-for="(status, i) in statusesWithColors" :key="i">
                 <v-chip class="mx-2 mt-2" :class="status.bgClass" label>
-                  <v-icon left class="pr-2">mdi-label</v-icon>
+                  <v-icon left class="pr-2">{{ mdiLabel }}</v-icon>
                   {{ status.status }}
                 </v-chip>
                 <v-spacer />
@@ -53,8 +53,8 @@
 
           <v-divider vertical />
           <!--          <v-btn-toggle v-model="layoutGrid" borderless style="margin-right: 1px">-->
-          <!--            <v-btn :model-value="true" icon="mdi-view-comfy" />-->
-          <!--            <v-btn :model-value="false" icon="mdi-view-list" />-->
+          <!--            <v-btn :model-value="true" :icon="mdiViewComfy" />-->
+          <!--            <v-btn :model-value="false" :icon="mdiViewList" />-->
           <!--          </v-btn-toggle>-->
           <v-divider vertical />
           <v-tooltip :text="filterShow ? t('action.show-filter') : t('action.hide-filter')" location="bottom">
@@ -63,8 +63,9 @@
                 v-bind="props"
                 tile
                 :rounded="0"
-                :icon="filterShow ? 'mdi-close' : 'mdi-filter-variant'"
+                :icon="filterShow ? mdiClose : mdiFilterVariant"
                 color="indigo darken-4"
+                data-test="btn.filter"
                 @click="filterShow = !filterShow"
               />
             </template>
@@ -72,9 +73,9 @@
           <v-tooltip :text="t('action.create')" location="top">
             <template #activator="{ props }">
               <v-btn
-                v-if="can('create', 'listing')"
+                v-if="can('upsert', 'listing')"
                 v-bind="props"
-                icon="mdi-plus-circle"
+                :icon="mdiPlusCircle"
                 tile
                 :rounded="0"
                 color="primary"
@@ -86,7 +87,7 @@
         </v-toolbar>
       </v-col>
       <v-col>
-        <v-row v-if="listings.data.length !== 0">
+        <v-row v-if="listings.data.length !== 0" data-test="listing.list">
           <v-col v-for="listing in listings.data" :key="listing.id" cols="12" sm="6" md="4" lg="3">
             <listing-card :listing="listing" />
           </v-col>
@@ -104,10 +105,10 @@
 
 <script setup lang="ts">
 import { filter } from '@/composables/useFilter'
-import { useQuery } from '@vue/apollo-composable'
-import ListingFilter from '../../components/ListingFilter.vue'
-import ListingCard from '../../components/listingView/ListingCard.vue'
 import { statusesWithColors } from '@/modules/listings/helpers/listing'
+// components
+import ListingFilter from '../../components/ListingFilter.vue'
+import ListingCard from '../../components/listing/view/ListingCard.vue'
 import GetListings from '@/modules/listings/graphql/queries/getListings.gql'
 
 const { t } = useI18n()

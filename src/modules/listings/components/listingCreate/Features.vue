@@ -2,7 +2,6 @@
   <!-- todo implement colors for chips and helper when nothing selected -->
   <v-combobox
     v-bind="$attrs"
-    :items="items"
     :label="t('messages.write_own_options')"
     item-title="desc"
     item-value="desc"
@@ -17,12 +16,4 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-
-defineProps({
-  items: {
-    type: Array,
-    required: true,
-    default: () => [],
-  },
-})
 </script>

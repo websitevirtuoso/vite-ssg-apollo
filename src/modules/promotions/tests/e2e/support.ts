@@ -29,7 +29,7 @@ const promos = {
       use: faker.datatype.number({ min: 1, max: 1000 }),
       short_description: faker.lorem.sentence(),
       description: faker.lorem.sentences(),
-      expire_at: dayjs().format('YYYY-MM-DD'),
+      expire_at: dayjs().add(7, 'day').format('YYYY-MM-DD'),
       rules: {
         user_use_once: faker.datatype.boolean(),
       },

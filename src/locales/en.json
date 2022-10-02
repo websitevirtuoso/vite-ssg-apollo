@@ -142,7 +142,7 @@
     "permission": "Permission | Permissions",
     "region": "Region",
     "country": "Country | Countries",
-    "listing_type": "Listing Type | Listing Types",
+    "property_type": "Property Type | Property Types",
     "listing_term": "Listing Term | Listing Terms",
     "state": "State | States",
     "city": "City | Cities",

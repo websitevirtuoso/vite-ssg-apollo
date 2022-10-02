@@ -1,16 +1,16 @@
 <script>
-import GetListingFeatures from '../graphql/queries/getListingFeatures.gql'
+import GetListingFeatures from '@/modules/listings/graphql/queries/getListingFeatures.gql'
 
 export default defineComponent({
   setup(_, { slots, expose }) {
     const { result, loading } = useQuery(GetListingFeatures, {}, { clientId: 'public' })
-    const listing_features = computed(() => result.value?.listing_features ?? {})
+    const listing_features = computed(() => result.value?.listing_features ?? { accessibility: [], amenities: [], utilities: [] })
 
     expose({ listing_features, loading })
 
     return () =>
       slots.default({
-        features: listing_features.value,
+        items: listing_features.value,
         loading: loading.value,
       })
   },

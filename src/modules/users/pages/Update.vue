@@ -86,8 +86,7 @@ const notification = useNotification()
 const { onResult } = useQuery(GetUsers, { filter: { id: [route.params.id] } } as QueryUsersArgs)
 const { mutate, loading: mutationLoading, onDone, onError } = useMutation(UserUpdate)
 
-const { handleSubmit, errors: formErrors, resetForm } =
-useForm({ initialValues: initialValues, validationSchema: updateSchema() })
+const { handleSubmit, errors: formErrors, resetForm } = useForm({ initialValues: initialValues, validationSchema: updateSchema() })
 
 onResult((queryResult) => {
   redirectNotFoundIfEmpty(queryResult.data.users.data[0])
@@ -120,23 +119,25 @@ onDone(() => {
   router.push({ name: 'users' })
 })
 
-const updateUser = handleSubmit(({ first_name, last_name, email, status, phone, notify, address, postal_code, role_id, city_id }, form: SubmissionContext) => {
-  mutate({
-    id: initialValues.value?.id,
-    first_name,
-    last_name,
-    email,
-    status,
-    phone,
-    notify,
-    address,
-    postal_code,
-    role_id,
-    city_id,
-  } as MutationUserUpdateArgs)
+const updateUser = handleSubmit(
+  ({ first_name, last_name, email, status, phone, notify, address, postal_code, role_id, city_id }, form: SubmissionContext) => {
+    mutate({
+      id: initialValues.value?.id,
+      first_name,
+      last_name,
+      email,
+      status,
+      phone,
+      notify,
+      address,
+      postal_code,
+      role_id,
+      city_id,
+    } as MutationUserUpdateArgs)
 
-  onError((error) => {
-    gqlHandleError(error, form)
-  })
-})
+    onError((error) => {
+      gqlHandleError(error, form)
+    })
+  }
+)
 </script>

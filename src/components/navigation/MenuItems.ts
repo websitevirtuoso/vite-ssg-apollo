@@ -31,7 +31,7 @@ export const menuItems: MenuStruct[] = [
   { route: 'roles', name: i18n.global.t('messages.role', 2), icon: mdiEye, permission: 'role.view' },
   {
     route: 'listing-types',
-    name: i18n.global.t('messages.listing_type', 2),
+    name: i18n.global.t('messages.property_type', 2),
     permission: 'listing_type.view',
     icon: mdiHomeCity,
   },

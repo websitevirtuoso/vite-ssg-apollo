@@ -25,10 +25,6 @@
           <g-map-marker :position="{ lat: valueLat, lng: valueLng }" :draggable="true" @dragend="onDraggedPin($event.latLng)" />
         </g-map-map>
       </v-col>
-      <div v-if="showMap">
-        <v-error-message name="lat" />
-        <v-error-message name="lng" />
-      </div>
     </v-row>
   </v-container>
 </template>
@@ -88,7 +84,7 @@ const { value: valueLng } = useField('lng')
 
 const { onDraggedPin, onSetPlace, setBrowserLocation } = useGoogleMap()
 
-if(props.setBrowserLocation) {
+if (props.setBrowserLocation) {
   onMounted(async () => {
     // wait while all apollo queries loaded
     await until(useGlobalQueryLoading()).toBe(false)

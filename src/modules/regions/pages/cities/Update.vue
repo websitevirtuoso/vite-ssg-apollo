@@ -2,7 +2,13 @@
   <v-container>
     <v-row justify="space-around">
       <v-col cols="12" md="8">
-        <Form v-slot="{ errors: formErrors }" as="v-form" :initial-values="initialValues" :validation-schema="vSchema()" @submit="updateCity">
+        <Form
+          v-slot="{ errors: formErrors }"
+          as="v-form"
+          :initial-values="initialValues"
+          :validation-schema="vSchema()"
+          @submit="updateCity"
+        >
           <v-card :title="t('messages.update_', { title: 'city' })">
             <region-part show-autocomplete show-countries show-states show-map>
               <template #prepend>
@@ -55,10 +61,10 @@ const { mutate, loading: mutationLoading, onDone, onError } = useMutation(CityUp
 
 onResult((queryResult) => {
   redirectNotFoundIfEmpty(queryResult.data.cities.data[0])
-  const city = queryResult.data.cities.data[0];
+  const city = queryResult.data.cities.data[0]
   // city.state_id = city.state.id
   // city.country_id = city.state.country.id
-  ({ id: initialValues.id, name: initialValues.name, lat: initialValues.lat, lng: initialValues.lng } = city)
+  ;({ id: initialValues.id, name: initialValues.name, lat: initialValues.lat, lng: initialValues.lng } = city)
 
   initialValues.state_id = city.state.id
   initialValues.country_id = city.state.country.id

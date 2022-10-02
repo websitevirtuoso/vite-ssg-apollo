@@ -47,24 +47,25 @@
               />
             </v-col>
             <v-col cols="12">
-              <v-textarea
-                v-model="valueMessage"
-                :error-messages="errorsMessage"
-                label="Message"
-                type="text"
-                class="required"
-              />
+              <v-textarea v-model="valueMessage" :error-messages="errorsMessage" label="Message" type="text" class="required" />
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <v-card-actions class="pa-0">
-        <v-btn block color="primary" :loading="loading" :disabled="Object.keys(formErrors).length !== 0" type="submit" data-test="contact-form.submit">
+        <v-btn
+          block
+          color="primary"
+          :loading="loading"
+          :disabled="Object.keys(formErrors).length !== 0"
+          type="submit"
+          data-test="contact-form.submit"
+        >
           Send Message
         </v-btn>
       </v-card-actions>
     </v-card>
-  </Form>
+  </form>
 </template>
 
 <script setup lang="ts">

@@ -65,7 +65,7 @@
           v-model="rawFilter.type_ids"
           :items="items"
           :loading="loading"
-          :label="t('messages.listing_type', 2)"
+          :label="t('messages.property_type', 2)"
           item-title="description"
           item-value="id"
           density="comfortable"
@@ -151,8 +151,8 @@
 // custom
 import { rawFilter } from '@/composables/useFilter'
 import { FilterByText, FilterByMultiple } from '@/components/datatable/index'
-import StatesQuery from '@/modules/regions/components/RenderlessStatesQuery.vue'
-import CitiesQuery from '@/modules/regions/components/RenderlessCitiesQuery.vue'
+import StatesQuery from '@/modules/regions/components/states/RenderlessStatesQuery.vue'
+import CitiesQuery from '@/modules/regions/components/cities/RenderlessCitiesQuery.vue'
 import CountriesQuery from '@/modules/regions/components/RenderlessCountriesQuery.vue'
 import ListingTermsQuery from '@/modules/listings/components/RenderlessListingTermsQuery.vue'
 import ListingTypesQuery from '@/modules/listings/components/RenderlessListingTypesQuery.vue'

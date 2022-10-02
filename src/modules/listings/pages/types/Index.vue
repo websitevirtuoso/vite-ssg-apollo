@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :title="t('messages.listing_type', 2)">
+        <v-card :title="t('messages.property_type', 2)">
           <v-table data-test="datatable">
             <thead>
               <tr>

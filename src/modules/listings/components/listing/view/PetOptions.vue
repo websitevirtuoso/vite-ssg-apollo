@@ -6,7 +6,7 @@
   <v-card-text class="py-0">
     <v-chip v-if="pets.includes(Listing_Pets.NoAllowed)" class="ma-1" color="red" text-color="white">
       <v-avatar left>
-        <v-icon>mdi-paw</v-icon>
+        <v-icon>{{ mdiPaw }}</v-icon>
       </v-avatar>
       {{ t('messages.pets') }}
 
@@ -14,7 +14,7 @@
     </v-chip>
     <v-chip v-if="pets.includes(Listing_Pets.Cats)" class="ma-1" color="success" text-color="white">
       <v-avatar left>
-        <v-icon>mdi-paw</v-icon>
+        <v-icon>{{ mdiPaw }}</v-icon>
       </v-avatar>
       {{ t('messages.pets') }}
 
@@ -22,7 +22,7 @@
     </v-chip>
     <v-chip v-if="pets.includes(Listing_Pets.SmallDogs)" class="ma-1" color="success" text-color="white">
       <v-avatar left>
-        <v-icon>mdi-dog-side</v-icon>
+        <v-icon>{{ mdiDogSide }}</v-icon>
       </v-avatar>
       {{ t('messages.pets') }}
 
@@ -30,7 +30,7 @@
     </v-chip>
     <v-chip v-if="pets.includes(Listing_Pets.LargeDogs)" class="ma-1" color="success" text-color="white">
       <v-avatar left>
-        <v-icon>mdi-dog-side</v-icon>
+        <v-icon>{{ mdiDogSide }}</v-icon>
       </v-avatar>
       {{ t('messages.pets') }}
 

@@ -1,5 +1,5 @@
 import i18n from '@/plugins/i18n'
-import { Listing_Status, Listing_Pets } from '@/plugins/apollo/schemaTypesGenerated'
+import { Listing_Status, Listing_Pets, Listing_Media_Status } from '@/plugins/apollo/schemaTypesGenerated'
 import { MediaItem } from '@/modules/listings/types'
 
 export const statusesWithColors = [
@@ -17,6 +17,24 @@ export const getStatusColor = (status: string) => {
     throw new Error('Color for listing not found')
   }
   return matched.bgClass
+}
+
+/**
+ * To optimise performanse and not send already existing files to server. We have to send only file: File when is modified
+ * @param items
+ */
+export const prepareMediaBeforeUpload = (items: MediaItem[]) => {
+  return items.map((item) => {
+    // if old file has been changed
+    if (item.status === Listing_Media_Status.Modified && item.originalID !== null) {
+      return { id: item.originalID, status: item.status, file: item.file }
+      // if is new file then send file
+    } else if (item.originalID === undefined) {
+      return { status: item.status, file: item.file }
+    }
+
+    return { id: item.originalID, status: item.status }
+  })
 }
 
 /**
@@ -46,7 +64,8 @@ export const bedroomItems = [
   { value: 7, title: 7 },
   { value: 8, title: 8 },
 ]
-export const bathroomItems = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.6, 6, 6.5, 7, 7.5, 8, 8.5]
+
+export const bathroomItems = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5]
 
 export const petItems = [
   { value: Listing_Pets.NoAllowed, title: i18n.global.t('messages.not_pets_allowed') },

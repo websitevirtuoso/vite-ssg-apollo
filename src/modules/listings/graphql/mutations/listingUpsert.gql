@@ -1,0 +1,78 @@
+#import "../fragments/listing.fragment.gql"
+#import "../fragments/listingMedia.fragment.gql"
+#import "../fragments/listingTerm.fragment.gql"
+#import "../fragments/listingType.fragment.gql"
+
+mutation ListingUpsert(
+  $id: ID
+  $description: String!
+  $status: listing_status!
+  $price: Int!
+  $deposit: Int
+  $address: String!
+  $postal_code: String!
+  $term_id: ID
+  $lat: Float!
+  $lng: Float!
+  $pets: [listing_pets]!
+  $bedrooms: Int!
+  $bathrooms: Float!
+  $square_feet: Int!
+  $type_id: ID!
+  $user_id: ID!
+  $city_id: ID!
+  $expire_at: Date!
+  $available_at: Date
+  $features: Json!
+  $media: [Media!]!
+) {
+  listingUpsert(
+    id: $id
+    description: $description
+    status: $status
+    price: $price
+    deposit: $deposit
+    address: $address
+    postal_code: $postal_code
+    lat: $lat
+    lng: $lng
+    pets: $pets
+    bedrooms: $bedrooms
+    bathrooms: $bathrooms
+    square_feet: $square_feet
+    type_id: $type_id
+    term_id: $term_id
+    user_id: $user_id
+    city_id: $city_id
+    expire_at: $expire_at
+    available_at: $available_at
+    features: $features
+    media: $media
+  ) {
+    ...ListingFragment
+    bathrooms
+    bedrooms
+    description
+    initiator {
+      id
+      name
+      url
+    }
+    available_at
+    expire_at
+    pets
+    lat
+    lng
+    postal_code
+    square_feet
+    term {
+      ...ListingTermFragment
+    }
+    media {
+      ...ListingMediaFragment
+    }
+    type {
+      ...ListingTypeFragment
+    }
+  }
+}

@@ -422,6 +422,14 @@ export type ListingsPagination = {
   total: Scalars['Int']
 }
 
+export type Media = {
+  /** Send file only when status is MODIFIED, so server can recognize, optimize it and save */
+  file?: InputMaybe<Scalars['Upload']>
+  /** If this is old file please pass his ID otherwise dont send anything */
+  id?: InputMaybe<Scalars['ID']>
+  status: Listing_Media_Status
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
   categoryDelete?: Maybe<Array<Maybe<Scalars['ID']>>>
@@ -529,6 +537,7 @@ export type MutationListingUpsertArgs = {
   id?: InputMaybe<Scalars['ID']>
   lat: Scalars['Float']
   lng: Scalars['Float']
+  media: Array<InputMaybe<Media>>
   pets: Array<InputMaybe<Listing_Pets>>
   postal_code: Scalars['String']
   price: Scalars['Int']

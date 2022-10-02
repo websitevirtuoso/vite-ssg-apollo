@@ -76,8 +76,8 @@ export default defineConfig(async () => {
     optimizeDeps: {
       // fast-deep-equal doesnt have default export
       // https://github.com/vitejs/vite/issues/2679
-      include: ['@apollo/client/core', 'fast-deep-equal'],
-      exclude: ['@apollo/client'],
+      include: ['@apollo/client/core', '@apollo/client/cache', '@apollo/client/link/context', 'fast-deep-equal'],
+      exclude: ['@apollo/react'],
     },
     // build: {
     //   rollupOptions: {

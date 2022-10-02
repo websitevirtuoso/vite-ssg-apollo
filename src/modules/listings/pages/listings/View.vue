@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="Object.keys(listing).length !== 0" fluid>
+  <v-container v-if="listing" fluid class="pt-0">
     <v-row>
       <v-col cols="12">
         <v-toolbar color="white elevation-4" density="compact" class="no-overflow">
@@ -15,11 +15,11 @@
               @on-done.once="listingDeleteOnDone"
             />
             <action-update
-              v-if="can('update', 'listing')"
+              v-if="can('upsert', 'listing')"
               :text="t('action.update')"
               @click="router.push({ name: 'listing-update', params: { id: listing.id } })"
             />
-            <action-create v-if="can('create', 'listing')" variant="flat" :to="{ name: 'listing-create' }" />
+            <action-create v-if="can('upsert', 'listing')" variant="flat" :to="{ name: 'listing-create' }" />
           </div>
         </v-toolbar>
       </v-col>
@@ -96,50 +96,53 @@
 </template>
 
 <script setup lang="ts">
-import MediaSlider from '../../components/listingView/MediaSlider.vue'
+// custom
 import { ActionDelete, ActionCreate } from '@/components/datatable/index'
 import { redirectNotFoundIfEmpty } from '@/composables/useRedirect'
 import GetListing from '../../graphql/queries/getListing.gql'
 import ListingDelete from '../../graphql/mutations/listingDelete.gql'
-import DataFeedTable from '../../components/listingView/DetaFeedTable.vue'
-import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
 import { getStatusColor } from '@/modules/listings/helpers/listing'
-import PetOptions from '@/modules/listings/components/listingView/PetOptions.vue'
-import ActionUpdate from '@/modules/listings/components/listingView/ActionUpdate.vue'
-import ListingFeatures from '@/modules/listings/components/listingView/ListingFeatures.vue'
-import ListingOptions from '@/modules/listings/components/listingView/ListingOptions.vue'
-import UserProfile from '@/modules/users/components/UserProfle.vue'
+import { Listings } from '@/plugins/apollo/schemaTypesGenerated'
 import { useNotification } from '@/modules/notifications/useNotification'
+
+// components
+import MediaSlider from '../../components/listing/view/MediaSlider.vue'
+import DataFeedTable from '../../components/listing/view/DetaFeedTable.vue'
+import PetOptions from '@/modules/listings/components/listing/view/PetOptions.vue'
+import ActionUpdate from '@/modules/listings/components/listing/view/ActionUpdate.vue'
+import ListingFeatures from '@/modules/listings/components/listing/view/ListingFeatures.vue'
+import ListingOptions from '@/modules/listings/components/listing/view/ListingOptions.vue'
+import UserProfile from '@/modules/users/components/UserProfle.vue'
 
 const { t } = useI18n()
 const { can } = useAbility()
 const router = useRouter()
 const notification = useNotification()
 const route = useRoute()
-const listing = reactive({}) as Listings
-const features = reactive({})
+const listing = ref<Listings>()
+const features = ref({ amenities: [], utilities: [], accessibility: [] })
 
 const { onResult } = useQuery(GetListing, { id: [route.params.id] }, { clientId: 'public' })
 
 onResult((queryResult) => {
   redirectNotFoundIfEmpty(queryResult.data.listings.data[0])
-  Object.assign(listing, queryResult.data.listings.data[0])
-  Object.assign(features, JSON.parse(queryResult.data.listings.data[0].features))
+  listing.value = queryResult.data.listings.data[0]
+  features.value = JSON.parse(queryResult.data.listings.data[0].features)
 })
 
 const roomFields = computed(() => {
-  if (!listing) return []
+  if (!listing.value) return []
 
   return [
     {
-      value: listing.bedrooms === 0 ? 'messages.studio' : listing.bedrooms,
-      icon: 'mdi-bed-king-outline',
-      text: listing.bedrooms !== 0 ? t('messages.bedroom', 2) : null,
+      value: listing.value?.bedrooms === 0 ? 'messages.studio' : listing.value.bedrooms,
+      icon: mdiBedKingOutline,
+      text: listing.value?.bedrooms !== 0 ? t('messages.bedroom', 2) : null,
       class: 'bg-indigo',
     },
-    { value: listing.bathrooms, icon: 'mdi-shower', text: t('messages.bathroom', 2), class: 'bg-indigo' },
-    { value: listing.square_feet, icon: 'mdi-ruler-square', text: t('messages.square_feet'), class: 'bg-indigo' },
-    { value: listing.type.name, icon: 'mdi-home-city', class: 'float-right bg-grey-darken-3' },
+    { value: listing.value?.bathrooms, icon: mdiShower, text: t('messages.bathroom', 2), class: 'bg-indigo' },
+    { value: listing.value?.square_feet, icon: mdiRulerSquare, text: t('messages.square_feet'), class: 'bg-indigo' },
+    { value: listing.value?.type.name, icon: mdiHomeCity, class: 'float-right bg-grey-darken-3' },
   ]
 })
 

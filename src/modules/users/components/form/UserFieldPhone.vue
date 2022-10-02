@@ -39,7 +39,7 @@
   <!--            v-bind="field"-->
   <!--            type="text"-->
   <!--            :model-value="value"-->
-  <!--            :prepend-icon="mdiPhone"-->
+  <!--            :prepend-inner-icon="mdiPhone"-->
   <!--            hide-details-->
   <!--            :label="t('messages.phone')"-->
   <!--            :error-messages="errors"-->
