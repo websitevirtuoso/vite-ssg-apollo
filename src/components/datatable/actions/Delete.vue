@@ -33,6 +33,7 @@ const show = ref(false)
 
 const props = defineProps({
   mutation: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type: Object as PropType<any>,
     required: true,
   },

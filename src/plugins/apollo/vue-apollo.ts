@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache, from, HttpLink } from '@apollo/client/core'
+import { ApolloClient, ApolloLink, createHttpLink, InMemoryCache, from } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { logErrorMessages } from '@vue/apollo-util'
 import { setContext } from '@apollo/client/link/context'

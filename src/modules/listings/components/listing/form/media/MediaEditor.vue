@@ -26,7 +26,7 @@
         <img id="canvas" ref="cropperTempRef" :src="convertFileSourceToUrl(item.file)" alt="" />
       </v-card-text>
       <v-card-actions>
-        <v-tooltip v-for="f in cropperFunctions" :text="f.text" location="bottom">
+        <v-tooltip v-for="(f, i) in cropperFunctions" :key="i" :text="f.text" location="bottom">
           <template #activator="{ props }">
             <v-btn v-bind="props" size="small" :icon="f.icon" tile :rounded="0" color="primary" @click="f.onClick()" />
           </template>
@@ -42,7 +42,7 @@ import { MediaItem } from '@/modules/listings/types'
 import { convertFileSourceToUrl } from '@/modules/listings/helpers/listing'
 import { Listing_Media_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
-const props = defineProps({
+const lProps = defineProps({
   show: {
     type: Boolean,
     required: true,
@@ -73,7 +73,7 @@ onMounted(initCropper)
 
 // reinit when props changed
 watch(
-  () => props,
+  () => lProps,
   () => {
     cropper?.destroy()
     nextTick(initCropper)
@@ -87,7 +87,7 @@ const closeModal = () => {
 
 const removeInModal = () => {
   closeModal()
-  emit('delete', props.item.id)
+  emit('delete', lProps.item.id)
 }
 
 const closeEdit = () => {
@@ -104,7 +104,7 @@ const applyChanges = () => {
       imageSmoothingQuality: 'high',
     })
     .toBlob((blob) => {
-      emit('update:item', { ...props.item, file: blob, status: Listing_Media_Status.Modified })
+      emit('update:item', { ...lProps.item, file: blob, status: Listing_Media_Status.Modified })
       // emit('update:item', { id: props.item.id, originalID: props.item.originalID, file: blob, status: Listing_Media_Status.Modified })
       closeModal()
     })

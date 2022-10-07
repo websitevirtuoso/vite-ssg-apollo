@@ -34,7 +34,6 @@ import { until } from '@vueuse/core'
 import { useGlobalQueryLoading } from '@vue/apollo-composable'
 import useGoogleMap from '@/modules/regions/composables/useGoogleMap'
 // components
-import VErrorMessage from '@/components/fields/VErrorMessage.vue'
 import RegionAddress from '@/modules/regions/components/form/RegionAddress.vue'
 import RegionPostalCode from '@/modules/regions/components/form/RegionPostalCode.vue'
 import RegionCountry from '@/modules/regions/components/form/RegionCountry.vue'

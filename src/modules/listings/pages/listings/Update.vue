@@ -1,6 +1,6 @@
 <template>
   <Form
-    v-slot="{ errors: formErrors, values }"
+    v-slot="{ errors: formErrors }"
     as="v-form"
     :initial-values="initialValues"
     :validation-schema="vSchema()"
@@ -84,7 +84,6 @@
             </v-card-text>
 
             <v-card-actions class="pb-3">
-              {{ formErrors }}
               <v-spacer />
               <v-btn
                 color="primary"

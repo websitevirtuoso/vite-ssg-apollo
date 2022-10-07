@@ -1,7 +1,6 @@
 import { intercepts, listings, CyFactoryListing } from './support'
 import { City } from '@/modules/regions/types'
 import { getCity } from '@/composables/useCypressHelper'
-import { bedroomItems } from '@/modules/listings/helpers/listing'
 
 describe('Create', () => {
   before(() => {

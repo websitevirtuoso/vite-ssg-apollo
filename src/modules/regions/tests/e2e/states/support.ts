@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { Country, State } from '../../../types'
+import { Country } from '../../../types'
 
 type CyState = {
   id: string | undefined

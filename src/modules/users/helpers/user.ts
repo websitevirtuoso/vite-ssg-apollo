@@ -1,4 +1,4 @@
-import { User_Status, Listing_Pets } from '@/plugins/apollo/schemaTypesGenerated'
+import { User_Status } from '@/plugins/apollo/schemaTypesGenerated'
 
 export const statusesWithColors = [
   { status: User_Status.Active, color: 'green' },

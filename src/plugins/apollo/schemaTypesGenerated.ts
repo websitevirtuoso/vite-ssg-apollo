@@ -11,16 +11,17 @@ export type Scalars = {
   Int: number
   Float: number
   /** Date scalar type in format */
-  Date: any
+  Date: string
   /** DateTime scalar type in format */
-  DateTime: any
+  DateTime: string
   /** Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org/. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Json: any
   /**
    * The `Upload` special type represents a file to be uploaded in the same HTTP request as specified by
    *  [graphql-multipart-request-spec](https://github.com/jaydenseric/graphql-multipart-request-spec).
    */
-  Upload: any
+  Upload: File
 }
 
 export type Auth = {

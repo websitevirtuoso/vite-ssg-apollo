@@ -77,7 +77,7 @@ import { Listing_Media_Status, ListingMedias } from '@/plugins/apollo/schemaType
 import VErrorMessage from '@/components/fields/VErrorMessage.vue'
 import DropZone from '@/modules/listings/components/listing/form/media/DropZone.vue'
 
-const props = defineProps({
+const lProps = defineProps({
   /**
    *  Accept list of objects
    *  {id: item.id, path: item.path } */
@@ -98,8 +98,8 @@ const { setValue } = useField('media')
 
 const onInitItems = () => {
   setMedias([])
-  isItemsValid(props.items)
-  props.items.forEach((item: ListingMedias, index: number) => {
+  isItemsValid(lProps.items)
+  lProps.items.forEach((item: ListingMedias, index: number) => {
     // console.log(1)
     isFileImage(item.path)
     fetchFile(getAbsolutePath(item.path)).then((blob: Blob) => {
@@ -110,7 +110,7 @@ const onInitItems = () => {
 }
 
 // reinit when props changed
-watch(() => props.items, onInitItems)
+watch(() => lProps.items, onInitItems)
 
 /**
  * Check that input list has valid format

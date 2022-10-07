@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { City, CityAliasInput } from '../../../types'
+import { CityAliasInput } from '../../../types'
 
 interface CyCityAlias extends CityAliasInput {
   id: string | undefined
