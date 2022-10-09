@@ -23,7 +23,7 @@ export default defineConfig(async () => {
         // you need to set i18n resource including paths !
         include: resolve(__dirname, './src/locales/**'),
       }),
-      eslint(),
+      // eslint(),
       stylelint(),
       // https://github.com/antfu/unplugin-auto-import
       AutoImport({
@@ -61,12 +61,11 @@ export default defineConfig(async () => {
       graphql(),
     ],
     // https://github.com/antfu/vite-ssg
-    // ssgOptions: {
-    //   script: 'async',
-    //   formatting: 'minify',
-    //   format: 'cjs',
-    //   // onFinished() { generateSitemap() },
-    // },
+    ssgOptions: {
+      script: 'async',
+      formatting: 'minify',
+      //   // onFinished() { generateSitemap() },
+    },
     define: { 'process.env': {} },
     resolve: {
       alias: {
@@ -79,10 +78,16 @@ export default defineConfig(async () => {
       include: ['@apollo/client/core', '@apollo/client/cache', '@apollo/client/link/context', 'fast-deep-equal'],
       exclude: ['@apollo/react'],
     },
+    ssr: {
+      // TODO: workaround until they support native ESM
+      noExternal: ['workbox-window', /vue-i18n/, 'vuetify', '@apollo/client', '@vue/apollo-composable'],
+    },
+    // build: { transpile: ['@apollo/client/core', '@vue/apollo-composable'] },
     // build: {
+    //   transpile: ['@apollo/react'],
     //   rollupOptions: {
     //     external: [
-    //       'react', // ignore react stuff, need this to fix error while build project
+    //       '@apollo/react', // ignore react stuff, need this to fix error while build project
     //     ],
     //   },
     // },
