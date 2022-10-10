@@ -7,7 +7,7 @@
     "cypress": "vite --mode testing --port 1500",
     "serve": "vite preview",
     "vite:build": "vite build",
-    "ssg:build": "vite-ssg build --debug",
+    "ssg:build": "cross-env NODE_ENV=dev vite-ssg build --debug",
     "vite:preview": "vite preview",
     "ssg:preview-https": "serve dist",
     "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore --fix src",
@@ -23,7 +23,6 @@
     "@apollo/client": "^3.7.0",
     "@casl/ability": "^6.3.1",
     "@casl/vue": "^2.2.0",
-    "@fawmi/vue-google-maps": "^0.9.79",
     "@tinymce/tinymce-vue": "^5.0.0",
     "@types/graphql": "^14.5.0",
     "@vue/apollo-composable": "^4.0.0-beta.1",
@@ -49,6 +48,7 @@
     "yup": "^1.0.0-beta.7"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "@faker-js/faker": "^7.5.0",
     "@graphql-codegen/cli": "2.13.5",
     "@graphql-codegen/typescript": "^2.7.3",

@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { getTokenTtl, AUTH_TOKEN } from '@/modules/auth/utils/auth'
 import ability from '@/modules/auth/utils/ability'
+import { UserModule } from '@/types/vite-ssg-types'
+import { createI18n } from 'vue-i18n'
+import en from '@/locales/en.json'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -73,5 +76,9 @@ router.beforeEach((to, from, next) => {
 
   next()
 })
+
+export const install: UserModule = ({ app }) => {
+  app.use(router)
+}
 
 export default router

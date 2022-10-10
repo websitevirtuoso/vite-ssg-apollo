@@ -11,10 +11,11 @@ import graphql from '@rollup/plugin-graphql'
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => {
-  const mdiJs = await import('@mdi/js')
   return {
     plugins: [
-      vue(),
+      vue({
+        reactivityTransform: true,
+      }),
       // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
       vuetify({
         autoImport: true,
@@ -33,7 +34,7 @@ export default defineConfig(async () => {
           'vue-i18n',
           // custom
           {
-            '@mdi/js': Object.keys(mdiJs).filter((v) => v.startsWith('mdi')),
+            '@mdi/js': Object.keys(await import('@mdi/js')).filter((v) => v.startsWith('mdi')),
             '@casl/vue': [
               // named imports
               'useAbility', // import { useAbility } from '@casl/vue',
@@ -64,7 +65,9 @@ export default defineConfig(async () => {
     ssgOptions: {
       script: 'async',
       formatting: 'minify',
-      //   // onFinished() { generateSitemap() },
+      // onFinished() {
+      //   generateSitemap()
+      // },
     },
     define: { 'process.env': {} },
     resolve: {

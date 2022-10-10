@@ -9,15 +9,15 @@
                 {{ sendStatusMessage }}
               </v-alert>
             </v-col>
-            <v-col cols="12" md="6">
-              <user-field-first-name class="required" />
-            </v-col>
-            <v-col cols="12" md="6">
-              <user-field-last-name class="required" />
-            </v-col>
-            <v-col cols="12">
-              <user-field-email class="required" />
-            </v-col>
+<!--            <v-col cols="12" md="6">-->
+<!--              <user-field-first-name class="required" />-->
+<!--            </v-col>-->
+<!--            <v-col cols="12" md="6">-->
+<!--              <user-field-last-name class="required" />-->
+<!--            </v-col>-->
+<!--            <v-col cols="12">-->
+<!--              <user-field-email class="required" />-->
+<!--            </v-col>-->
             <v-col cols="12">
               <v-text-field
                 v-model="valuePhone"
@@ -78,9 +78,9 @@ import vSchema from '@/modules/auth/helpers/validationSchemaContactForm'
 import { MutationContactFormArgs, ResponseStatus } from '@/plugins/apollo/schemaTypesGenerated'
 import { useNotification } from '@/modules/notifications/useNotification'
 // components
-import UserFieldFirstName from '@/modules/users/components/form/UserFieldFirstName.vue'
-import UserFieldLastName from '@/modules/users/components/form/UserFieldLastName.vue'
-import UserFieldEmail from '@/modules/users/components/form/UserFieldEmail.vue'
+// import UserFieldFirstName from '@/modules/users/components/form/UserFieldFirstName.vue'
+// import UserFieldLastName from '@/modules/users/components/form/UserFieldLastName.vue'
+// import UserFieldEmail from '@/modules/users/components/form/UserFieldEmail.vue'
 
 const errorMessage = 'Server internal Error Please try later'
 const successMessage = 'Your request has been sent!'

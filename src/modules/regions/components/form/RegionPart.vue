@@ -3,7 +3,17 @@
     <v-row>
       <slot name="prepend"></slot>
       <v-col v-if="showAutocomplete" cols="12" class="pb-2">
-        <g-map-autocomplete data-test="gmap-autocomplete" @place_changed="onExtSetPlace" />
+<!--        <g-map-autocomplete data-test="gmap-autocomplete" @place_changed="onExtSetPlace">-->
+<!--          <template #input="slotProps">-->
+<!--            <v-text-field-->
+<!--              v-bind="slotProps"-->
+<!--              ref="input"-->
+<!--              :prepend-inner-icon="mdiMapMarker"-->
+<!--              data-test="gmap-autocomplete"-->
+<!--              hide-details-->
+<!--            />-->
+<!--          </template>-->
+<!--        </g-map-autocomplete>-->
       </v-col>
       <v-col v-if="showAddress" cols="12" md="6" class="py-1">
         <region-address />

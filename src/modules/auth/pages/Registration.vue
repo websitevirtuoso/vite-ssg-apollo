@@ -5,25 +5,6 @@
         <v-toolbar-title>Register Account</v-toolbar-title>
       </v-toolbar>
       <v-card-text class="px-2 py-0">
-        <v-container class="px-0">
-          <v-row>
-            <v-col cols="12" md="6">
-              <user-field-first-name />
-            </v-col>
-            <v-col cols="12" md="6">
-              <user-field-last-name />
-            </v-col>
-          </v-row>
-        </v-container>
-        <user-field-phone />
-        <user-field-email class="mt-5" />
-        <user-field-password />
-        <region-part show-address show-postal-code show-countries show-states show-cities set-browser-location class="px-0 mt-3" />
-
-        <user-field-notify-as-checkbox
-          label="By checking the box, I consent to receive emails, including newsletters, alerts, updates, invitations, promotions, other news and notifications"
-        />
-        <user-field-privacy />
       </v-card-text>
       <v-card-actions class="pa-0">
         <v-container fluid class="pa-0">
@@ -68,14 +49,14 @@ import vSchema from '@/modules/auth/helpers/validationSchemaRegister'
 import { gqlHandleError } from '@/helpers/handleErrors'
 import { MutationSignUpArgs } from '@/plugins/apollo/schemaTypesGenerated'
 // components
-import RegionPart from '@/modules/regions/components/form/RegionPart.vue'
-import UserFieldFirstName from '@/modules/users/components/form/UserFieldFirstName.vue'
-import UserFieldLastName from '@/modules/users/components/form/UserFieldLastName.vue'
-import UserFieldPhone from '@/modules/users/components/form/UserFieldPhone.vue'
-import UserFieldEmail from '@/modules/users/components/form/UserFieldEmail.vue'
-import UserFieldPassword from '@/modules/users/components/form/UserFieldPassword.vue'
-import UserFieldPrivacy from '@/modules/users/components/form/UserFieldPrivacy.vue'
-import UserFieldNotifyAsCheckbox from '@/modules/users/components/form/UserFieldNotifyAsCheckbox.vue'
+// import RegionPart from '@/modules/regions/components/form/RegionPart.vue'
+// import UserFieldFirstName from '@/modules/users/components/form/UserFieldFirstName.vue'
+// import UserFieldLastName from '@/modules/users/components/form/UserFieldLastName.vue'
+// import UserFieldPhone from '@/modules/users/components/form/UserFieldPhone.vue'
+// import UserFieldEmail from '@/modules/users/components/form/UserFieldEmail.vue'
+// import UserFieldPassword from '@/modules/users/components/form/UserFieldPassword.vue'
+// import UserFieldPrivacy from '@/modules/users/components/form/UserFieldPrivacy.vue'
+// import UserFieldNotifyAsCheckbox from '@/modules/users/components/form/UserFieldNotifyAsCheckbox.vue'
 
 const { t } = useI18n()
 const router = useRouter()

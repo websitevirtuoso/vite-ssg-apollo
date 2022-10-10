@@ -4,13 +4,13 @@ import { User, Role, Permission, AbilityPermission } from './types'
 
 const ability = defineAbility((can) => {
   // if exist user then parse it
-  const user = localStorage.getItem('user')
-  if (user) {
-    parseUserPermissions(JSON.parse(user)).forEach((item) => can(item.permission, item.subject))
-  } else {
-    // todo call notification plugin and add message - 'Please authenticate'
-    // router.push({ name: 'login' })
-  }
+  // const user = localStorage.getItem('user')
+  // if (user) {
+  //   parseUserPermissions(JSON.parse(user)).forEach((item) => can(item.permission, item.subject))
+  // } else {
+  //   // todo call notification plugin and add message - 'Please authenticate'
+  //   // router.push({ name: 'login' })
+  // }
 })
 
 /**
